@@ -8,4 +8,6 @@ redirect_from:
   - /about.html
 ---
 
-This is Takahiro Miki's homepage.
+I'm Takahiro Miki, a Ph.D. Student at Robotic Systems Lab, ETH Zurich.  
+I am interested in robotics, specifically, operating in a challenging environment where a human cannot go, such as hazardous areas or other planet surfaces.  
+My current research topic is integrating perception into the quadrupedal robot's locomotion control using reinforcement learning.  
