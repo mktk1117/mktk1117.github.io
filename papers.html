@@ -377,6 +377,12 @@
 .hero-copy{left:var(--side);right:var(--side)}
 .telemetry{right:var(--side)}
 
+/* ---------- card videos show their poster with a play badge until hovered (js/videos.js) ---------- */
+.vc::after{content:"";position:absolute;right:10px;bottom:10px;z-index:2;width:30px;height:30px;border-radius:50%;pointer-events:none;
+  background:rgba(10,12,16,.62) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3.5 2.2v7.6L10 6z' fill='%23fff'/%3E%3C/svg%3E") 55% 50%/12px no-repeat;
+  box-shadow:0 2px 10px rgba(0,0,0,.35);transition:opacity .25s,transform .25s}
+.vc.playing::after{opacity:0;transform:scale(.8)}
+
   .nav{background:rgba(var(--g-rgb),.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   /* defaults every style inherits, so a style that only changes colors keeps Field's type */
   [data-style]{ --display:"Archivo", "Arial Narrow", Arial, sans-serif; --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; --on-media:#f4f5f6; }
@@ -1082,45 +1088,70 @@
 </script>
 <script>
 (() => {
-  /* one governor for every muted loop on the page.
-     Many simultaneous video decoders can exhaust the GPU's mapping aperture (256 MB BAR1 on cards without
-     Resizable BAR) and hang the whole machine, so: nothing autoplays from the HTML, only on-screen videos play,
-     at most MAX at once (the most visible win), and videos far off-screen drop their source to free the decoder
-     (the poster image stays). Reduced motion: hover or tap to play instead. */
-  const vids = [...document.querySelectorAll('video[data-auto]')];
-  if (!vids.length) return;
+  /* muted loops, kept light on the GPU. Many simultaneous decoders can exhaust the GPU's mapping aperture
+     (256 MB BAR1 on cards without Resizable BAR) and hang the whole machine, so nothing autoplays from the HTML.
+     Feature videos (hero reel, teasers, each project's main clip): play while on screen, at most two at once (one on phones).
+     Card videos (project cards, paper thumbnails, related papers): show the poster with a play badge;
+     hovering plays the clip (on touch screens: the card nearest the middle of the screen), only one card at a time,
+     and a card that stops drops its source so its decoder is freed. Reduced motion: features hover/tap, cards stay still. */
+  const all = [...document.querySelectorAll('video[data-auto]')];
+  if (!all.length) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const MAX = matchMedia('(max-width: 760px), (hover: none)').matches ? 2 : 4;
-  vids.forEach(v => { v.dataset.src = v.dataset.src || v.getAttribute('src'); v.muted = true; v.playsInline = true; });
+  const touch = matchMedia('(hover: none)').matches;
+  const phone = matchMedia('(max-width: 760px), (hover: none)').matches;
+  const cardOf = v => v.closest('.pcard, .thumb, .rel-row a');
+  const cards = all.filter(cardOf), feats = all.filter(v => !cardOf(v));
+  all.forEach(v => { v.dataset.src = v.dataset.src || v.getAttribute('src'); v.muted = true; v.playsInline = true; });
   const load = v => { if (!v.getAttribute('src')) { v.src = v.dataset.src; v.preload = 'auto'; } };
   const unload = v => { if (v.getAttribute('src')) { v.pause(); v.removeAttribute('src'); v.load(); } };
   const play = v => { load(v); const p = v.play(); if (p) p.catch(() => {}); };
 
+  /* ---------- cards: poster + badge, one clip at a time ---------- */
+  let cur = null;
+  const stopCard = v => { unload(v); v.parentElement.classList.remove('playing'); if (cur === v) cur = null; };
+  const startCard = v => { if (cur && cur !== v) stopCard(cur); cur = v; v.parentElement.classList.add('playing'); play(v); };
+  cards.forEach(v => { unload(v); v.parentElement.classList.add('vc'); });
+  if (!reduce && !touch) {
+    cards.forEach(v => { const c = cardOf(v); c.addEventListener('pointerenter', () => startCard(v)); c.addEventListener('pointerleave', () => stopCard(v)); });
+  } else if (!reduce && 'IntersectionObserver' in window && cards.length) {
+    const seen = new Set();
+    const io = new IntersectionObserver(es => { es.forEach(e => e.intersectionRatio >= .6 ? seen.add(e.target) : seen.delete(e.target)); pick(); }, { threshold: [0, .6, 1] });
+    let queued = false;
+    const pick = () => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false;
+      const mid = innerHeight / 2; let best = null, bd = 1e9;
+      seen.forEach(v => { const r = v.getBoundingClientRect(), d = Math.abs((r.top + r.bottom) / 2 - mid); if (d < bd) { bd = d; best = v; } });
+      if (best !== cur) { if (cur) stopCard(cur); if (best) startCard(best); } }); };
+    cards.forEach(v => io.observe(v));
+    addEventListener('scroll', pick, { passive: true });
+  }
+
+  /* ---------- feature videos: on-screen ones play, a couple at a time ---------- */
+  const MAX = phone ? 1 : 2;
+  window.__videos = { MAX, cards: cards.length, features: feats.length,
+    playing: () => all.filter(v => !v.paused).length, loaded: () => all.filter(v => v.getAttribute('src')).length };
+  if (!feats.length) return;
   if (reduce || !('IntersectionObserver' in window)) {
-    vids.forEach(v => { v.pause(); const box = v.parentElement;
+    feats.forEach(v => { v.pause(); const box = v.parentElement;
       box.addEventListener('pointerenter', () => play(v)); box.addEventListener('pointerleave', () => v.pause());
       box.addEventListener('click', () => v.paused ? play(v) : v.pause()); });
     return;
   }
-
   const ratio = new Map();
   let queued = false;
   function settle() {
     queued = false;
-    if (document.hidden) { vids.forEach(v => v.pause()); return; }
-    const want = vids.filter(v => (ratio.get(v) || 0) >= .25).sort((a, b) => ratio.get(b) - ratio.get(a)).slice(0, MAX);
-    vids.forEach(v => { if (!want.includes(v) && !v.paused) v.pause(); });
+    if (document.hidden) { feats.forEach(v => v.pause()); return; }
+    const want = feats.filter(v => (ratio.get(v) || 0) >= .25).sort((a, b) => ratio.get(b) - ratio.get(a)).slice(0, MAX);
+    feats.forEach(v => { if (!want.includes(v) && !v.paused) v.pause(); });
     want.forEach(v => { if (v.paused) play(v); });
   }
   const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(settle); } };
-  // what is on screen, and how much of it
   const seen = new IntersectionObserver(es => { es.forEach(e => ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0)); schedule(); },
     { threshold: [0, .25, .5, .75, 1] });
-  // what is near the screen: keep loaded; anything further away gives its decoder back
+  // near the screen stays loaded; anything further away gives its decoder back
   const near = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) unload(e.target); }), { rootMargin: '60% 0px' });
-  vids.forEach(v => { seen.observe(v); near.observe(v); });
+  feats.forEach(v => { seen.observe(v); near.observe(v); });
   document.addEventListener('visibilitychange', schedule);
-  window.__videos = { MAX, playing: () => vids.filter(v => !v.paused).length, loaded: () => vids.filter(v => v.getAttribute('src')).length };
 })();
 </script>
 <script>
