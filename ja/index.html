@@ -1,19 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Papers · Takahiro Miki</title>
-<meta name="description" content="Takahiro Miki, research scientist at Google DeepMind working on Gemini Robotics. PhD from ETH Zurich on perceptive legged locomotion; DARPA SubT winner with Team CERBERUS.">
-<link rel="canonical" href="https://takahiromiki.com/papers.html">
-<link rel="alternate" hreflang="en" href="https://takahiromiki.com/papers.html">
-<link rel="alternate" hreflang="ja" href="https://takahiromiki.com/ja/papers.html">
-<link rel="alternate" hreflang="x-default" href="https://takahiromiki.com/papers.html">
-<meta property="og:locale" content="en_US">
+<title>三木 崇弘</title>
+<meta name="description" content="三木崇弘（Takahiro Miki）。Google DeepMind のリサーチサイエンティストとして Gemini Robotics に取り組んでいます。ETH Zurich で知覚を使った脚ロボットの歩行制御の研究で博士号を取得。Team CERBERUS の一員として DARPA SubT で優勝。">
+<link rel="canonical" href="https://takahiromiki.com/ja/">
+<link rel="alternate" hreflang="en" href="https://takahiromiki.com/">
+<link rel="alternate" hreflang="ja" href="https://takahiromiki.com/ja/">
+<link rel="alternate" hreflang="x-default" href="https://takahiromiki.com/">
+<meta property="og:locale" content="ja_JP">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Papers · Takahiro Miki">
-<meta property="og:description" content="Takahiro Miki, research scientist at Google DeepMind working on Gemini Robotics. PhD from ETH Zurich on perceptive legged locomotion; DARPA SubT winner with Team CERBERUS.">
-<meta property="og:url" content="https://takahiromiki.com/papers.html">
+<meta property="og:title" content="三木 崇弘">
+<meta property="og:description" content="三木崇弘（Takahiro Miki）。Google DeepMind のリサーチサイエンティストとして Gemini Robotics に取り組んでいます。ETH Zurich で知覚を使った脚ロボットの歩行制御の研究で博士号を取得。Team CERBERUS の一員として DARPA SubT で優勝。">
+<meta property="og:url" content="https://takahiromiki.com/ja/">
 <meta property="og:image" content="https://takahiromiki.com/media/reel-v3.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Takahiro Miki", "alternateName": "三木崇弘", "jobTitle": "Research Scientist", "worksFor": {"@type": "Organization", "name": "Google DeepMind"}, "alumniOf": [{"@type": "CollegeOrUniversity", "name": "ETH Zurich"}, {"@type": "CollegeOrUniversity", "name": "The University of Tokyo"}], "url": "https://takahiromiki.com/", "image": "https://takahiromiki.com/img/portrait.jpg", "sameAs": ["https://scholar.google.com/citations?user=nOl83tYAAAAJ&hl=en", "https://github.com/mktk1117", "https://twitter.com/ki_ki_ki1", "https://www.youtube.com/@takahiromiki8642"]}</script>
@@ -24,6 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@500..900&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Public+Sans:wght@400;600&family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;600&family=Manrope:wght@400..800&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Unbounded:wght@400..800&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..900&family=Work+Sans:wght@400;600&family=Sora:wght@400..800&family=Inter:wght@400;600&family=Inter+Tight:wght@400..800&family=Geist:wght@400..900&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@400..700&family=Space+Mono:wght@400;700&family=DM+Serif+Display&family=DM+Sans:wght@400;600&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&display=swap">
 <style>
   /* Single, deliberately dark "field footage" world — painted explicitly, no theme switching. */
   :root{
@@ -387,7 +388,23 @@
   box-shadow:0 2px 10px rgba(0,0,0,.35);transition:opacity .25s,transform .25s}
 .vc.playing::after{opacity:0;transform:scale(.8)}
 
-  .nav{background:rgba(var(--g-rgb),.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .brand-wrap{display:block}
+  .news li a{text-decoration:none}
+  .news li a:hover{text-decoration:underline}
+  .dgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 24px}
+  .dcard{display:flex;flex-direction:column;text-decoration:none;min-width:0}
+  .dcard .thumb{display:block;aspect-ratio:16/10;cursor:pointer}
+  .dcard .thumb img{transition:transform .5s ease}
+  .dcard:hover .thumb img{transform:scale(1.03)}
+  .dcard .thumb.type{display:flex;align-items:flex-end;padding:16px}
+  .dcard .thumb.type .big{font:800 40px/.9 var(--display);letter-spacing:-.05em;color:var(--ink-2)}
+  .dcard .meta{margin-top:14px;display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--tag)}
+  .dcard .meta span+span{color:var(--mute)}
+  .dcard .t{margin-top:6px;font:600 18px/1.3 var(--body);text-wrap:pretty}
+  .dcard:hover .t{text-decoration:underline;text-underline-offset:3px}
+  .dcard .s{margin-top:8px;color:var(--ink-2);font-size:15px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  @media (max-width:900px){.dgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:560px){.dgrid{grid-template-columns:1fr}.dcard:nth-child(n+4){display:none}}
   .nav .lang{display:inline-flex;border:1px solid rgba(var(--i-rgb),.22);border-radius:999px;padding:2px;margin-left:clamp(8px,1.6vw,20px)}
   .nav .lang a{padding:7px 10px;border-radius:999px;font:500 11px/1 var(--mono);letter-spacing:.06em;text-decoration:none;color:var(--ink-2)}
   .nav .lang a[aria-current]{background:var(--ink);color:var(--ground)}
@@ -395,6 +412,10 @@
   body:has(.hero) .nav:not(.scrolled) .lang a{color:#fff}
   body:has(.hero) .nav:not(.scrolled) .lang a[aria-current]{background:#fff;color:#111}
   @media (max-width:720px){.nav .lang{margin-left:0}.nav .lang a{padding:7px 8px}}
+  :root[lang="ja"]{--display:"Geist","Noto Sans JP","Helvetica Neue",Arial,sans-serif;--body:"Geist","Noto Sans JP",system-ui,sans-serif;--dls:-.02em}
+  :root[lang="ja"] body{line-height:1.75}
+  :root[lang="ja"] .hero h1{letter-spacing:.02em;line-height:1}
+  :root[lang="ja"] :is(.section-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.xt-copy h2,.expo-copy h2){line-height:1.2}
   /* defaults every style inherits, so a style that only changes colors keeps Field's type */
   [data-style]{ --display:"Archivo", "Arial Narrow", Arial, sans-serif; --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; --on-media:#f4f5f6; }
 
@@ -706,318 +727,109 @@
 <script>(function(){var d=document.documentElement;d.setAttribute('data-style','gb');d.setAttribute('data-font','f-geist');d.setAttribute('data-tint','cobalt');try{if(localStorage.getItem('tm2-mode')==='dark')d.setAttribute('data-mode','dark')}catch(e){}})()</script>
 
 <nav class="nav" aria-label="Main">
-  <a class="name" href="index.html">Takahiro Miki</a>
-  <button class="menu-btn mono" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
-  <ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="papers.html" aria-current="page">Papers</a></li><li><a href="cv.html">CV</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="/arxiv-digest/?lang=en">Digest</a></li></ul>
-  <div class="lang" role="group" aria-label="Language"><a href="papers.html" hreflang="en" data-lang="en" aria-current="true">EN</a><a href="ja/papers.html" hreflang="ja" data-lang="ja">日本語</a></div>
+  <a class="name" href="index.html">三木 崇弘</a>
+  <button class="menu-btn mono" type="button" aria-expanded="false" aria-label="メニュー">メニュー</button>
+  <ul><li><a href="index.html" aria-current="page">ホーム</a></li><li><a href="projects.html">プロジェクト</a></li><li><a href="papers.html">論文</a></li><li><a href="cv.html">CV</a></li><li><a href="gallery.html">ギャラリー</a></li><li><a href="/arxiv-digest/?lang=ja">ダイジェスト</a></li></ul>
+  <div class="lang" role="group" aria-label="Language"><a href="../index.html" hreflang="en" data-lang="en">EN</a><a href="index.html" hreflang="ja" data-lang="ja" aria-current="true">日本語</a></div>
   <button class="mode-btn" type="button" aria-label="Switch to dark mode"><svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 </nav>
 
-<main class="pubs">
-  <div class="pubs-head">
-    <div><h1>Papers</h1><p>34 papers, 2015–2026. Each thumbnail plays a few seconds of the paper’s footage.</p></div>
-    <a class="btn" href="https://scholar.google.com/citations?user=nOl83tYAAAAJ&hl=en">Google Scholar ↗</a>
+<header class="hero" id="top">
+  <video preload="none" data-auto id="heroVid" src="../media/reel-v3.mp4" poster="../media/reel-v3.jpg" muted loop playsinline></video>
+  <div class="hero-copy">
+    <div class="eyebrow mono">リサーチサイエンティスト · Google DeepMind</div>
+    <h1>三木<br>崇弘</h1>
+    <p class="lede">Gemini Robotics に取り組んでいます。それ以前は、山道や洞窟、瓦礫の中、そして別の惑星のような場所で、脚ロボットが自分の足で歩けるようにする研究をしていました。</p>
+    <div class="links">
+      <a class="btn solid" href="projects.html">プロジェクト</a>
+      <a class="btn" href="papers.html">論文</a>
+      <a class="btn" href="cv.html">CV</a>
+    </div>
   </div>
-  <div class="tools" role="toolbar" aria-label="Filter papers">
-    <button class="chip mono" type="button" id="f-all" data-f="all" aria-pressed="true">All · 34</button>
-    <button class="chip mono" type="button" id="f-lead" data-f="lead" aria-pressed="false">Lead author · 7</button>
-    <button class="chip mono" type="button" id="f-award" data-f="award" aria-pressed="false">Awards · 4</button>
-    <button class="chip mono" type="button" id="f-xpl" data-f="xpl" aria-pressed="false">Explainer · 32</button>
-    <input class="search" id="q" type="search" placeholder="Search title, author, venue" aria-label="Search papers">
+  <div class="telemetry mono" aria-hidden="true">
+    <div><span class="rec"></span><span id="clipSrc">フィールド映像</span> · <b id="clipBot">ANYmal</b></div>
+    <div>クリップ <b id="clipN">01</b>/08 · <b id="clipName">庭の階段</b></div>
   </div>
-  <section class="yr" id="y2026" aria-label="2026">
-    <h2>2026</h2>
-    <div class="cards">
-      <article class="card" id="etna" data-lead="0" data-award="0" data-xpl="1" data-text="large-scale autonomous gas monitoring for volcanic environments: a legged robot on mount etna julia richter, turcan tuna, manthan patel, takahiro miki, devon higgins, james fox, cesar cadena, andres diaz, marco hutter ieee ram 2026">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/etna.mp4" poster="thumbs/etna.jpg" muted loop playsinline aria-label="Large-Scale Autonomous Gas Monitoring for Volcanic Environments: A Legged Robot on Mount Etna"></video></div>
-        <div class="meta mono"><span>2026 · IEEE RAM</span></div>
-        <h3><a href="https://arxiv.org/abs/2601.07362">Large-Scale Autonomous Gas Monitoring for Volcanic Environments: A Legged Robot on Mount Etna</a></h3>
-        <p class="auth">Julia Richter, Turcan Tuna, Manthan Patel, <b>Takahiro Miki</b>, Devon Higgins, James Fox, Cesar Cadena, Andres Diaz, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/etna-gas-monitoring/">▶ Explainer · 1:50</a><a href="https://arxiv.org/abs/2601.07362">Paper ↗</a><a href="https://leggedrobotics.github.io/etna-expedition/">Project ↗</a><a href="https://youtu.be/7_a3BFefcJE">Video ↗</a></div>
-      </article>
-      <article class="card" id="humanoid" data-lead="0" data-award="0" data-xpl="1" data-text="learning whole-body humanoid locomotion via motion generation and motion tracking zewei zhang, kehan wen, michael xu, junzhe he, chenhao li, takahiro miki, clemens schwarke, chong zhang, xue bin peng, marco hutter ra-l 2026">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/humanoid.mp4" poster="thumbs/humanoid.jpg" muted loop playsinline aria-label="Learning Whole-Body Humanoid Locomotion via Motion Generation and Motion Tracking"></video></div>
-        <div class="meta mono"><span>2026 · RA-L</span></div>
-        <h3><a href="https://arxiv.org/abs/2604.17335">Learning Whole-Body Humanoid Locomotion via Motion Generation and Motion Tracking</a></h3>
-        <p class="auth">Zewei Zhang, Kehan Wen, Michael Xu, Junzhe He, Chenhao Li, <b>Takahiro Miki</b>, Clemens Schwarke, Chong Zhang, Xue Bin Peng, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/humanoid-motion-generation/">▶ Explainer · 1:40</a><a href="https://arxiv.org/abs/2604.17335">Paper ↗</a></div>
-      </article>
-      <article class="card" id="dapper" data-lead="0" data-award="0" data-xpl="1" data-text="dapper: discriminability-aware policy-to-policy preference-based reinforcement learning for query-efficient robot skill acquisition yuki kadokawa, jonas frey, takahiro miki, takamitsu matsubara, marco hutter ieee ram 2026">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/dapper.mp4" poster="thumbs/dapper.jpg" muted loop playsinline aria-label="DAPPER: Discriminability-Aware Policy-to-Policy Preference-Based Reinforcement Learning for Query-Efficient Robot Skill Acquisition"></video></div>
-        <div class="meta mono"><span>2026 · IEEE RAM</span></div>
-        <h3><a href="https://arxiv.org/abs/2505.06357">DAPPER: Discriminability-Aware Policy-to-Policy Preference-Based Reinforcement Learning for Query-Efficient Robot Skill Acquisition</a></h3>
-        <p class="auth">Yuki Kadokawa, Jonas Frey, <b>Takahiro Miki</b>, Takamitsu Matsubara, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/dapper/">▶ Explainer · 1:25</a><a href="https://arxiv.org/abs/2505.06357">Paper ↗</a></div>
-      </article>
+</header>
+
+<section class="section expo" aria-label="3D Expedition">
+  <a class="expo-frame" href="../flythrough.html">
+    <video preload="none" data-auto src="../media/expedition-teaser.mp4" poster="../media/expedition-teaser.jpg" muted loop playsinline></video>
+    <div class="expo-copy">
+      <div class="eyebrow mono">試作 · 3D</div>
+      <h2>エクスペディション</h2>
+      <p>これまでのフィールドワークをひとつの島にまとめました。山道、洞窟と鉱山、火山、災害現場、そして家の中を飛んで巡れます。全 33 か所、それぞれに実際の映像があります（英語のみ）。</p>
+      <span class="btn solid">島を探検する →</span>
     </div>
-  </section>
-  <section class="yr" id="y2025" aria-label="2025">
-    <h2>2025</h2>
-    <div class="cards">
-      <article class="card" id="priors" data-lead="0" data-award="0" data-xpl="1" data-text="motion priors reimagined: adapting flat-terrain skills for complex quadruped mobility zewei zhang, chenhao li, takahiro miki, marco hutter corl 2025">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/priors.mp4" poster="thumbs/priors.jpg" muted loop playsinline aria-label="Motion Priors Reimagined: Adapting Flat-Terrain Skills for Complex Quadruped Mobility"></video></div>
-        <div class="meta mono"><span>2025 · CoRL</span></div>
-        <h3><a href="https://arxiv.org/abs/2505.16084">Motion Priors Reimagined: Adapting Flat-Terrain Skills for Complex Quadruped Mobility</a></h3>
-        <p class="auth">Zewei Zhang, Chenhao Li, <b>Takahiro Miki</b>, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/motion-priors-reimagined/">▶ Explainer · 1:50</a><a href="https://arxiv.org/abs/2505.16084">Paper ↗</a><a href="https://anymalprior.github.io">Project ↗</a><a href="https://youtu.be/G20geAdN6GM">Video ↗</a></div>
-      </article>
-      <article class="card" id="quiet" data-lead="0" data-award="0" data-xpl="1" data-text="learning quiet walking for a small home robot ryo watanabe, takahiro miki, fan shi, yuki kadokawa, filip bjelonic, kento kawaharazuka, andrei cramariuc, marco hutter icra 2025">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/quiet.mp4" poster="thumbs/quiet.jpg" muted loop playsinline aria-label="Learning Quiet Walking for a Small Home Robot"></video></div>
-        <div class="meta mono"><span>2025 · ICRA</span></div>
-        <h3><a href="https://arxiv.org/abs/2502.10983">Learning Quiet Walking for a Small Home Robot</a></h3>
-        <p class="auth">Ryo Watanabe, <b>Takahiro Miki</b>, Fan Shi, Yuki Kadokawa, Filip Bjelonic, Kento Kawaharazuka, Andrei Cramariuc, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/quiet-walking/">▶ Explainer · 1:46</a><a href="https://arxiv.org/abs/2502.10983">Paper ↗</a><a href="https://sony.github.io/QuietWalk/">Project ↗</a><a href="https://youtu.be/6RjkBHSYEcc">Video ↗</a></div>
-      </article>
-      <article class="card" id="thesis" data-lead="1" data-award="0" data-xpl="1" data-text="bridging perception and control for legged locomotion and navigation in the wild takahiro miki phd thesis, eth zurich 2025">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/thesis.mp4" poster="thumbs/thesis.jpg" muted loop playsinline aria-label="Bridging Perception and Control for Legged Locomotion and Navigation in the Wild"></video></div>
-        <div class="meta mono"><span>2025 · PhD thesis, ETH Zurich</span><span class="lead">Lead author</span></div>
-        <h3><a href="https://www.research-collection.ethz.ch/items/41c52fa7-2aa8-4746-9ee2-b1321ab0ab7a">Bridging Perception and Control for Legged Locomotion and Navigation in the Wild</a></h3>
-        <p class="auth"><b>Takahiro Miki</b></p>
-        <div class="plinks"><a class="xpl" href="/explainers/phd-thesis/">▶ Explainer · 1:51</a><a href="https://www.research-collection.ethz.ch/items/41c52fa7-2aa8-4746-9ee2-b1321ab0ab7a">Thesis ↗</a></div>
-      </article>
-    </div>
-  </section>
-  <section class="yr" id="y2024" aria-label="2024">
-    <h2>2024</h2>
-    <div class="cards">
-      <article class="card" id="doors" data-lead="0" data-award="0" data-xpl="1" data-text="learning to open and traverse doors with a legged manipulator mike zhang, yuntao ma, takahiro miki, marco hutter corl 2024">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/doors.mp4" poster="thumbs/doors.jpg" muted loop playsinline aria-label="Learning to Open and Traverse Doors with a Legged Manipulator"></video></div>
-        <div class="meta mono"><span>2024 · CoRL</span></div>
-        <h3><a href="https://arxiv.org/abs/2409.04882">Learning to Open and Traverse Doors with a Legged Manipulator</a></h3>
-        <p class="auth">Mike Zhang, Yuntao Ma, <b>Takahiro Miki</b>, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/doors-legged-manipulator/">▶ Explainer · 1:38</a><a href="https://arxiv.org/abs/2409.04882">Paper ↗</a><a href="https://youtu.be/tQDZXN_k5NU">Video ↗</a></div>
-      </article>
-      <article class="card" id="terrain" data-lead="0" data-award="0" data-xpl="1" data-text="identifying terrain physical parameters from vision: towards physical-parameter-aware locomotion and navigation jiaqi chen, jonas frey, ruyi zhou, takahiro miki, georg martius, marco hutter ra-l 2024">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/terrain.mp4" poster="thumbs/terrain.jpg" muted loop playsinline aria-label="Identifying Terrain Physical Parameters from Vision: Towards Physical-Parameter-Aware Locomotion and Navigation"></video></div>
-        <div class="meta mono"><span>2024 · RA-L</span></div>
-        <h3><a href="https://arxiv.org/abs/2408.16567">Identifying Terrain Physical Parameters from Vision: Towards Physical-Parameter-Aware Locomotion and Navigation</a></h3>
-        <p class="auth">Jiaqi Chen, Jonas Frey, Ruyi Zhou, <b>Takahiro Miki</b>, Georg Martius, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/terrain-physical-parameters/">▶ Explainer · 1:33</a><a href="https://arxiv.org/abs/2408.16567">Paper ↗</a><a href="https://youtu.be/SrAE0IK6UnE">Video ↗</a></div>
-      </article>
-      <article class="card" id="llmctf" data-lead="0" data-award="1" data-xpl="1" data-text="dataset and lessons learned from the 2024 satml llm capture-the-flag competition edoardo debenedetti, javier rando, daniel paleka, … takahiro miki, chenhao li, … florian tramèr, sahar abdelnabi, lea schönherr neurips 2024">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/llmctf.mp4" poster="thumbs/llmctf.jpg" muted loop playsinline aria-label="Dataset and Lessons Learned from the 2024 SaTML LLM Capture-the-Flag Competition"></video></div>
-        <div class="meta mono"><span>2024 · NeurIPS</span></div>
-        <h3><a href="https://arxiv.org/abs/2406.07954">Dataset and Lessons Learned from the 2024 SaTML LLM Capture-the-Flag Competition</a></h3><div class="award mono">2nd place · Team RSLLM</div>
-        <p class="auth">Edoardo Debenedetti, Javier Rando, Daniel Paleka, … <b>Takahiro Miki</b>, Chenhao Li, … Florian Tramèr, Sahar Abdelnabi, Lea Schönherr</p>
-        <div class="plinks"><a class="xpl" href="/explainers/llm-ctf/">▶ Explainer · 1:51</a><a href="https://arxiv.org/abs/2406.07954">Paper ↗</a><a href="https://github.com/ethz-spylab/satml-llm-ctf">Code ↗</a></div>
-      </article>
-      <article class="card" id="adv" data-lead="0" data-award="0" data-xpl="1" data-text="rethinking robustness assessment: adversarial attacks on learning-based quadrupedal locomotion controllers fan shi, chong zhang, takahiro miki, joonho lee, marco hutter, stelian coros rss 2024">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/adv.mp4" poster="thumbs/adv.jpg" muted loop playsinline aria-label="Rethinking Robustness Assessment: Adversarial Attacks on Learning-based Quadrupedal Locomotion Controllers"></video></div>
-        <div class="meta mono"><span>2024 · RSS</span></div>
-        <h3><a href="https://arxiv.org/abs/2405.12424">Rethinking Robustness Assessment: Adversarial Attacks on Learning-based Quadrupedal Locomotion Controllers</a></h3>
-        <p class="auth">Fan Shi, Chong Zhang, <b>Takahiro Miki</b>, Joonho Lee, Marco Hutter, Stelian Coros</p>
-        <div class="plinks"><a class="xpl" href="/explainers/adversarial-locomotion/">▶ Explainer · 1:42</a><a href="https://arxiv.org/abs/2405.12424">Paper ↗</a><a href="https://fanshi14.github.io/me/rss24.html">Project ↗</a><a href="https://youtu.be/WMgUrhZ2Tps">Video ↗</a></div>
-      </article>
-      <article class="card" id="wheeled" data-lead="0" data-award="0" data-xpl="1" data-text="learning robust autonomous navigation and locomotion for wheeled-legged robots joonho lee, marko bjelonic, alexander reske, lorenz wellhausen, takahiro miki, marco hutter science robotics 2024">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/wheeled.mp4" poster="thumbs/wheeled.jpg" muted loop playsinline aria-label="Learning robust autonomous navigation and locomotion for wheeled-legged robots"></video></div>
-        <div class="meta mono"><span>2024 · Science Robotics</span></div>
-        <h3><a href="https://www.science.org/doi/full/10.1126/scirobotics.adi9641">Learning robust autonomous navigation and locomotion for wheeled-legged robots</a></h3>
-        <p class="auth">Joonho Lee, Marko Bjelonic, Alexander Reske, Lorenz Wellhausen, <b>Takahiro Miki</b>, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/wheeled-legged-navigation/">▶ Explainer · 1:42</a><a href="https://www.science.org/doi/full/10.1126/scirobotics.adi9641">Paper ↗</a><a href="https://junja94.github.io/learning_robust_autonomous_navigation_and_locomotion_for_wheeled_legged_robots/">Project ↗</a><a href="https://youtu.be/vJXQG2_85V0">Video ↗</a></div>
-      </article>
-      <article class="card" id="confined" data-lead="1" data-award="1" data-xpl="1" data-text="learning to walk in confined spaces using 3d representation takahiro miki, joonho lee, lorenz wellhausen, marco hutter icra 2024">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/confined.mp4" poster="thumbs/confined.jpg" muted loop playsinline aria-label="Learning to walk in confined spaces using 3D representation"></video></div>
-        <div class="meta mono"><span>2024 · ICRA</span><span class="lead">Lead author</span></div>
-        <h3><a href="https://arxiv.org/abs/2403.00187">Learning to walk in confined spaces using 3D representation</a></h3><div class="award mono">Best Paper · Service Robotics</div>
-        <p class="auth"><b>Takahiro Miki</b>, Joonho Lee, Lorenz Wellhausen, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/confined-spaces/">▶ Explainer · 1:50</a><a href="https://arxiv.org/abs/2403.00187">Paper ↗</a><a href="https://github.com/leggedrobotics/terrain-generator">Code ↗</a><a href="https://youtu.be/QAwBoN55p9I">Video ↗</a></div>
-      </article>
-      <article class="card" id="risk" data-lead="0" data-award="0" data-xpl="1" data-text="learning risk-aware quadrupedal locomotion using distributional reinforcement learning lukas schneider, jonas frey, takahiro miki, marco hutter icra 2024">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/risk.mp4" poster="thumbs/risk.jpg" muted loop playsinline aria-label="Learning risk-aware quadrupedal locomotion using distributional reinforcement learning"></video></div>
-        <div class="meta mono"><span>2024 · ICRA</span></div>
-        <h3><a href="https://arxiv.org/abs/2309.14246">Learning risk-aware quadrupedal locomotion using distributional reinforcement learning</a></h3>
-        <p class="auth">Lukas Schneider, Jonas Frey, <b>Takahiro Miki</b>, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/risk-aware-locomotion/">▶ Explainer · 1:59</a><a href="https://arxiv.org/abs/2309.14246">Paper ↗</a></div>
-      </article>
-      <article class="card" id="riskaverse" data-lead="0" data-award="0" data-xpl="1" data-text="learning a risk-averse locomotion policy from uncertainty estimates thomas b. brunner, takahiro miki, josip josifovski, joonho lee, alois knoll, marco hutter corl workshop 2024">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/riskaverse.mp4" poster="thumbs/riskaverse.jpg" muted loop playsinline aria-label="Learning a Risk-Averse Locomotion Policy from Uncertainty Estimates"></video></div>
-        <div class="meta mono"><span>2024 · CoRL Workshop</span></div>
-        <h3><a href="https://mediatum.ub.tum.de/doc/1764922/document.pdf">Learning a Risk-Averse Locomotion Policy from Uncertainty Estimates</a></h3>
-        <p class="auth">Thomas B. Brunner, <b>Takahiro Miki</b>, Josip Josifovski, Joonho Lee, Alois Knoll, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/risk-averse-locomotion/">▶ Explainer · 1:46</a><a href="https://mediatum.ub.tum.de/doc/1764922/document.pdf">Paper ↗</a></div>
-      </article>
-    </div>
-  </section>
-  <section class="yr" id="y2023" aria-label="2023">
-    <h2>2023</h2>
-    <div class="cards">
-      <article class="card" id="mem" data-lead="0" data-award="0" data-xpl="1" data-text="mem: multi-modal elevation mapping for robotics and learning gian erni, jonas frey, takahiro miki, matias mattamala, marco hutter iros 2023">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/mem.mp4" poster="thumbs/mem.jpg" muted loop playsinline aria-label="MEM: Multi-Modal Elevation Mapping for Robotics and Learning"></video></div>
-        <div class="meta mono"><span>2023 · IROS</span></div>
-        <h3><a href="https://arxiv.org/abs/2309.16818">MEM: Multi-Modal Elevation Mapping for Robotics and Learning</a></h3>
-        <p class="auth">Gian Erni, Jonas Frey, <b>Takahiro Miki</b>, Matias Mattamala, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/multi-modal-elevation-mapping/">▶ Explainer · 1:46</a><a href="https://arxiv.org/abs/2309.16818">Paper ↗</a><a href="https://github.com/leggedrobotics/elevation_mapping_cupy">Code ↗</a></div>
-      </article>
-      <article class="card" id="planetary" data-lead="0" data-award="0" data-xpl="1" data-text="scientific exploration of challenging planetary analog environments with a team of legged robots philip arm, gabriel waibel, jan preisig, turcan tuna, ruyi zhou, valentin bickel, gabriela ligeza, takahiro miki, florian kehl, hendrik kolvenbach, marco hutter science robotics 2023">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/planetary.mp4" poster="thumbs/planetary.jpg" muted loop playsinline aria-label="Scientific exploration of challenging planetary analog environments with a team of legged robots"></video></div>
-        <div class="meta mono"><span>2023 · Science Robotics</span></div>
-        <h3><a href="https://arxiv.org/abs/2307.10079">Scientific exploration of challenging planetary analog environments with a team of legged robots</a></h3>
-        <p class="auth">Philip Arm, Gabriel Waibel, Jan Preisig, Turcan Tuna, Ruyi Zhou, Valentin Bickel, Gabriela Ligeza, <b>Takahiro Miki</b>, Florian Kehl, Hendrik Kolvenbach, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/planetary-analog/">▶ Explainer · 2:00</a><a href="https://arxiv.org/abs/2307.10079">Paper ↗</a><a href="https://youtu.be/KOYD0pyg3Wk">Video ↗</a></div>
-      </article>
-      <article class="card" id="catch" data-lead="0" data-award="0" data-xpl="1" data-text="event-based agile object catching with a quadrupedal robot benedek forrai, takahiro miki, daniel gehrig, marco hutter, davide scaramuzza icra 2023">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/catch.mp4" poster="thumbs/catch.jpg" muted loop playsinline aria-label="Event-based Agile Object Catching with a Quadrupedal Robot"></video></div>
-        <div class="meta mono"><span>2023 · ICRA</span></div>
-        <h3><a href="https://arxiv.org/abs/2303.17479">Event-based Agile Object Catching with a Quadrupedal Robot</a></h3>
-        <p class="auth">Benedek Forrai, <b>Takahiro Miki</b>, Daniel Gehrig, Marco Hutter, Davide Scaramuzza</p>
-        <div class="plinks"><a class="xpl" href="/explainers/event-based-catching/">▶ Explainer · 1:38</a><a href="https://arxiv.org/abs/2303.17479">Paper ↗</a><a href="https://github.com/uzh-rpg/event-based_object_catching_anymal">Code ↗</a><a href="https://youtu.be/FpsVB8EO54M">Video ↗</a></div>
-      </article>
-    </div>
-  </section>
-  <section class="yr" id="y2022" aria-label="2022">
-    <h2>2022</h2>
-    <div class="cards">
-      <article class="card" id="gpu" data-lead="1" data-award="0" data-xpl="1" data-text="elevation mapping for locomotion and navigation using gpu takahiro miki, lorenz wellhausen, ruben grandia, fabian jenelten, timon homberger, marco hutter iros 2022">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/gpu.mp4" poster="thumbs/gpu.jpg" muted loop playsinline aria-label="Elevation mapping for locomotion and navigation using GPU"></video></div>
-        <div class="meta mono"><span>2022 · IROS</span><span class="lead">Lead author</span></div>
-        <h3><a href="https://arxiv.org/abs/2204.12876">Elevation mapping for locomotion and navigation using GPU</a></h3>
-        <p class="auth"><b>Takahiro Miki</b>, Lorenz Wellhausen, Ruben Grandia, Fabian Jenelten, Timon Homberger, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/gpu-elevation-mapping/">▶ Explainer · 1:59</a><a href="https://arxiv.org/abs/2204.12876">Paper ↗</a><a href="https://github.com/leggedrobotics/elevation_mapping_cupy">Code ↗</a></div>
-      </article>
-      <article class="card" id="cerbwin" data-lead="0" data-award="1" data-xpl="1" data-text="team cerberus wins the darpa subterranean challenge: technical overview and lessons learned marco tranzatto et al. field robotics 2022">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/cerbwin.mp4" poster="thumbs/cerbwin.jpg" muted loop playsinline aria-label="Team CERBERUS wins the DARPA Subterranean Challenge: Technical overview and lessons learned"></video></div>
-        <div class="meta mono"><span>2022 · Field Robotics</span></div>
-        <h3><a href="https://arxiv.org/abs/2207.04914">Team CERBERUS wins the DARPA Subterranean Challenge: Technical overview and lessons learned</a></h3><div class="award mono">DARPA SubT Final · 1st place</div>
-        <p class="auth">Marco Tranzatto et al.</p>
-        <div class="plinks"><a class="xpl" href="/explainers/cerberus-subt-overview/">▶ Explainer · 1:48</a><a href="https://arxiv.org/abs/2207.04914">Paper ↗</a><a href="https://github.com/leggedrobotics/cerberus_darpa_subt_datasets">Data ↗</a><a href="https://youtu.be/fCHOU-fw2c0">Video ↗</a></div>
-      </article>
-      <article class="card" id="cerbsr" data-lead="0" data-award="1" data-xpl="1" data-text="cerberus in the darpa subterranean challenge marco tranzatto, takahiro miki, mihir dharmadhikari, lukas bernreiter, mihir kulkarni, frank mascarich, olov andersson, shehryar khattak, marco hutter, roland siegwart, kostas alexis science robotics 2022">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/cerbsr.mp4" poster="thumbs/cerbsr.jpg" muted loop playsinline aria-label="CERBERUS in the DARPA Subterranean Challenge"></video></div>
-        <div class="meta mono"><span>2022 · Science Robotics</span></div>
-        <h3><a href="https://www.science.org/doi/full/10.1126/scirobotics.abp9742">CERBERUS in the DARPA Subterranean Challenge</a></h3><div class="award mono">DARPA SubT Final · 1st place</div>
-        <p class="auth">Marco Tranzatto, <b>Takahiro Miki</b>, Mihir Dharmadhikari, Lukas Bernreiter, Mihir Kulkarni, Frank Mascarich, Olov Andersson, Shehryar Khattak, Marco Hutter, Roland Siegwart, Kostas Alexis</p>
-        <div class="plinks"><a class="xpl" href="/explainers/cerberus-science-robotics/">▶ Explainer · 1:47</a><a href="https://www.science.org/doi/full/10.1126/scirobotics.abp9742">Paper ↗</a><a href="https://youtu.be/mkW3caX0SGU">Video ↗</a></div>
-      </article>
-      <article class="card" id="perceptive" data-lead="1" data-award="0" data-xpl="1" data-text="learning robust perceptive locomotion for quadrupedal robots in the wild takahiro miki, joonho lee, jemin hwangbo, lorenz wellhausen, vladlen koltun, marco hutter science robotics 2022">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/perceptive.mp4" poster="thumbs/perceptive.jpg" muted loop playsinline aria-label="Learning robust perceptive locomotion for quadrupedal robots in the wild"></video></div>
-        <div class="meta mono"><span>2022 · Science Robotics</span><span class="lead">Lead author</span></div>
-        <h3><a href="https://www.science.org/doi/10.1126/scirobotics.abk2822">Learning robust perceptive locomotion for quadrupedal robots in the wild</a></h3>
-        <p class="auth"><b>Takahiro Miki</b>, Joonho Lee, Jemin Hwangbo, Lorenz Wellhausen, Vladlen Koltun, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/perceptive-locomotion/">▶ Explainer · 1:45</a><a href="https://www.science.org/doi/10.1126/scirobotics.abk2822">Paper ↗</a><a href="https://leggedrobotics.github.io/rl-perceptiveloco/">Project ↗</a><a href="https://youtu.be/zXbb6KQ0xV8">Video ↗</a></div>
-      </article>
-      <article class="card" id="wbc" data-lead="0" data-award="0" data-xpl="1" data-text="combining learning-based locomotion policy with model-based manipulation for legged mobile manipulators yuntao ma, farbod farshidian, takahiro miki, joonho lee, marco hutter ra-l 2022">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/wbc.mp4" poster="thumbs/wbc.jpg" muted loop playsinline aria-label="Combining learning-based locomotion policy with model-based manipulation for legged mobile manipulators"></video></div>
-        <div class="meta mono"><span>2022 · RA-L</span></div>
-        <h3><a href="https://arxiv.org/abs/2201.03871">Combining learning-based locomotion policy with model-based manipulation for legged mobile manipulators</a></h3>
-        <p class="auth">Yuntao Ma, Farbod Farshidian, <b>Takahiro Miki</b>, Joonho Lee, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/locomotion-manipulation/">▶ Explainer · 1:37</a><a href="https://arxiv.org/abs/2201.03871">Paper ↗</a><a href="https://youtu.be/ZCv8W_NzhVo">Video ↗</a></div>
-      </article>
-      <article class="card" id="cerbfr" data-lead="0" data-award="0" data-xpl="1" data-text="cerberus: autonomous legged and aerial robotic exploration in the tunnel and urban circuits of the darpa subterranean challenge marco tranzatto et al. field robotics 2022">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/cerbfr.mp4" poster="thumbs/cerbfr.jpg" muted loop playsinline aria-label="CERBERUS: Autonomous legged and aerial robotic exploration in the tunnel and urban circuits of the DARPA Subterranean Challenge"></video></div>
-        <div class="meta mono"><span>2022 · Field Robotics</span></div>
-        <h3><a href="https://arxiv.org/abs/2201.07067">CERBERUS: Autonomous legged and aerial robotic exploration in the tunnel and urban circuits of the DARPA Subterranean Challenge</a></h3>
-        <p class="auth">Marco Tranzatto et al.</p>
-        <div class="plinks"><a class="xpl" href="/explainers/cerberus-tunnel-urban/">▶ Explainer · 1:49</a><a href="https://arxiv.org/abs/2201.07067">Paper ↗</a></div>
-      </article>
-      <article class="card" id="occl" data-lead="0" data-award="0" data-xpl="1" data-text="reconstructing occluded elevation information in terrain maps with self-supervised learning maximilian stölzle, takahiro miki, levin gerdes, martin azkarate, marco hutter ra-l 2022">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/occl.mp4" poster="thumbs/occl.jpg" muted loop playsinline aria-label="Reconstructing occluded elevation information in terrain maps with self-supervised learning"></video></div>
-        <div class="meta mono"><span>2022 · RA-L</span></div>
-        <h3><a href="https://arxiv.org/abs/2109.07150">Reconstructing occluded elevation information in terrain maps with self-supervised learning</a></h3>
-        <p class="auth">Maximilian Stölzle, <b>Takahiro Miki</b>, Levin Gerdes, Martin Azkarate, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/occluded-elevation/">▶ Explainer · 1:55</a><a href="https://arxiv.org/abs/2109.07150">Paper ↗</a><a href="https://github.com/mstoelzle/solving-occlusion">Code ↗</a></div>
-      </article>
-    </div>
-  </section>
-  <section class="yr" id="y2021" aria-label="2021">
-    <h2>2021</h2>
-    <div class="cards">
-      <article class="card" id="nav" data-lead="0" data-award="0" data-xpl="1" data-text="real-time optimal navigation planning using learned motion costs bowen yang, lorenz wellhausen, takahiro miki, ming liu, marco hutter icra 2021">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/nav.mp4" poster="thumbs/nav.jpg" muted loop playsinline aria-label="Real-time optimal navigation planning using learned motion costs"></video></div>
-        <div class="meta mono"><span>2021 · ICRA</span></div>
-        <h3><a href="https://ieeexplore.ieee.org/abstract/document/9561861">Real-time optimal navigation planning using learned motion costs</a></h3>
-        <p class="auth">Bowen Yang, Lorenz Wellhausen, <b>Takahiro Miki</b>, Ming Liu, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/learned-motion-costs/">▶ Explainer · 1:46</a><a href="https://ieeexplore.ieee.org/abstract/document/9561861">Paper ↗</a></div>
-      </article>
-      <article class="card" id="occlws" data-lead="0" data-award="0" data-xpl="1" data-text="solving occlusion in terrain mapping with neural networks maximilian stölzle, takahiro miki, levin gerdes, martin azkarate, marco hutter robot learning workshop 2021">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/occlws.mp4" poster="thumbs/occlws.jpg" muted loop playsinline aria-label="Solving Occlusion in Terrain Mapping with Neural Networks"></video></div>
-        <div class="meta mono"><span>2021 · Robot Learning Workshop</span></div>
-        <h3><a href="https://www.research-collection.ethz.ch/entities/publication/4dded43e-a0f1-4dec-8c82-2cb440b3c60c">Solving Occlusion in Terrain Mapping with Neural Networks</a></h3>
-        <p class="auth">Maximilian Stölzle, <b>Takahiro Miki</b>, Levin Gerdes, Martin Azkarate, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/occluded-elevation/">▶ Explainer · 1:55</a><a href="https://www.research-collection.ethz.ch/entities/publication/4dded43e-a0f1-4dec-8c82-2cb440b3c60c">Paper ↗</a></div>
-      </article>
-      <article class="card" id="circus" data-lead="0" data-award="0" data-xpl="1" data-text="circus anymal: a quadruped learning dexterous manipulation with its limbs fan shi, timon homberger, joonho lee, takahiro miki, moju zhao, farbod farshidian, kei okada, masayuki inaba, marco hutter icra 2021">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/circus.mp4" poster="thumbs/circus.jpg" muted loop playsinline aria-label="Circus ANYmal: A quadruped learning dexterous manipulation with its limbs"></video></div>
-        <div class="meta mono"><span>2021 · ICRA</span></div>
-        <h3><a href="https://arxiv.org/abs/2011.08811">Circus ANYmal: A quadruped learning dexterous manipulation with its limbs</a></h3>
-        <p class="auth">Fan Shi, Timon Homberger, Joonho Lee, <b>Takahiro Miki</b>, Moju Zhao, Farbod Farshidian, Kei Okada, Masayuki Inaba, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/circus-anymal/">▶ Explainer · 1:40</a><a href="https://arxiv.org/abs/2011.08811">Paper ↗</a><a href="https://youtu.be/lmWSw_Hl9l8">Video ↗</a></div>
-      </article>
-    </div>
-  </section>
-  <section class="yr" id="y2020" aria-label="2020">
-    <h2>2020</h2>
-    <div class="cards">
-      <article class="card" id="foothold" data-lead="0" data-award="0" data-xpl="1" data-text="perceptive locomotion in rough terrain: online foothold optimization fabian jenelten, takahiro miki, aravind e. vijayan, marko bjelonic, marco hutter ra-l 2020">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/foothold.mp4" poster="thumbs/foothold.jpg" muted loop playsinline aria-label="Perceptive locomotion in rough terrain: online foothold optimization"></video></div>
-        <div class="meta mono"><span>2020 · RA-L</span></div>
-        <h3><a href="https://ieeexplore.ieee.org/abstract/document/9134750">Perceptive locomotion in rough terrain: online foothold optimization</a></h3>
-        <p class="auth">Fabian Jenelten, <b>Takahiro Miki</b>, Aravind E. Vijayan, Marko Bjelonic, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/foothold-optimization/">▶ Explainer · 1:46</a><a href="https://ieeexplore.ieee.org/abstract/document/9134750">Paper ↗</a><a href="https://youtu.be/ViecsBmjusI">Video ↗</a></div>
-      </article>
-      <article class="card" id="store" data-lead="0" data-award="0" data-xpl="0" data-text="a mobile dual-arm manipulation robot system for stocking and disposing of items in a convenience store by using universal vacuum grippers for grasping items ryo sakai, shinichi katsumata, takahiro miki, taiki yano, wenpeng wei, yuya okadome, nobuhiro chihara, nobutaka kimura, yusuke nakai, isamu matsuo, toshihiko shimizu advanced robotics 2020">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/store.mp4" poster="thumbs/store.jpg" muted loop playsinline aria-label="A mobile dual-arm manipulation robot system for stocking and disposing of items in a convenience store by using universal vacuum grippers for grasping items"></video></div>
-        <div class="meta mono"><span>2020 · Advanced Robotics</span></div>
-        <h3>A mobile dual-arm manipulation robot system for stocking and disposing of items in a convenience store by using universal vacuum grippers for grasping items</h3>
-        <p class="auth">Ryo Sakai, Shinichi Katsumata, <b>Takahiro Miki</b>, Taiki Yano, Wenpeng Wei, Yuya Okadome, Nobuhiro Chihara, Nobutaka Kimura, Yusuke Nakai, Isamu Matsuo, Toshihiko Shimizu</p>
-        
-      </article>
-    </div>
-  </section>
-  <section class="yr" id="y2019" aria-label="2019">
-    <h2>2019</h2>
-    <div class="cards">
-      <article class="card" id="uavugv" data-lead="1" data-award="0" data-xpl="1" data-text="uav/ugv autonomous cooperation: uav assists ugv to climb a cliff by attaching a tether takahiro miki, petr khrapchenkov, koichi hori icra 2019">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/uavugv.mp4" poster="thumbs/uavugv.jpg" muted loop playsinline aria-label="UAV/UGV autonomous cooperation: UAV assists UGV to climb a cliff by attaching a tether"></video></div>
-        <div class="meta mono"><span>2019 · ICRA</span><span class="lead">Lead author</span></div>
-        <h3><a href="https://arxiv.org/abs/1903.04898">UAV/UGV autonomous cooperation: UAV assists UGV to climb a cliff by attaching a tether</a></h3>
-        <p class="auth"><b>Takahiro Miki</b>, Petr Khrapchenkov, Koichi Hori</p>
-        <div class="plinks"><a class="xpl" href="/explainers/uav-ugv-tether/">▶ Explainer · 1:45</a><a href="https://arxiv.org/abs/1903.04898">Paper ↗</a><a href="https://youtu.be/UzTT8Ckjz1M">Video ↗</a></div>
-      </article>
-    </div>
-  </section>
-  <section class="yr" id="y2018" aria-label="2018">
-    <h2>2018</h2>
-    <div class="cards">
-      <article class="card" id="lunar" data-lead="0" data-award="0" data-xpl="0" data-text="finding the north on a lunar microrover: a lunar surface environment simulator for the development of vision-based navigation pipelines fabian dubois, louis-jerome burtz, oriol gasquez, takahiro miki iac 2018">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/lunar.mp4" poster="thumbs/lunar.jpg" muted loop playsinline aria-label="Finding the North on a Lunar Microrover: a Lunar Surface Environment Simulator for the Development of Vision-Based Navigation Pipelines"></video></div>
-        <div class="meta mono"><span>2018 · IAC</span></div>
-        <h3>Finding the North on a Lunar Microrover: a Lunar Surface Environment Simulator for the Development of Vision-Based Navigation Pipelines</h3>
-        <p class="auth">Fabian Dubois, Louis-Jerome Burtz, Oriol Gasquez, <b>Takahiro Miki</b></p>
-        
-      </article>
-      <article class="card" id="search" data-lead="1" data-award="0" data-xpl="1" data-text="multi-agent time-based decision-making for the search and action problem takahiro miki, marija popović, abel gawel, gregory hitz, roland siegwart icra 2018">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/search.mp4" poster="thumbs/search.jpg" muted loop playsinline aria-label="Multi-agent Time-based Decision-making for the Search and Action Problem"></video></div>
-        <div class="meta mono"><span>2018 · ICRA</span><span class="lead">Lead author</span></div>
-        <h3><a href="https://arxiv.org/abs/1802.10147">Multi-agent Time-based Decision-making for the Search and Action Problem</a></h3>
-        <p class="auth"><b>Takahiro Miki</b>, Marija Popović, Abel Gawel, Gregory Hitz, Roland Siegwart</p>
-        <div class="plinks"><a class="xpl" href="/explainers/search-and-action/">▶ Explainer · 1:39</a><a href="https://arxiv.org/abs/1802.10147">Paper ↗</a><a href="https://youtu.be/hnF8aasUtbs">Video ↗</a></div>
-      </article>
-      <article class="card" id="rough" data-lead="0" data-award="0" data-xpl="1" data-text="robust rough-terrain locomotion with a quadrupedal robot peter fankhauser, marko bjelonic, c. dario bellicoso, takahiro miki, marco hutter icra 2018">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/rough.mp4" poster="thumbs/rough.jpg" muted loop playsinline aria-label="Robust rough-terrain locomotion with a quadrupedal robot"></video></div>
-        <div class="meta mono"><span>2018 · ICRA</span></div>
-        <h3><a href="https://ieeexplore.ieee.org/abstract/document/8460731">Robust rough-terrain locomotion with a quadrupedal robot</a></h3>
-        <p class="auth">Peter Fankhauser, Marko Bjelonic, C. Dario Bellicoso, <b>Takahiro Miki</b>, Marco Hutter</p>
-        <div class="plinks"><a class="xpl" href="/explainers/rough-terrain-locomotion-2018/">▶ Explainer · 1:35</a><a href="https://ieeexplore.ieee.org/abstract/document/8460731">Paper ↗</a><a href="https://youtu.be/CpzQu25iLa0">Video ↗</a></div>
-      </article>
-    </div>
-  </section>
-  <section class="yr" id="y2015" aria-label="2015">
-    <h2>2015</h2>
-    <div class="cards">
-      <article class="card" id="armarker" data-lead="1" data-award="0" data-xpl="1" data-text="self-localization with active attachment of ar markers by an autonomous uav (能動的マーカ貼付により自己位置推定を行う自律飛行ロボット) takahiro miki, koichi hori jsai 2015">
-        <div class="thumb"><video preload="none" data-auto src="thumbs/armarker.mp4" poster="thumbs/armarker.jpg" muted loop playsinline aria-label="Self-localization with active attachment of AR markers by an autonomous UAV (能動的マーカ貼付により自己位置推定を行う自律飛行ロボット)"></video></div>
-        <div class="meta mono"><span>2015 · JSAI</span><span class="lead">Lead author</span></div>
-        <h3><a href="https://youtu.be/x26QVM_Ey7U">Self-localization with active attachment of AR markers by an autonomous UAV (能動的マーカ貼付により自己位置推定を行う自律飛行ロボット)</a></h3>
-        <p class="auth"><b>Takahiro Miki</b>, Koichi Hori</p>
-        <div class="plinks"><a class="xpl" href="/explainers/ar-marker-uav/">▶ Explainer · 1:46</a><a href="https://youtu.be/x26QVM_Ey7U">Video ↗</a></div>
-      </article>
-    </div>
-  </section>
-  <p class="empty" id="empty" hidden>No papers match. Clear the search or pick another filter.</p>
-</main>
+  </a>
+</section>
+
+<section class="section" aria-label="Now">
+<div class="feature">
+  <a href="projects.html#gr2" aria-label="Gemini Robotics 2"><div class="brand-wrap"><video preload="none" data-auto src="../media/gr2/wbc-robot.mp4" poster="../media/gr2/wbc-robot.jpg" muted loop playsinline></video></div><div class="credit mono">映像: Google DeepMind, Gemini Robotics 2（intelligent whole-body control）</div></a>
+  <div><div class="tag mono">現在 · Google DeepMind</div><h3>Gemini Robotics 2</h3><p>Gemini Robotics チームの一員として、見て・考えて・動く、どんなロボットの体でも動かせるひとつのモデルを作っています。担当はモデルの知的な全身制御（intelligent whole-body control）の能力です。</p><a class="btn" href="projects.html#gr2">このプロジェクトについて →</a></div>
+</div>
+</section>
+
+<section class="section" aria-label="Projects">
+  <div class="section-head"><div><div class="eyebrow mono">DeepMind 以前</div><h2>プロジェクト</h2>
+  <p class="intro">ETH Zurich の Robotic Systems Lab で6年間、四脚ロボット ANYmal が周りを見て、歩いて、探索できるようにする研究をしてきました。Science Robotics に 4本の論文が掲載されています。</p></div>
+  <a class="btn" href="projects.html">全 10 プロジェクト →</a></div>
+  <div class="pgrid">
+  <a class="pcard" href="projects.html#perceptive"><div class="media"><video preload="none" data-auto src="../scrub/perceptive.mp4" poster="../scrub/perceptive.jpg" muted loop playsinline></video></div><div class="when mono">2019–2025 · Robotic Systems Lab, ETH Zurich</div><h3>知覚を使った歩行の学習</h3><p>脚ロボットが地面を見ながら、それでも自分の脚の感覚を信じて歩けるようにする強化学習。</p><div class="award mono">最優秀論文賞 · ICRA 2024</div></a>
+  <a class="pcard" href="projects.html#motion"><div class="media"><video preload="none" data-auto src="../scrub/priors.mp4" poster="../scrub/priors.jpg" muted loop playsinline></video></div><div class="when mono">2025–2026 · Robotic Systems Lab, ETH Zurich</div><h3>自然な動き: 動物の動きとヒューマノイド</h3><p>記録された動きから学んで自然に動き、さらに荒れた地形に合わせる。</p></a>
+  <a class="pcard" href="projects.html#elevation"><div class="media"><video preload="none" data-auto src="../media/proj/elevation-mem.mp4" poster="../media/proj/elevation-mem.jpg" muted loop playsinline></video></div><div class="when mono">2021–2023 · オープンソース</div><h3>標高マップとナビゲーション</h3><p>elevation_mapping_cupy: 脚ロボットのための、GPU で動く高速な地形マップと、その上での経路計画。</p></a>
+  <a class="pcard" href="projects.html#manipulation"><div class="media"><video preload="none" data-auto src="../scrub/doors.mp4" poster="../scrub/doors.jpg" muted loop playsinline></video></div><div class="when mono">2021–2024 · Robotic Systems Lab, ETH Zurich</div><h3>脚ロボットによるマニピュレーション</h3><p>物も扱える脚: ドアを開け、アームを支え、ボールを受け止める。</p></a>
+  <a class="pcard" href="projects.html#subt"><div class="media"><video preload="none" data-auto src="../scrub/cerbsr.mp4" poster="../scrub/cerbsr.jpg" muted loop playsinline></video></div><div class="when mono">2019–2021 · Team CERBERUS</div><h3>DARPA Subterranean Challenge</h3><p>2021年の決勝で優勝し、賞金200万ドルを獲得。</p><div class="award mono">優勝 · DARPA SubT 決勝</div></a>
+  <a class="pcard" href="projects.html#field"><div class="media"><video preload="none" data-auto src="../scrub/planetary.mp4" poster="../scrub/planetary.jpg" muted loop playsinline></video></div><div class="when mono">2023–2026 · フィールドでの運用</div><h3>フィールドでの科学</h3><p>脚ロボットを火山、惑星アナログ地、そして街の中へ。</p></a>
+  </div>
+</section>
+
+<section class="section" aria-label="Paper explainers">
+  <div class="xteaser">
+    <a class="xt-media" href="/explainers/" aria-label="Browse the explainers"><video preload="none" data-auto src="../media/explainers-teaser.mp4" poster="../media/explainers-teaser.jpg" muted loop playsinline></video></a>
+    <div class="xt-copy"><div class="eyebrow mono">論文解説</div><h2>どの論文も、90秒ほどで分かる</h2>
+    <p>32 本の論文にアニメーション解説があります。ナレーション付きの短い動画、やさしい言葉で書いた研究の背景、そして手法のステップごとの説明です（英語）。</p>
+    <a class="btn solid" href="/explainers/">解説を見る →</a></div>
+  </div>
+</section>
+
+<section class="section digest" id="digest" aria-label="arXiv digest" data-base="/arxiv-digest/" data-n="6" data-lang="ja">
+  <div class="section-head"><div><div class="eyebrow mono">毎日の arXiv ダイジェスト</div><h2>arXiv の新着論文</h2>
+  <p class="intro">毎日、ボットが arXiv の新着からロボティクスと AI の論文をいくつか選び、それぞれの要点を日本語と英語でまとめています。最新の論文はこちらです。</p></div>
+  <a class="btn" href="/arxiv-digest/?lang=ja">ダイジェストを開く →</a></div>
+  <div class="dgrid" id="digestCards">
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38852&amp;lang=ja"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38852.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>humanoid · locomotion</span></span><span class="t">ロコモーションを基盤としたヒューマノイドサッカー：多方向キックライブラリのタスクゲート型強化学習</span><span class="s">ボール追従動作から歩行を導出する従来手法とは逆に、汎用的なコマンド追従ロコモーション方策を土台とし、その上にタスクゲート層としてN個のキックスキルを強化学習で追加する手法を提案。動作クリップに拘束されず広範な歩行空間を維持したまま、走行動作品質を損なわずに多様なキックへの遷移と復帰を両立させた。</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38216&amp;lang=ja"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38216.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>humanoid · benchmark</span></span><span class="t">Fiatlux：ヒューマノイドによる脚立昇降と電球交換のための長周期ベンチマーク</span><span class="s">ヒューマノイドの垂直移動と壊れやすい物体の器用な作業を単一エピソードで評価するベンチマークFiatluxをIsaac Lab上に構築した。Unitree G1ロボットが脚立を配置・昇降し、電球を交換して廃棄箱に収めるまでの12のサブタスクで構成される。難易度重み付けゲートにより、長周期な全身運動制御とマニピュレーションを総合的に評価可能とした。</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38709&amp;lang=ja"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38709.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>humanoid · control</span></span><span class="t">CEER2：ヒューマノイドの移動マニピュレーションに向けた方向性および調整可能な手先・ルートコンプライアンス制御</span><span class="s">ヒューマノイドが接触環境で作業を行う際、特定方向の外力を受け流しつつ他方向の動作精度を保つためのコンプライアンス制御手法を提案。エンドエフェクタの方向別適応とベース（ルート）の選択的従順性を組み合わせ、全身のタスク要求と物理的接触の両立を実現した。実機およびシミュレーションでの検証により接触を伴う移動マニピュレーションの安定性を向上させた。</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38617&amp;lang=ja"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38617.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>quadruped · locomotion</span></span><span class="t">脚ロボットのための高密度時間的モーションリターゲティング</span><span class="s">人間や動物の動的動作を脚ロボットの動力学特性に合わせて転移させるため、制御入力と時間伸縮を同時に最適化するDense Temporal Motion Retargeting（DTMR）を提案。制御ステップ毎に局所的な時間調整を行うことで、跳躍などの激しい動作において必要な区間のみ変形させることが可能となった。サンプリングベースMPCを用いて解き、動的整合性の高い動作生成を実現した。</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.39000&amp;lang=ja"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.39000.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>humanoid · teleoperation</span></span><span class="t">NEXUS：地形適応型遠隔操作のための知覚型全身制御</span><span class="s">操作者とロボットが存在する地形が異なる環境でも全身遠隔操作を可能にする知覚型全身制御フレームワークを提案。単純な動作の直写ではなく、搭載センサから局所地形を知覚し姿勢や接触状態を適応的に調整する。平地と不整地のペアデータ不足を克服する地形適応アルゴリズムを導入し、階段や斜面などの不整合な地形間でもロバストなヒューマノイド遠隔操作を実現した。</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38588&amp;lang=ja"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38588.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>drone · manipulation</span></span><span class="t">ドローンサッカー：マルチコプターの吹き下ろし気流を利用したマニピュレーションの学習</span><span class="s">従来は外乱として扱われがちだったプロペラの吹き下ろし気流（ダウンウォッシュ）を能動的なツールとして活用し、物体操作を行う手法を検証。簡略化したダウンウォッシュ動力学モデルを構築し、サッカーボールをドリブルする強化学習方策を訓練した。接触型マニピュレータを搭載せずに非接触で物体を操る新たな空中操作の可能性を実証した。</span></a>
+  </div>
+</section>
+
+<section class="news" id="news" aria-label="News">
+  <h2>ニュース</h2>
+  <div>
+  <ol id="newsList">
+    <li><time>2026-07-30</time><span><a href="https://deepmind.google/models/gemini-robotics/gemini-robotics/">Gemini Robotics 2 を発表しました。卓上のアームから全身ヒューマノイドまでロボットを動かすモデルです。</a></span></li>
+    <li><time>2025-09-15</time><span>Google DeepMind にリサーチサイエンティストとして入社しました。</span></li>
+    <li><time>2025-04-17</time><span>ETH Zurich で博士論文の審査に合格しました: “Bridging Perception and Control for Legged Locomotion and Navigation in the Wild”。</span></li>
+    <li><time>2024-05-16</time><span><a href="papers.html#confined">私たちの論文が IEEE ICRA Best Paper Award in Service Robotics を受賞しました。</a></span></li>
+    <li><time>2024-04-24</time><span><a href="papers.html#wheeled">共著論文が Science Robotics に掲載されました。</a></span></li>
+    <li><time>2024-04-06</time><span>私たちの論文が ICRA 2024 Best Paper Award in Service Robotics のファイナリストに選ばれました。</span></li>
+    <li><time>2024-03-08</time><span>私たちの動画が IEEE Spectrum の Video Friday に選ばれました。</span></li>
+    <li><time>2024-03-04</time><span><a href="papers.html#llmctf">チーム RSLLM で SaTML LLM CTF コンペの2位に入賞しました。賞金1,000ドルと、トロントでの学会への渡航助成をいただきました。</a></span></li>
+    <li><time>2024-02-29</time><span><a href="https://arxiv.org/abs/2403.00187">“Learning to walk in confined spaces using 3D representation” を公開しました。</a></span></li>
+    <li><time>2024-01-29</time><span>2本の論文（うち1本は共著）が ICRA 2024 に採択されました。</span></li>
+    <li><time>2024-01-13</time><span>ホームページを公開しました。思っていたより大変でした。</span></li>
+  </ol>
+  <button type="button" class="btn more" data-more="newsList" data-label="ニュースをすべて表示（11 件）">ニュースをすべて表示（11 件）</button>
+  </div>
+</section>
 
 <footer class="mono">
-  <span>© Takahiro Miki · Robotics research</span>
+  <span>© 三木 崇弘 · ロボティクス研究</span>
   <span class="foot-links"><a href="https://scholar.google.com/citations?user=nOl83tYAAAAJ&amp;hl=en">Google Scholar</a><a href="https://github.com/mktk1117">GitHub</a><a href="https://twitter.com/ki_ki_ki1">X / Twitter</a><a href="https://www.youtube.com/@takahiromiki8642">YouTube</a></span>
 </footer>
 
@@ -1030,13 +842,13 @@
   const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40);
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
   // "show all" toggles (home news)
-  document.querySelectorAll('[data-more]').forEach(b => b.addEventListener('click', () => { const l = document.getElementById(b.dataset.more); const open = l.classList.toggle('all'); b.textContent = open ? 'Show fewer' : b.dataset.label; }));
+  document.querySelectorAll('[data-more]').forEach(b => b.addEventListener('click', () => { const l = document.getElementById(b.dataset.more); const open = l.classList.toggle('all'); b.textContent = open ? '折りたたむ' : b.dataset.label; }));
 })();
 (() => {
   /* light / dark mode (light is the default; the choice is remembered) */
   const root = document.documentElement, b = document.querySelector('.mode-btn');
   if (!b) return;
-  const sync = () => b.setAttribute('aria-label', root.dataset.mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  const sync = () => b.setAttribute('aria-label', root.dataset.mode === 'dark' ? 'ライトモードに切り替え' : 'ダークモードに切り替え');
   b.addEventListener('click', () => {
     const dark = root.dataset.mode !== 'dark';
     if (dark) root.setAttribute('data-mode', 'dark'); else root.removeAttribute('data-mode');
@@ -1168,41 +980,52 @@
 </script>
 <script>
 (() => {
-  /* hover (or tap, on touch screens) plays the clip in place */
-  const touch = matchMedia('(hover: none)').matches;
-  document.querySelectorAll('.thumb[data-clip]').forEach(t => {
-    let v = null;
-    const start = () => {
-      if (!v) { v = document.createElement('video'); v.muted = true; v.loop = true; v.playsInline = true; v.src = t.dataset.clip; t.appendChild(v); }
-      v.play().then(() => t.classList.add('playing')).catch(() => {});
-    };
-    const stop = () => { if (v) { v.pause(); t.classList.remove('playing'); } };
-    if (touch) t.addEventListener('click', () => t.classList.contains('playing') ? stop() : start());
-    else { t.addEventListener('pointerenter', start); t.addEventListener('pointerleave', stop); }
-  });
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* hero clip readout, synced to the reel's cut points (ANYmal field footage first, Apollo from the Gemini Robotics 2 page at the end) */
+  const heroVid = document.getElementById('heroVid');
+  const cuts = [[0, 'ANYmal', '庭の階段'], [2.4, 'ANYmal', '洞窟'], [4.8, 'ANYmal', '瓦礫の下'], [7.2, 'ANYmal', '惑星アナログ地、夕暮れ'],
+    [9.8, 'ANYmal', '丘の階段'], [12.2, 'ANYmal', '雪'], [14.43, 'Apollo', '棚での作業'], [16.83, 'Apollo', '全身制御']];
+  const clipN = document.getElementById('clipN'), clipName = document.getElementById('clipName'), clipBot = document.getElementById('clipBot'), clipSrc = document.getElementById('clipSrc');
+  heroVid.addEventListener('timeupdate', () => {
+    let i = 0; for (let k = 0; k < cuts.length; k++) if (heroVid.currentTime >= cuts[k][0]) i = k;
+    clipN.textContent = String(i + 1).padStart(2, '0'); clipBot.textContent = cuts[i][1]; clipName.textContent = cuts[i][2]; clipSrc.textContent = cuts[i][1] === 'Apollo' ? 'Google DeepMind' : 'フィールド映像';
+  });
+  if (reduce) { heroVid.removeAttribute('autoplay'); heroVid.pause(); }
 })();
-// paper thumbnails (video[data-auto]) are played by js/videos.js, which caps how many decode at once
 </script>
 <script>
 (() => {
-  /* filters + search */
-  const cards = [...document.querySelectorAll('.card')], years = [...document.querySelectorAll('.yr')];
-  const chips = [...document.querySelectorAll('.chip')], q = document.getElementById('q'), empty = document.getElementById('empty');
-  let mode = 'all';
-  function apply() {
-    const term = q.value.trim().toLowerCase(); let shown = 0;
-    cards.forEach(c => {
-      const ok = (mode === 'all' || c.dataset[mode] === '1') && (!term || c.dataset.text.includes(term));
-      c.hidden = !ok; if (ok) shown++;
-    });
-    years.forEach(y => y.hidden = !y.querySelector('.card:not([hidden])'));
-    empty.hidden = shown > 0;
-  }
-  chips.forEach(ch => ch.addEventListener('click', () => {
-    mode = ch.dataset.f; chips.forEach(c => c.setAttribute('aria-pressed', String(c === ch))); apply();
-  }));
-  q.addEventListener('input', apply);
+  /* "Fresh from arXiv" on home: the build bakes in the latest cards; this swaps in whatever the digest published since */
+  const sec = document.getElementById('digest'), grid = document.getElementById('digestCards');
+  if (!sec || !grid) return;
+  const base = sec.dataset.base, n = +sec.dataset.n || 6, ja = sec.dataset.lang === 'ja';
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const get = p => fetch(base + p, { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  (async () => {
+    const index = await get('data/index.json');
+    const months = (index.months || []).slice(0, 2);
+    const files = await Promise.all(months.map(m => get(`data/${m}.json`).catch(() => ({ entries: [] }))));
+    const ids = new Set((await get('details/index.json').catch(() => ({ ids: [] }))).ids || []);
+    const seen = new Set(), all = [];
+    for (const e of files.flatMap(f => f.entries || []).sort((a, b) => b.date.localeCompare(a.date) || a.rank - b.rank))
+      if (!seen.has(e.id)) { seen.add(e.id); all.push(e); }
+    const days = [...new Set(all.map(e => e.date))].slice(0, 2);
+    // same order as the build: newest day, papers with a figure, focus picks, then the digest's own rank
+    const key = e => [e.date, e.image ? 1 : 0, e.group === 'focus' ? 1 : 0, -(e.rank || 0)];
+    const cmp = (a, b) => { const x = key(a), y = key(b); for (let i = 0; i < x.length; i++) if (x[i] !== y[i]) return x[i] < y[i] ? 1 : -1; return 0; };
+    const picks = all.filter(e => days.includes(e.date)).sort(cmp).slice(0, n);
+    if (!picks.length) return;
+    grid.innerHTML = picks.map(e => {
+      const link = ids.has(e.id) ? `${base}paper.html?id=${encodeURIComponent(e.id)}&lang=${ja ? 'ja' : 'en'}` : e.abs_url;
+      const media = e.image ? `<img src="${base}${esc(e.image)}" alt="" loading="lazy">` : `<span class="big">${esc((e.categories || ['arXiv'])[0])}</span>`;
+      const tags = (e.tags || []).slice(0, 2).map(esc).join(' · ');
+      const title = (ja && e.title_ja) || e.title, summary = ja ? e.summary_ja : e.summary_en;
+      return `<a class="dcard" href="${esc(link)}"><span class="thumb fig${e.image ? '' : ' type'}">${media}</span>`
+        + `<span class="meta mono"><span>${esc(e.date.slice(5).replace('-', '.'))}</span><span>${tags}</span></span>`
+        + `<span class="t">${esc(title)}</span>${summary ? `<span class="s">${esc(summary)}</span>` : ''}</a>`;
+    }).join('');
+  })().catch(() => {});   // offline or blocked: keep the baked-in cards
 })();
 </script>
 <script>document.querySelectorAll('.nav .lang a').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('digest-lang',a.dataset.lang)}catch(e){}}))</script>
