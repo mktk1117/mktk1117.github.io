@@ -370,6 +370,13 @@
   .thumb video[data-auto]{opacity:1}
   .rel-row .t video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
+/* ---------- content column: capped width, centred (the hero video and nav bar stay full-bleed; their text lines up with it) ---------- */
+:root{--content:1160px;--side:max(var(--gutter),calc((100% - var(--content)) / 2))}
+:is(.section,.news,footer,.pubs,.page-head,.proj,.cv,.papers){padding-inline:var(--side)}
+.nav{padding-inline:var(--side)}
+.hero-copy{left:var(--side);right:var(--side)}
+.telemetry{right:var(--side)}
+
   /* defaults every style inherits, so a style that only changes colors keeps Field's type */
   [data-style]{ --display:"Archivo", "Arial Narrow", Arial, sans-serif; --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; --on-media:#f4f5f6; }
 
