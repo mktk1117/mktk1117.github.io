@@ -805,5 +805,48 @@
   all('.pcard .media,.proj .pm .box,.proj .pm .still,.feature .brand-wrap,.expo-frame,.xt-media').forEach(el => watch(el, 'wipe'));
 })();
 </script>
+<script>
+(() => {
+  /* one governor for every muted loop on the page.
+     Many simultaneous video decoders can exhaust the GPU's mapping aperture (256 MB BAR1 on cards without
+     Resizable BAR) and hang the whole machine, so: nothing autoplays from the HTML, only on-screen videos play,
+     at most MAX at once (the most visible win), and videos far off-screen drop their source to free the decoder
+     (the poster image stays). Reduced motion: hover or tap to play instead. */
+  const vids = [...document.querySelectorAll('video[data-auto]')];
+  if (!vids.length) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const MAX = matchMedia('(max-width: 760px), (hover: none)').matches ? 2 : 4;
+  vids.forEach(v => { v.dataset.src = v.dataset.src || v.getAttribute('src'); v.muted = true; v.playsInline = true; });
+  const load = v => { if (!v.getAttribute('src')) { v.src = v.dataset.src; v.preload = 'auto'; } };
+  const unload = v => { if (v.getAttribute('src')) { v.pause(); v.removeAttribute('src'); v.load(); } };
+  const play = v => { load(v); const p = v.play(); if (p) p.catch(() => {}); };
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    vids.forEach(v => { v.pause(); const box = v.parentElement;
+      box.addEventListener('pointerenter', () => play(v)); box.addEventListener('pointerleave', () => v.pause());
+      box.addEventListener('click', () => v.paused ? play(v) : v.pause()); });
+    return;
+  }
+
+  const ratio = new Map();
+  let queued = false;
+  function settle() {
+    queued = false;
+    if (document.hidden) { vids.forEach(v => v.pause()); return; }
+    const want = vids.filter(v => (ratio.get(v) || 0) >= .25).sort((a, b) => ratio.get(b) - ratio.get(a)).slice(0, MAX);
+    vids.forEach(v => { if (!want.includes(v) && !v.paused) v.pause(); });
+    want.forEach(v => { if (v.paused) play(v); });
+  }
+  const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(settle); } };
+  // what is on screen, and how much of it
+  const seen = new IntersectionObserver(es => { es.forEach(e => ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0)); schedule(); },
+    { threshold: [0, .25, .5, .75, 1] });
+  // what is near the screen: keep loaded; anything further away gives its decoder back
+  const near = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) unload(e.target); }), { rootMargin: '60% 0px' });
+  vids.forEach(v => { seen.observe(v); near.observe(v); });
+  document.addEventListener('visibilitychange', schedule);
+  window.__videos = { MAX, playing: () => vids.filter(v => !v.paused).length, loaded: () => vids.filter(v => v.getAttribute('src')).length };
+})();
+</script>
 </body>
 </html>
