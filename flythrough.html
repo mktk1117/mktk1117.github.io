@@ -466,6 +466,37 @@
   @media (max-width:760px){ #mini{top:60px;bottom:auto;border-radius:8px} .dest b{font-size:13px} }
   #veil{position:fixed;inset:0;z-index:2;background:#07090c;opacity:0;pointer-events:none}
   .dest small i{font-style:normal;color:var(--ink-2)}
+  /* the stepper: previous / where am I / next, always on screen, with the list of every place */
+  #stepper{position:fixed;z-index:6;display:flex;align-items:center;gap:2px;padding:4px;border-radius:999px;background:rgba(11,14,18,.86);border:1px solid rgba(236,238,240,.18);
+    backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,.35);right:calc(var(--gutter) + 210px);bottom:calc(22px + env(safe-area-inset-bottom,0px));max-width:400px}
+  #stepper button{appearance:none;border:0;background:none;color:var(--ink);cursor:pointer;border-radius:999px}
+  #stPrev,#stNext{flex:none;width:40px;height:40px;font:400 24px/1 var(--body);padding-bottom:3px}
+  #stPrev:hover,#stNext:hover{background:rgba(143,214,227,.18)}
+  #stPrev:disabled,#stNext:disabled{opacity:.28;cursor:default;background:none}
+  #stName{display:flex;align-items:center;gap:9px;min-width:0;height:40px;padding:0 12px;font:600 14px/1.1 var(--body)}
+  #stName:hover,#stName[aria-expanded="true"]{background:rgba(236,238,240,.09)}
+  #stName span{flex:none;color:var(--tag);font-size:11px}
+  #stName b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+  #stName b.fly{color:#faba39}
+  #stName i{flex:none;font-style:normal;color:var(--mute);font-size:10px}
+  #stList{position:fixed;z-index:7;right:calc(var(--gutter) + 210px);bottom:calc(76px + env(safe-area-inset-bottom,0px));width:340px;max-height:min(64vh,580px);overflow:auto;
+    padding:8px 8px 10px;border-radius:12px;background:rgba(11,14,18,.95);border:1px solid rgba(236,238,240,.18);box-shadow:0 10px 32px rgba(0,0,0,.45);overscroll-behavior:contain}
+  #stList h3{margin:12px 8px 4px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--tag)}
+  #stList h3:first-child{margin-top:6px}
+  #stList button{appearance:none;border:0;background:none;cursor:pointer;display:flex;gap:10px;width:100%;text-align:left;padding:7px 8px;border-radius:6px;color:var(--ink-2);font:500 13px/1.25 var(--body)}
+  #stList button:hover,#stList button:focus-visible{background:rgba(143,214,227,.14);color:var(--ink)}
+  #stList button.on{color:var(--ink);background:rgba(143,214,227,.24)}
+  #stList button small{flex:none;min-width:20px;padding-top:2px;font:500 10px/1 var(--mono);color:var(--mute)}
+  body:not(.free) #fly.look{cursor:grab} body:not(.free) #fly.looking{cursor:grabbing}
+  @media (min-width:761px) and (max-width:1179px){
+    #stepper{right:auto;left:50%;transform:translateX(-50%);bottom:auto;top:66px} #stList{right:auto;left:50%;transform:translateX(-50%);bottom:auto;top:118px}
+    #freeHint{top:118px} #under{padding-top:120px}
+  }
+  @media (max-width:760px){
+    #stepper{right:auto;left:var(--gutter);bottom:auto;top:60px;max-width:calc(100% - 2*var(--gutter) - 124px)} #stName b{max-width:none} #stName{padding:0 8px}
+    #stPrev,#stNext{width:36px;height:36px} #stName{height:36px}
+    #stList{left:var(--gutter);right:var(--gutter);width:auto;bottom:auto;top:106px;max-height:58vh} #under{padding-top:112px} #freeHint{top:106px}
+  }
 
 </style>
 </head>
@@ -479,6 +510,8 @@
 <div id="track"></div>
 <section id="card" aria-live="polite"></section>
 <nav id="rail" aria-label="Jump to a place"></nav>
+<nav id="stepper" aria-label="Tour steps"><button type="button" id="stPrev" aria-label="Previous place" title="Previous place (←)">‹</button><button type="button" id="stName" aria-haspopup="true" aria-expanded="false" title="All places"><span class="mono" id="stNum"></span><b id="stTitle">Overview</b><i aria-hidden="true">▾</i></button><button type="button" id="stNext" aria-label="Next place" title="Next place (→)">›</button></nav>
+<div id="stList" role="menu" hidden></div>
 <p id="nogl" hidden>This experiment needs WebGL, which isn’t available here. <a href="index.html">Back to the homepage</a></p>
 <p id="flyerr" hidden>The 3D scene couldn’t load. <a href="index.html">Back to the homepage</a><small class="mono"></small></p>
 <script type="application/json" id="fly-data">{"projects": [{"slug": "gr2", "title": "Gemini Robotics 2", "when": "2025–now", "where": "Google DeepMind", "tagline": "One model for any robot body, from tabletop arms to full humanoids."}, {"slug": "perceptive", "title": "Learning perceptive locomotion", "when": "2019–2025", "where": "Robotic Systems Lab, ETH Zurich", "tagline": "Reinforcement learning that lets legged robots see the ground and still trust their legs."}, {"slug": "robust", "title": "Safe and robust learned control", "when": "2023–2026", "where": "Robotic Systems Lab, ETH Zurich", "tagline": "Finding where learned controllers fail, and teaching them to be careful."}, {"slug": "motion", "title": "Natural motion: animal priors and humanoids", "when": "2025–2026", "where": "Robotic Systems Lab, ETH Zurich", "tagline": "Learning from recorded motion so robots move naturally, then adapting it to rough terrain."}, {"slug": "elevation", "title": "Elevation mapping and navigation", "when": "2021–2023", "where": "Open source", "tagline": "elevation_mapping_cupy: fast, GPU-based terrain maps for legged robots, and planning on top of them."}, {"slug": "manipulation", "title": "Legged manipulation", "when": "2021–2024", "where": "Robotic Systems Lab, ETH Zurich", "tagline": "Legs that also handle things: opening doors, balancing an arm, catching a ball."}, {"slug": "subt", "title": "DARPA Subterranean Challenge", "when": "2019–2021", "where": "Team CERBERUS", "tagline": "First place and the $2,000,000 prize in the 2021 Final."}, {"slug": "field", "title": "Science in the field", "when": "2023–2026", "where": "Field deployments", "tagline": "Taking legged robots to volcanoes, planetary analog sites and city streets."}, {"slug": "early", "title": "Early work: drones, rovers and teams", "when": "2015–2020", "where": "University of Tokyo · ETH Zurich · ispace · Hitachi", "tagline": "Where it started: aerial robots, lunar rovers and multi-robot decision-making."}, {"slug": "llm", "title": "Side quest: LLM security", "when": "2024", "where": "SaTML 2024 CTF · Team RSLLM", "tagline": "Hiding a secret inside a language model, and trying to steal everyone else’s."}], "papers": {"etna": {"title": "Large-Scale Autonomous Gas Monitoring for Volcanic Environments: A Legged Robot on Mount Etna", "year": 2026, "venue": "IEEE RAM", "url": "https://arxiv.org/abs/2601.07362", "xpl": "/explainers/etna-gas-monitoring/"}, "humanoid": {"title": "Learning Whole-Body Humanoid Locomotion via Motion Generation and Motion Tracking", "year": 2026, "venue": "RA-L", "url": "https://arxiv.org/abs/2604.17335", "xpl": "/explainers/humanoid-motion-generation/"}, "dapper": {"title": "DAPPER: Discriminability-Aware Policy-to-Policy Preference-Based Reinforcement Learning for Query-Efficient Robot Skill Acquisition", "year": 2026, "venue": "IEEE RAM", "url": "https://arxiv.org/abs/2505.06357", "xpl": "/explainers/dapper/"}, "priors": {"title": "Motion Priors Reimagined: Adapting Flat-Terrain Skills for Complex Quadruped Mobility", "year": 2025, "venue": "CoRL", "url": "https://arxiv.org/abs/2505.16084", "xpl": "/explainers/motion-priors-reimagined/"}, "quiet": {"title": "Learning Quiet Walking for a Small Home Robot", "year": 2025, "venue": "ICRA", "url": "https://arxiv.org/abs/2502.10983", "xpl": "/explainers/quiet-walking/"}, "thesis": {"title": "Bridging Perception and Control for Legged Locomotion and Navigation in the Wild", "year": 2025, "venue": "PhD thesis, ETH Zurich", "url": "https://www.research-collection.ethz.ch/items/41c52fa7-2aa8-4746-9ee2-b1321ab0ab7a", "xpl": "/explainers/phd-thesis/"}, "doors": {"title": "Learning to Open and Traverse Doors with a Legged Manipulator", "year": 2024, "venue": "CoRL", "url": "https://arxiv.org/abs/2409.04882", "xpl": "/explainers/doors-legged-manipulator/"}, "terrain": {"title": "Identifying Terrain Physical Parameters from Vision: Towards Physical-Parameter-Aware Locomotion and Navigation", "year": 2024, "venue": "RA-L", "url": "https://arxiv.org/abs/2408.16567", "xpl": "/explainers/terrain-physical-parameters/"}, "llmctf": {"title": "Dataset and Lessons Learned from the 2024 SaTML LLM Capture-the-Flag Competition", "year": 2024, "venue": "NeurIPS", "url": "https://arxiv.org/abs/2406.07954", "xpl": "/explainers/llm-ctf/"}, "adv": {"title": "Rethinking Robustness Assessment: Adversarial Attacks on Learning-based Quadrupedal Locomotion Controllers", "year": 2024, "venue": "RSS", "url": "https://arxiv.org/abs/2405.12424", "xpl": "/explainers/adversarial-locomotion/"}, "wheeled": {"title": "Learning robust autonomous navigation and locomotion for wheeled-legged robots", "year": 2024, "venue": "Science Robotics", "url": "https://www.science.org/doi/full/10.1126/scirobotics.adi9641", "xpl": "/explainers/wheeled-legged-navigation/"}, "confined": {"title": "Learning to walk in confined spaces using 3D representation", "year": 2024, "venue": "ICRA", "url": "https://arxiv.org/abs/2403.00187", "xpl": "/explainers/confined-spaces/"}, "risk": {"title": "Learning risk-aware quadrupedal locomotion using distributional reinforcement learning", "year": 2024, "venue": "ICRA", "url": "https://arxiv.org/abs/2309.14246", "xpl": "/explainers/risk-aware-locomotion/"}, "riskaverse": {"title": "Learning a Risk-Averse Locomotion Policy from Uncertainty Estimates", "year": 2024, "venue": "CoRL Workshop", "url": "https://mediatum.ub.tum.de/doc/1764922/document.pdf", "xpl": "/explainers/risk-averse-locomotion/"}, "mem": {"title": "MEM: Multi-Modal Elevation Mapping for Robotics and Learning", "year": 2023, "venue": "IROS", "url": "https://arxiv.org/abs/2309.16818", "xpl": "/explainers/multi-modal-elevation-mapping/"}, "planetary": {"title": "Scientific exploration of challenging planetary analog environments with a team of legged robots", "year": 2023, "venue": "Science Robotics", "url": "https://arxiv.org/abs/2307.10079", "xpl": "/explainers/planetary-analog/"}, "catch": {"title": "Event-based Agile Object Catching with a Quadrupedal Robot", "year": 2023, "venue": "ICRA", "url": "https://arxiv.org/abs/2303.17479", "xpl": "/explainers/event-based-catching/"}, "gpu": {"title": "Elevation mapping for locomotion and navigation using GPU", "year": 2022, "venue": "IROS", "url": "https://arxiv.org/abs/2204.12876", "xpl": "/explainers/gpu-elevation-mapping/"}, "cerbwin": {"title": "Team CERBERUS wins the DARPA Subterranean Challenge: Technical overview and lessons learned", "year": 2022, "venue": "Field Robotics", "url": "https://arxiv.org/abs/2207.04914", "xpl": "/explainers/cerberus-subt-overview/"}, "cerbsr": {"title": "CERBERUS in the DARPA Subterranean Challenge", "year": 2022, "venue": "Science Robotics", "url": "https://www.science.org/doi/full/10.1126/scirobotics.abp9742", "xpl": "/explainers/cerberus-science-robotics/"}, "perceptive": {"title": "Learning robust perceptive locomotion for quadrupedal robots in the wild", "year": 2022, "venue": "Science Robotics", "url": "https://www.science.org/doi/10.1126/scirobotics.abk2822", "xpl": "/explainers/perceptive-locomotion/"}, "wbc": {"title": "Combining learning-based locomotion policy with model-based manipulation for legged mobile manipulators", "year": 2022, "venue": "RA-L", "url": "https://arxiv.org/abs/2201.03871", "xpl": "/explainers/locomotion-manipulation/"}, "cerbfr": {"title": "CERBERUS: Autonomous legged and aerial robotic exploration in the tunnel and urban circuits of the DARPA Subterranean Challenge", "year": 2022, "venue": "Field Robotics", "url": "https://arxiv.org/abs/2201.07067", "xpl": "/explainers/cerberus-tunnel-urban/"}, "occl": {"title": "Reconstructing occluded elevation information in terrain maps with self-supervised learning", "year": 2022, "venue": "RA-L", "url": "https://arxiv.org/abs/2109.07150", "xpl": "/explainers/occluded-elevation/"}, "nav": {"title": "Real-time optimal navigation planning using learned motion costs", "year": 2021, "venue": "ICRA", "url": "https://ieeexplore.ieee.org/abstract/document/9561861", "xpl": "/explainers/learned-motion-costs/"}, "occlws": {"title": "Solving Occlusion in Terrain Mapping with Neural Networks", "year": 2021, "venue": "Robot Learning Workshop", "url": "https://www.research-collection.ethz.ch/entities/publication/4dded43e-a0f1-4dec-8c82-2cb440b3c60c", "xpl": "/explainers/occluded-elevation/"}, "circus": {"title": "Circus ANYmal: A quadruped learning dexterous manipulation with its limbs", "year": 2021, "venue": "ICRA", "url": "https://arxiv.org/abs/2011.08811", "xpl": "/explainers/circus-anymal/"}, "foothold": {"title": "Perceptive locomotion in rough terrain: online foothold optimization", "year": 2020, "venue": "RA-L", "url": "https://ieeexplore.ieee.org/abstract/document/9134750", "xpl": "/explainers/foothold-optimization/"}, "store": {"title": "A mobile dual-arm manipulation robot system for stocking and disposing of items in a convenience store by using universal vacuum grippers for grasping items", "year": 2020, "venue": "Advanced Robotics", "url": "papers.html#store", "xpl": ""}, "uavugv": {"title": "UAV/UGV autonomous cooperation: UAV assists UGV to climb a cliff by attaching a tether", "year": 2019, "venue": "ICRA", "url": "https://arxiv.org/abs/1903.04898", "xpl": "/explainers/uav-ugv-tether/"}, "lunar": {"title": "Finding the North on a Lunar Microrover: a Lunar Surface Environment Simulator for the Development of Vision-Based Navigation Pipelines", "year": 2018, "venue": "IAC", "url": "papers.html#lunar", "xpl": ""}, "search": {"title": "Multi-agent Time-based Decision-making for the Search and Action Problem", "year": 2018, "venue": "ICRA", "url": "https://arxiv.org/abs/1802.10147", "xpl": "/explainers/search-and-action/"}, "rough": {"title": "Robust rough-terrain locomotion with a quadrupedal robot", "year": 2018, "venue": "ICRA", "url": "https://ieeexplore.ieee.org/abstract/document/8460731", "xpl": "/explainers/rough-terrain-locomotion-2018/"}, "armarker": {"title": "Self-localization with active attachment of AR markers by an autonomous UAV (能動的マーカ貼付により自己位置推定を行う自律飛行ロボット)", "year": 2015, "venue": "JSAI", "url": "https://youtu.be/x26QVM_Ey7U", "xpl": "/explainers/ar-marker-uav/"}}, "regions": [{"id": "mountain", "name": "Mountain", "spots": ["perc-hike", "perc-terrain", "thesis-hike", "thesis-seealpsee", "perc-slippery", "perc-steps"]}, {"id": "coast", "name": "Coast", "spots": ["early-cliff", "early-lunar", "early-search", "early-armarker", "early-store"]}, {"id": "town", "name": "Town", "spots": ["perc-confined", "elev-nav", "elev-map", "field-city"]}, {"id": "under", "name": "Underground", "spots": ["subt-urban", "subt-tunnel", "subt-cave"]}, {"id": "volcano", "name": "Volcano", "spots": ["field-planetary", "field-etna"]}, {"id": "campus", "name": "Campus", "spots": ["thesis-hongg", "safe-attack", "safe-risk", "safe-prefs", "llm-ctf"]}, {"id": "park", "name": "Park", "spots": ["manip-wbc", "manip-circus", "motion-parkour", "manip-catch", "motion-priors"]}, {"id": "home", "name": "Home", "spots": ["manip-door", "safe-quiet", "gr2-home"]}], "spots": {"early-cliff": {"name": "Drone + rover teamwork", "note": "UTokyo · ICRA 2019", "text": "A drone carries a tether up the cliff and wraps it around a pole at the top. The tracked rover tied to the other end then winches itself up a slope it could never climb alone.", "see": "The drone circles the pole to wrap the tether, lands, and the tracked rover winches itself up the rock step.", "media": "scrub/uavugv.mp4", "papers": ["uavugv"], "project": "early"}, "early-armarker": {"name": "A drone that marks its own map", "note": "UTokyo · 2015", "text": "My first project: a small drone that sticks its own AR markers onto the ceiling as it goes, then uses them to work out where it is in places nobody prepared for it.", "see": "The AR.Drone rising to press a new marker onto the boathouse ceiling; the chain of markers grows behind it.", "media": "scrub/armarker.mp4", "papers": ["armarker"], "project": "early"}, "early-search": {"name": "Search and action with a drone team", "note": "ETH ASL · ICRA 2018", "text": "For the MBZIRC challenge, a team of drones must find objects and bring them to a drop box before time runs out. Each drone decides on its own when to keep searching and when to cash in, treating the remaining time as a budget. (Simulation study.)", "see": "Three drones over a probability map: tall warm bars are where a target is likely; the bars sink where a drone has looked. One drone ferries a disc to the box as the clock runs down.", "media": "scrub/search.mp4", "papers": ["search"], "project": "early"}, "early-lunar": {"name": "A lunar microrover", "note": "ispace · 2017–2018", "text": "At ispace I worked on a small lunar exploration rover: ToF camera processing, elevation mapping, and a simulator of the lunar surface for developing vision-based navigation.", "see": "The SORATO-class microrover on a grey test pit in the dunes, sweeping its cameras; the sun and the rocks’ shadows give it a compass heading.", "media": "", "papers": ["lunar"], "project": "early"}, "early-store": {"name": "A convenience-store robot", "note": "Hitachi R&D · WRS 2018, 3rd prize", "text": "At Hitachi: a mobile robot with two arms and vacuum grippers that restocks shelves and removes items in a convenience store.", "see": "The two-armed robot binning an expired sandwich and handing an onigiri from one arm to the other before placing it on the shelf.", "media": "", "papers": ["store"], "project": "early"}, "perc-hike": {"name": "A full hike, start to summit", "note": "Science Robotics 2022", "text": "The perceptive locomotion controller took ANYmal on a complete hiking trail up Mount Etzel near Zurich: 2.2 km with 120 m of climbing. It reached the summit in 31 minutes, faster than the 35 minutes the signpost gives for people.", "see": "ANYmal and a hiker on the switchback trail, from the signpost at the bottom to the flag on the summit.", "media": "clips/v_hike.mp4", "papers": ["perceptive"], "project": "perceptive"}, "perc-terrain": {"name": "Snow, streams, stairs and rubble", "note": "Science Robotics 2022", "text": "The same policy walks over terrain that fools cameras: deep snow, tall vegetation, wet roots, loose rubble and stairs. It learned in simulation to trust vision when it is reliable and its legs when it isn’t, then went straight onto the real robot.", "see": "ANYmal wading through deep snow while its height map (blue) wrongly floats above the surface: the policy stops trusting vision there, then trusts it again on the stone stairs.", "media": "scrub/perceptive.mp4", "papers": ["perceptive", "thesis"], "project": "perceptive"}, "perc-steps": {"name": "Stepping stones and obstacles", "note": "RA-L 2020 · ICRA 2018", "text": "Before learning took over, I worked on model-based perceptive locomotion: online elevation mapping plus foothold optimization let the (black) ANYmal pick safe footholds over steps, gaps and loose bricks, all computed on board.", "see": "ANYmal B at the trailhead timber yard: up a pallet ramp and over loose bricks. The green discs are the footholds it picks next.", "media": "scrub/foothold.mp4", "papers": ["foothold", "rough"], "project": "perceptive"}, "perc-slippery": {"name": "Seeing slippery and soft ground", "note": "RA-L 2024", "text": "Not every hazard shows up as geometry. The robot learns to predict friction and stiffness from camera images, trained on what its feet actually felt, so it knows a surface is slippery or soft before stepping onto it.", "see": "ANYmal D at the lakeshore: one foot slips on the wet board, its disc turns pale (low friction), and the prediction then paints the rest of the board pale before the other feet arrive.", "media": "scrub/terrain.mp4", "papers": ["terrain"], "project": "perceptive"}, "perc-confined": {"name": "Squeezing through collapsed spaces", "note": "ICRA 2024 · Best Paper, Service Robotics", "text": "With a 3D voxel view instead of a 2.5D height map, the robot can crouch under overhangs and squeeze through gaps in collapsed buildings. A high-level policy plans full-body motion for a robust low-level walker.", "see": "ANYmal crouching under a tilted concrete slab, wrapped in the voxels it perceives, then standing up again on the far side.", "media": "scrub/confined.mp4", "papers": ["confined"], "project": "perceptive"}, "elev-map": {"name": "elevation_mapping_cupy", "note": "Open source · IROS 2022 · IROS 2023", "text": "My open-source GPU elevation mapping turns depth and LiDAR points into a robot-centric height map in milliseconds, with layers for traversability, smoothing, inpainting and plane segmentation. MEM later extended it to colors and semantics.", "see": "ANYmal walking down the town stairway while its height map grows around it; the colours cycle through the raw, traversability, inpainting and plane-segmentation layers.", "media": "img/projects/elevation_repo.jpg", "papers": ["gpu", "mem"], "project": "elevation"}, "elev-nav": {"name": "Filling gaps and planning paths", "note": "RA-L 2022 · ICRA 2021", "text": "Maps have holes behind rocks and slopes, so a self-supervised network learns to fill them in. On top of the map, a planner uses motion costs learned from how the robot actually moves to pick paths in real time.", "see": "Holes behind the rocks fill in (pink), a fan of candidate paths is scored by learned cost, and the robot walks the winner.", "media": "fig/occl.jpg", "papers": ["occl", "occlws", "nav"], "project": "elevation"}, "subt-cave": {"name": "Underground: DARPA SubT Final", "note": "1st place · Team CERBERUS · 2021", "text": "Team CERBERUS sent legged and flying robots into an unknown underground course of tunnels, caves and a subway station. With no GPS and barely any communication, they explored, mapped and searched on their own, and won the $2,000,000 first prize.", "see": "In the cave: the Explorer ANYmal climbs a rubble mound in its own headlight, its LiDAR painting the walls, while a Carrier ANYmal drops a communication relay.", "media": "scrub/cerbsr.mp4", "papers": ["cerbsr"], "project": "subt"}, "subt-urban": {"name": "Underground: the subway station", "note": "DARPA SubT Final 2021 · 1st place", "text": "The Final course combined a tunnel, a cave and an urban subway station. Four ANYmals, helped by a rover and guided by one operator outside, explored for an hour, found 23 of the hidden objects and won. Carrier robots laid communication relays as they went, so the others could keep talking to the base.", "see": "On the subway platform the Carrier ANYmal lowers its hind end and drops a relay, then walks on along the platform.", "media": "scrub/cerbwin.mp4", "papers": ["cerbwin"], "project": "subt"}, "field-etna": {"name": "Gas monitoring on Mount Etna", "note": "IEEE RAM 2026", "text": "ANYmal carried a mass spectrometer across Etna’s loose volcanic slopes and measured volcanic gases autonomously, following planned missions between sampling points on terrain where wheeled robots get stuck.", "see": "The robot with its caged mass spectrometer on the crater rim, passing a test gas bottle; its path turns into dots coloured by the gas it measured.", "media": "scrub/etna.mp4", "papers": ["etna"], "project": "field"}, "field-planetary": {"name": "A robot team on planetary analog terrain", "note": "Science Robotics 2023", "text": "Three legged robots with different science instruments explored Moon- and Mars-like terrain as a team, climbing loose slopes that current planetary rovers avoid.", "see": "Scout, Hybrid and Scientist at the lander: the Scientist presses its microscope onto a boulder while the others scan and climb.", "media": "scrub/planetary.mp4", "papers": ["planetary"], "project": "field"}, "field-city": {"name": "Wheeled-legged robots in the city", "note": "Science Robotics 2024", "text": "An ANYmal with wheels on its feet navigates town on its own: rolling fast along streets, stepping up curbs and stairs, and moving around people.", "see": "The wheeled ANYmal rolling down the street, weaving around a pedestrian and stepping up the curb one wheel at a time.", "media": "scrub/wheeled.mp4", "papers": ["wheeled"], "project": "field"}, "safe-attack": {"name": "Attacking a policy to make it safer", "note": "RSS 2024", "text": "A learned attacker searches for small, realistic errors, a slightly wrong sense of tilt or speed command, that make a walking controller fall. Those failures show exactly where the policy is fragile, and training against them makes it sturdier.", "see": "In the classroom: the board sketches attacker → fake 3° tilt → fall. In front, the red ghost shows the tilt the attacker makes the robot believe; the old policy falls, the retrained one keeps its feet.", "media": "scrub/adv.mp4", "papers": ["adv"], "project": "robust"}, "safe-risk": {"name": "Knowing when to be careful", "note": "ICRA 2024 · CoRL 2024 workshop", "text": "Instead of predicting a single expected outcome, the robot learns the spread of possible outcomes and how uncertain it is. A risk setting then chooses between cautious and bold behavior near hazards.", "see": "The board shows the spread of possible outcomes and the risk dial. In front, the same robot approaches a timber step: cautious, it backs off; bold, it climbs.", "media": "fig/risk.jpg", "papers": ["risk", "riskaverse"], "project": "robust"}, "safe-prefs": {"name": "Learning from human preferences", "note": "IEEE RAM 2026", "text": "Instead of hand-writing rewards, a person picks which of two robot behaviors they prefer. DAPPER asks about pairs that are easy to tell apart, so far fewer questions are needed.", "see": "Two gaits side by side and a student at a laptop ticking the better one; the chosen gait moves toward the target crawl.", "media": "fig/dapper.jpg", "papers": ["dapper"], "project": "robust"}, "safe-quiet": {"name": "Quiet steps at home", "note": "ICRA 2025", "text": "For a home robot, being safe also means being pleasant to live with. The small aibo robot dog learns to soften its footsteps so it walks quietly indoors.", "see": "aibo tiptoeing across the living room. The soft rings are its quiet footsteps; the red ghost rings show how loud the old walk was.", "media": "scrub/quiet.mp4", "papers": ["quiet"], "project": "robust"}, "motion-parkour": {"name": "Humanoid parkour", "note": "RA-L 2026 · Unitree G1", "text": "A diffusion model generates human-like, terrain-aware motions in real time, and a learned tracker follows them. The Unitree G1 humanoid climbs onto boxes, vaults hurdles and takes stairs using only onboard perception.", "see": "The humanoid planting its hands and a knee on the pallet stack, mantling up, then jumping down onto the mat.", "media": "clips/h_box_climbing_01.mp4", "papers": ["humanoid"], "project": "motion"}, "motion-priors": {"name": "Animal-like motion on rough ground", "note": "CoRL 2025", "text": "ANYmal first learns natural gaits by imitating recorded animal motion on flat ground. A higher-level policy then adapts that style to obstacles and rough terrain.", "see": "ANYmal walking the garden with a dog-like gait, guided by the translucent reference dog, to the blue goal pin.", "media": "scrub/priors.mp4", "papers": ["priors"], "project": "motion"}, "manip-door": {"name": "Opening doors", "note": "CoRL 2024", "text": "One learned controller lets ANYmal with an arm open a door and walk through, working out by feel whether it must push or pull.", "see": "At the house door: the hook presses the lever, a tug does nothing, so the robot pushes and holds the door open with its arm while it walks through.", "media": "scrub/doors.mp4", "papers": ["doors"], "project": "manipulation"}, "manip-wbc": {"name": "Keeping an arm steady", "note": "RA-L 2022", "text": "The walking policy is told in advance how the arm is about to push on the body, so the arm controller can hold its gripper steady even when the base is pushed.", "see": "Someone shoves ALMA in the workshop yard; the body sways but the gripper stays on the blue dot.", "media": "scrub/wbc.mp4", "papers": ["wbc"], "project": "manipulation"}, "manip-circus": {"name": "Circus ANYmal", "note": "ICRA 2021", "text": "Lying on its back, ANYmal turns a large ball with its legs on command. It was trained in simulation and needs no contact sensors.", "see": "ANYmal on its back in the circus tent, turning the pink yoga ball with its feet.", "media": "scrub/circus.mp4", "papers": ["circus"], "project": "manipulation"}, "manip-catch": {"name": "Catching with an event camera", "note": "ICRA 2023", "text": "An event camera reports changes with very low latency, so ANYmal sees a thrown ball early enough to catch it in a net.", "see": "A ball thrown on the sports field, the event camera’s red and blue trail, and ANYmal lunging to catch it in the net on its back.", "media": "scrub/catch.mp4", "papers": ["catch"], "project": "manipulation"}, "gr2-home": {"name": "Gemini Robotics 2, at home", "note": "Google DeepMind · 2025–now", "text": "At Google DeepMind I work on Gemini Robotics: vision-language-action models that understand a task, reason about it and act. Gemini Robotics 2 controls whole humanoids from feet to fingertips, and the same model also runs two-armed robots.", "see": "In the kitchen, an Apollo humanoid puts a mug from the floor into the basket and a two-arm station folds a towel, both driven by the same model.", "media": "", "papers": [], "project": "gr2"}, "llm-ctf": {"name": "LLM capture-the-flag", "note": "SaTML 2024 · NeurIPS 2024", "text": "At IEEE SaTML 2024, teams hid a secret in a language model’s system prompt and then attacked each other’s defenses. Our team, RSLLM, placed 2nd; the dataset and lessons were published at NeurIPS 2024.", "see": "In the classroom: chat messages bounce off three filter gates around the vault; one persistent attacker leaks the secret letter by letter.", "media": "scrub/llmctf.mp4", "papers": ["llmctf"], "project": "llm"}, "thesis-hike": {"project": "perceptive", "name": "Zermatt: 10 km down on its own", "note": "PhD thesis · ETH Zurich 2025", "media": "fig/thesis.jpg", "papers": ["thesis"], "text": "The final chapter of my PhD thesis: ANYmal descended 10.1 km from Gornergrat to Furi above Zermatt, 1,220 m down, largely on its own. A vision-language model (GPT-4V) labels what it sees (gravel path, grass, water) with a risk, a steppable flag and a preferred flag about every 10 seconds; a segmentation network paints those values into the elevation map six times a second, and learned navigation and walking policies follow the map. A sign detector makes it stop and ask when it sees a sign. People stepped in only twice, both times at construction sites.", "see": "By the Riffelsee, with the Matterhorn behind. Around the robot is its elevation map with the language model’s labels painted in: the preferred gravel path is a blue corridor, while grass, water and rocks are red and drawn raised, the way the navigation policy sees them. At the road-work sign it stops and asks the model; the closed path turns red, the grass turns blue, and it detours until the END sign."}, "thesis-seealpsee": {"project": "perceptive", "name": "Seealpsee: a lakeside hike past cows", "note": "PhD thesis · Seealpsee, Appenzell", "media": "fig/thesis_seealpsee.jpg", "papers": ["thesis"], "text": "A 2.38 km loop around Seealpsee in the Appenzell Alps, on gravel paths shared with hikers and grazing cows. The same system of GPS route, vision-language common sense and learned navigation and walking policies kept the robot on the path and a respectful distance from the animals.", "see": "ANYmal on the lakeshore path; cows stand on the gravel ahead, and the robot swings wide around them before rejoining the path."}, "thesis-hongg": {"project": "perceptive", "name": "ETH Hönggerberg: common sense on campus", "note": "PhD thesis · ETH Zurich campus", "media": "fig/thesis_hongg.jpg", "papers": ["thesis"], "text": "On a 1.2 km course around the ETH Hönggerberg campus, ROAM was compared with a geometry-only planner and a goal-image navigator. Only ROAM handled all three challenges on its own: it stayed on the path where the global route cut through bushes, labelled a mannequin lying on the path as \"human\" and walked around it, and read the road-work signs. With a \"WARNING: Exploding Cans\" sign it placed its feet between the cans.", "see": "The robot comes up the campus path, the model labels the mannequin as a human (risk 1.0, red and raised on the map), and it walks around on the grass; beyond it, the cans behind their warning sign."}, "subt-tunnel": {"project": "subt", "name": "Underground: the mine tunnel", "note": "Field Robotics 2022 · Tunnel & Urban circuits", "media": "fig/cerbfr.jpg", "papers": ["cerbfr"], "text": "Before the Final, CERBERUS competed in the Tunnel circuit, in a real mine, and the Urban circuit, in an unfinished power plant. The black ANYmal B robots and drones explored, mapped and searched long mine drifts with rails and timber supports, with almost no communication back to the operator.", "see": "A mine drift with timber sets and rails: the black ANYmal B explores in its headlight while a drone flies ahead, and an artifact (a fire extinguisher) is boxed as a detection."}}}</script>
@@ -526,11 +559,17 @@ const MODEL_JSON = false;
   sun.castShadow = true; sun.shadow.mapSize.setScalar(innerWidth < 760 ? 2048 : 4096); sun.shadow.bias = -.0003; sun.shadow.normalBias = .04;
   const SH = { half: 70 };
   Object.assign(sun.shadow.camera, { left: -SH.half, right: SH.half, top: SH.half, bottom: -SH.half, near: 10, far: 900 }); sun.shadow.camera.updateProjectionMatrix();
+  // the shadow box follows the view. Two things keep shadows from crawling while the camera moves: its size only switches between a
+  // few fixed steps (resizing every frame changes the texel size, so every shadow edge swims), and its centre is snapped to whole
+  // shadow-map texels in the light's own frame (snapping in world x/z does not line up with an oblique sun)
+  const SH_STEPS = [8, 12, 18, 27, 40, 60, 90, 135, 200, 300];
+  const LDIR = SUN.clone().normalize(), LR = V().crossVectors(V(0, 1, 0), LDIR).normalize(), LU = V().crossVectors(LDIR, LR).normalize();
   const aimSun = (target, half) => {
-    if (half !== SH.half) { SH.half = half; Object.assign(sun.shadow.camera, { left: -half, right: half, top: half, bottom: -half }); sun.shadow.camera.updateProjectionMatrix(); }
-    const tx = sun.shadow.mapSize.x, snap = 2 * half / tx;   // snap to texels so shadows do not shimmer while the camera glides
-    const x = Math.round(target.x / snap) * snap, z = Math.round(target.z / snap) * snap;
-    sun.target.position.set(x, target.y, z); sun.position.copy(SUN).multiplyScalar(420).add(sun.target.position);
+    let q = SH_STEPS.find(h => h >= half) || SH_STEPS[SH_STEPS.length - 1];
+    if (SH.half >= half && SH.half <= q * 1.5 && SH.half !== 70) q = SH.half;   // hysteresis: keep the current size while it still fits
+    if (q !== SH.half) { SH.half = q; Object.assign(sun.shadow.camera, { left: -q, right: q, top: q, bottom: -q }); sun.shadow.camera.updateProjectionMatrix(); }
+    const snap = 2 * q / sun.shadow.mapSize.x, a = Math.round(target.dot(LR) / snap) * snap, b = Math.round(target.dot(LU) / snap) * snap, c = target.dot(LDIR);
+    sun.target.position.copy(LR).multiplyScalar(a).addScaledVector(LU, b).addScaledVector(LDIR, c); sun.position.copy(LDIR).multiplyScalar(420).add(sun.target.position);
   };
   const U = { uTime: { value: 0 }, uDark: { value: 0 } };
 
@@ -3402,14 +3441,23 @@ const MODEL_JSON = false;
   // across the ground, so a turn is a steady pan with no whip and no roll
   const yawPitch = d => [Math.atan2(d.x, d.z), Math.atan2(d.y, Math.hypot(d.x, d.z))];
   const angDiff = (a, b) => { let x = (b - a) % TAU; if (x > Math.PI) x -= TAU; if (x < -Math.PI) x += TAU; return x; };
-  function aimBlend(pos, la, lb, w) {
+  // which way a turn goes is remembered per flight: when the two targets sit on opposite sides of the camera, the shorter way round
+  // flips with every small move, and the view would snap from one side to the other (the mid-flight jitter)
+  const turnMem = new Map();
+  const unwrapTurn = (key, d) => { if (key === undefined) return d; const r = turnMem.get(key); if (r !== undefined) { while (d - r > Math.PI) d -= TAU; while (r - d > Math.PI) d += TAU; }
+    if (turnMem.size > 200) turnMem.clear(); turnMem.set(key, d); return d; };
+  function aimBlend(pos, la, lb, w, key) {
     if (w <= 0) return la.clone(); if (w >= 1) return lb.clone();
-    const da = la.clone().sub(pos), db = lb.clone().sub(pos), [ya, pa] = yawPitch(da), [yb, pb] = yawPitch(db), y = ya + angDiff(ya, yb) * w, p = lerp(pa, pb, w);
+    const da = la.clone().sub(pos), db = lb.clone().sub(pos), [ya, pa] = yawPitch(da), [yb, pb] = yawPitch(db), y = ya + unwrapTurn(key, angDiff(ya, yb)) * w, p = lerp(pa, pb, w);
     return pos.clone().add(V(Math.sin(y) * Math.cos(p), Math.sin(p), Math.cos(y) * Math.cos(p)).multiplyScalar(Math.max(1, lerp(da.length(), db.length(), w))));
   }
-  const groundAround = (x, z, r) => Math.max(H(x, z), H(x + r, z), H(x - r, z), H(x, z + r), H(x, z - r), WATER);
+  // smooth maxima: like Math.max, but without the corner where the larger value changes hands (a corner is a sudden change of
+  // climb rate, felt as a bump in the flight)
+  const smax = (a, b, k = 2) => (a + b + Math.sqrt((a - b) * (a - b) + k * k)) / 2;
+  const lse = (vals, k) => { let m = -1e9; for (const v of vals) m = Math.max(m, v); let t = 0; for (const v of vals) t += Math.exp((v - m) / k); return m + k * Math.log(t); };
+  const groundAround = (x, z, r) => lse([H(x, z), H(x + r, z), H(x - r, z), H(x, z + r), H(x, z - r), WATER], 1.2);
   // how high the eye must be so the line to a target clears the terrain in between (ridges, the volcano, the massif)
-  function clearEye(pos, look, m = 3) { let need = -1e9; for (let k = 1; k <= 10; k++) { const t = k / 13, x = lerp(pos.x, look.x, t), z = lerp(pos.z, look.z, t); need = Math.max(need, (Math.max(H(x, z), WATER) + m - look.y * t) / (1 - t)); } return need; }
+  function clearEye(pos, look, m = 3) { const v = []; for (let k = 1; k <= 10; k++) { const t = k / 13, x = lerp(pos.x, look.x, t), z = lerp(pos.z, look.z, t); v.push((Math.max(H(x, z), WATER) + m - look.y * t) / (1 - t)); } return lse(v, 1.5); }
   const peakOf = (A, B) => clamp(12 + Math.hypot(B.look.x - A.look.x, B.look.z - A.look.z) * .3, 20, 90);
   // outdoors: pull up and back out of the scene, glide at an oblique angle (the horizon and the whole region in view, the
   // destination ahead), then settle into the next scene. Every term is eased to zero slope at both ends.
@@ -3435,34 +3483,55 @@ const MODEL_JSON = false;
     // a strip of horizon are in view, looking down at about 25–40 degrees towards the destination
     const lin = A.pos.clone().lerp(B.pos, e), gref = Math.max(A.look.y, B.look.y);
     if (ra) lin.add(out(A, sstep(0, .2, f) * (1 - e))); if (rb) lin.add(out(B, sstep(1, .8, f) * e));
-    const G = A.look.clone().lerp(B.look, e).addScaledVector(dir, -peak * 1.15); G.y = Math.max(lin.y, gref + peak);
+    const G = A.look.clone().lerp(B.look, e).addScaledVector(dir, -peak * 1.15); G.y = smax(lin.y, gref + peak, 6);
     // it climbs first and moves sideways a little later, so it rises clear of a neighbouring building before drifting over it
     const hs = smooth(s); return { pos: V(lerp(lin.x, G.x, hs), lerp(lin.y, G.y, s), lerp(lin.z, G.z, hs)), s, peak };
   }
-  function skyPath(A, B, f) {
+  // how far a flight must rise above its glide line to clear buildings, trees, the ground and ridges. Each rule alone has corners
+  // (a roof edge, a terrain cell), and a corner in height is a sudden change of climb rate, felt as a bump. So the lift is worked
+  // out once per flight at 161 points, widened (a running maximum, so it never dips below what is needed) and then blurred, and
+  // read back with a smooth curve
+  const LN = 160, liftCache = new Map();
+  function rawLift(A, B, f, w) {
+    const { pos, s, peak } = skyBase(A, B, f), L = A.pos.distanceTo(B.pos) + 2 * peak, dk = 3 / L, v = [];
+    for (let k = -8; k <= 8; k++) { const fk = clamp(f + k * dk, 0, 1), p = k ? skyBase(A, B, fk).pos : pos; v.push(obstH(p.x, p.z) + 3.5 - Math.abs(fk - f) * L * .45); }
+    let floor = smax(lse(v, 1.5), groundAround(pos.x, pos.z, 6) + 2.5 + 16 * s);
+    floor = smax(floor, lerp(clearEye(pos, A.look), clearEye(pos, B.look), sstep(.25, .75, w)));
+    return Math.max(0, floor - pos.y);
+  }
+  function liftAt(A, B, f, w0, w1, ck, tag) {
+    let m = liftCache.get(ck); if (!m) { if (liftCache.size > 120) liftCache.clear(); liftCache.set(ck, m = {}); }
+    let t = m[tag];
+    if (!t) { const raw = [], R = 4, wide = [];
+      for (let n = 0; n <= LN; n++) { const x = n / LN; raw.push(rawLift(A, B, x, sstep(w0, w1, x))); }
+      for (let n = 0; n <= LN; n++) { let mx = 0; for (let j = -R; j <= R; j++) mx = Math.max(mx, raw[clamp(n + j, 0, LN)]); wide.push(mx); }
+      t = m[tag] = wide.map((_, n) => { let a = 0, ws = 0; for (let j = -R; j <= R; j++) { const g = Math.exp(-j * j / 8); a += wide[clamp(n + j, 0, LN)] * g; ws += g; } return a / ws; }); }
+    const x = clamp(f, 0, 1) * LN, n = Math.min(LN - 1, Math.floor(x)), r = x - n, p0 = t[Math.max(0, n - 1)], p1 = t[n], p2 = t[n + 1], p3 = t[Math.min(LN, n + 2)];
+    return Math.max(0, p1 + .5 * r * (p2 - p0 + r * (2 * p0 - 5 * p1 + 4 * p2 - p3 + r * (3 * (p1 - p2) + p3 - p0))));
+  }
+  function skyPath(A, B, f, key = A, tag = 0) {
     const { pos, s, peak } = skyBase(A, B, f);
-    // buildings, tents and trees: the height the camera needs here is the highest obstacle within ±24 m along the path, less a
-    // gentle slope with distance, so it climbs over a roof well before it and settles after it (never a jump)
-    if (s > 0) { const L = A.pos.distanceTo(B.pos) + 2 * peak, dk = 3 / L; let need = -1e9;
-      for (let k = -8; k <= 8; k++) { const fk = clamp(f + k * dk, 0, 1), q = k ? skyBase(A, B, fk).pos : pos; need = Math.max(need, obstH(q.x, q.z) + 3.5 - Math.abs(fk - f) * L * .45); }
-      if (need > pos.y) pos.y = lerp(pos.y, need, sstep(0, .2, s)); }
     // turn slowly: the bigger the turn, the longer it takes
     const [ya] = yawPitch(A.look.clone().sub(A.pos)), [yb] = yawPitch(B.look.clone().sub(A.pos)), turn = Math.abs(angDiff(ya, yb)) / Math.PI;
-    const w = sstep(.04, .5 + .3 * turn, f);
-    pos.y = Math.max(pos.y, groundAround(pos.x, pos.z, 6) + 2.5 + 16 * s);
-    if (s > 0) { const need = clearEye(pos, w < .5 ? A.look : B.look); if (need > pos.y) pos.y = lerp(pos.y, need, clamp(s * 2.5, 0, 1)); }
-    const look = aimBlend(pos, A.look, B.look, w);
+    const w1 = .5 + .3 * turn, w = sstep(.04, w1, f);
+    // the lift fades in as the camera leaves a stop and out as it settles, so nothing pops at either end
+    const q = sstep(0, .3, s); if (q > 0) pos.y += q * liftAt(A, B, f, .04, w1, key, tag);
+    // where to look: near the ground, turn by angle (a steady pan); high up, blend the two target points instead, which stays
+    // smooth when the camera passes over one of them (where an angle would spin)
+    const byAngle = aimBlend(pos, A.look, B.look, w, key), byPoint = A.look.clone().lerp(B.look, w);
+    const da = byAngle.sub(pos), db = byPoint.sub(pos), m = sstep(.25, .65, s), dl = Math.max(1, lerp(da.length(), db.length(), m));
+    const look = pos.clone().add(da.normalize().lerp(db.normalize(), m).normalize().multiplyScalar(dl));
     return { pos, look, half: Math.max(lerp(A.half, B.half, f), Math.min(140, peak * 1.6) * s) };
   }
   function between(i, f) {
     const A = ST[i], B = ST[i + 1], L = legOf(i);
-    if (!L.tube && !L.inside) return skyPath(A, B, f);
+    if (!L.tube && !L.inside) return skyPath(A, B, f, 'L' + i);
     const c = legCurve(i), e = smooth(f), pos = c.getPointAt(e).add(A.pos.clone().sub(c.a0).multiplyScalar(1 - sstep(0, .3, f))).add(B.pos.clone().sub(c.b0).multiplyScalar(sstep(.7, 1, f)));
     let look;
     if (L.tube) {   // in the tunnels: look a few metres down the tunnel, easing in from the last scene and out into the next
       const la = 5 / c.len, ahead = e + la <= 1 ? c.getPointAt(e + la) : c.getPointAt(1).addScaledVector(c.getTangentAt(1), (e + la - 1) * c.len);
-      look = aimBlend(pos, aimBlend(pos, A.look, ahead, sstep(0, .28, f)), B.look, sstep(.7, 1, f));
-    } else look = aimBlend(pos, A.look, B.look, sstep(.04, .52, f));
+      look = aimBlend(pos, aimBlend(pos, A.look, ahead, sstep(0, .28, f), 'Ta' + i), B.look, sstep(.7, 1, f), 'Tb' + i);
+    } else look = aimBlend(pos, A.look, B.look, sstep(.04, .52, f), 'I' + i);
     return { pos, look, half: lerp(A.half, B.half, f) };
   }
   // how long a leg takes when scrolled (seconds): long outdoor legs get more time, rooms less
@@ -3472,10 +3541,12 @@ const MODEL_JSON = false;
   const isUnder = S => S.under ?? (H(S.pos.x, S.pos.z) - S.pos.y > 1.5);
   const surfaceOf = S => { const gy = Math.max(H(S.look.x, S.look.z), WATER); return { pos: V(S.look.x + 20, gy + 45, S.look.z + 30), look: V(S.look.x, gy, S.look.z), half: 80 }; };
   const drift = (S, k) => ({ pos: S.pos.clone().lerp(S.look, .3 * k), look: S.look.clone(), half: S.half });
+  const surfMemo = new WeakMap(), surfA = A => { let m = surfMemo.get(A); if (!m) surfMemo.set(A, m = {}); return m.a || (m.a = surfaceOf(A)); },
+    surfB = (A, B) => { let m = surfMemo.get(A); if (!m) surfMemo.set(A, m = {}); return m.b || (m.b = surfaceOf(B)); };
   function hop(A, B, f) {
     const au = isUnder(A), bu = isUnder(B); if (!au && !bu) return skyPath(A, B, f);
-    if (f < .5) return au ? drift(A, sstep(0, .5, f)) : skyPath(A, surfaceOf(B), f * 2);
-    return bu ? drift(B, sstep(1, .5, f)) : skyPath(surfaceOf(A), B, f * 2 - 1);
+    if (f < .5) return au ? drift(A, sstep(0, .5, f)) : skyPath(A, surfB(A, B), f * 2, A, 1);
+    return bu ? drift(B, sstep(1, .5, f)) : skyPath(surfA(A), B, f * 2 - 1, A, 2);
   }
   const hopVeil = (A, B, f) => isUnder(A) || isUnder(B) ? sstep(.26, .47, f) * (1 - sstep(.53, .74, f)) : 0;
 
@@ -3495,7 +3566,7 @@ const MODEL_JSON = false;
   let u = 0, jump = null, shownK = -1, hoverK = -1, free = false, cur = { pos: ST[0].pos.clone(), look: ST[0].look.clone(), half: 240 };
   const controls = new THREE.OrbitControls(camera, canvas); controls.enabled = false; controls.enableDamping = true; controls.dampingFactor = .08; controls.maxDistance = 520; controls.minDistance = 2;
   // direct jumps (rail, labels) fly along the chain of legs when close, otherwise hop over the island
-  const go = k => { k = clamp(k, 0, K - 1); jump = { from: { pos: camera.position.clone(), look: (free ? controls.target : cur.look).clone(), half: cur.half, roof: !!(ST.find(S => S.pos.distanceTo(camera.position) < 1) || {}).roof }, k, t0: performance.now(), dur: reduce ? 1 : 3400 + Math.min(3800, camera.position.distanceTo(ST[k].pos) * 9) }; };
+  const go = k => { k = clamp(k, 0, K - 1); const p0 = (free ? camera.position : cur.pos).clone(); jump = { from: { pos: p0, look: (free ? controls.target : cur.look).clone(), half: cur.half, roof: !!(ST.find(S => S.pos.distanceTo(p0) < 1) || {}).roof }, k, t0: performance.now(), dur: reduce ? 1 : 3400 + Math.min(3800, camera.position.distanceTo(ST[k].pos) * 9) }; };
   document.addEventListener('flyto', e => { const k = e.detail; if (free) go(k); else { jump = null; scrollTo({ top: scrollFor(k), behavior: Math.abs(k - u) <= 2 ? 'smooth' : 'auto' }); if (Math.abs(k - u) > 2) go(k); } });
   document.addEventListener('click', e => { const b = e.target.closest('[data-k]'); if (b) { e.preventDefault(); if (free) go(+b.dataset.k); else { jump = null; scrollTo({ top: scrollFor(+b.dataset.k), behavior: Math.abs(+b.dataset.k - u) <= 2 ? 'smooth' : 'auto' }); if (Math.abs(+b.dataset.k - u) > 2) { go(+b.dataset.k); } } } });
   overBtn.addEventListener('click', () => go(0));
@@ -3506,13 +3577,78 @@ const MODEL_JSON = false;
     else { controls.enabled = false; const k = Math.max(0, shownK); scrollTo({ top: scrollFor(k), behavior: 'auto' }); u = k; go(k); }
   }
   freeBtn.addEventListener('click', () => setFree(!free));
+
+  /* ---------- getting around: stepper bar, place list, keys, scroll that settles on a place ---------- */
+  const stPrev = $('stPrev'), stNext = $('stNext'), stName = $('stName'), stNum = $('stNum'), stTitle = $('stTitle'), stList = $('stList');
+  const nameOf = k => k <= 0 ? 'Overview' : k >= K - 1 ? 'End of the trail' : SPOTS[k - 1].data.name || SPOTS[k - 1].id;
+  stList.innerHTML = `<button type="button" role="menuitem" data-k="0"><small>·</small>Overview</button>` + D.regions.map((r, i) => `<h3>${String(i + 1).padStart(2, '0')} · ${esc(r.name)}</h3>`
+    + SPOTS.filter(s => r.spots.includes(s.id)).map(s => `<button type="button" role="menuitem" data-k="${s.k}"><small>${s.k}</small>${esc(s.data.name || s.id)}</button>`).join('')).join('');
+  const listOpen = on => { stList.hidden = !on; stName.setAttribute('aria-expanded', String(on));
+    if (on) { const b = stList.querySelector(`[data-k="${Math.max(0, shownK)}"]`); stList.querySelectorAll('.on').forEach(x => x.classList.remove('on')); if (b) { b.classList.add('on'); b.scrollIntoView({ block: 'center' }); } } };
+  stName.addEventListener('click', e => { e.stopPropagation(); listOpen(stList.hidden); });
+  document.addEventListener('click', e => { if (!stList.hidden && !e.target.closest('#stList, #stName')) listOpen(false); });
+  stList.addEventListener('click', e => { if (e.target.closest('[data-k]')) setTimeout(() => listOpen(false), 0); });
+  // the place the tour is at or heading for, and stepping from it
+  const navBase = () => jump ? jump.k : free ? Math.max(0, shownK) : Math.round(clamp(scrollY / maxScroll(), 0, 1) * (K - 1));
+  // quick repeated presses count from the place already asked for, not from where the smooth scroll has got to
+  let pend = null;
+  const step = d => { const b = pend && performance.now() - pend.t < 1600 ? pend.k : navBase(), k = clamp(b + d, 0, K - 1); if (k === b) return; pend = { k, t: performance.now() }; document.dispatchEvent(new CustomEvent('flyto', { detail: k })); };
+  stPrev.addEventListener('click', e => { e.stopPropagation(); step(-1); }); stNext.addEventListener('click', e => { e.stopPropagation(); step(1); });
+  addEventListener('keydown', e => {
+    if (e.altKey || e.ctrlKey || e.metaKey || e.target.closest('input, textarea, select, [contenteditable]')) return;
+    const k = e.key; if ((k === ' ' || k === 'Enter') && e.target.closest('button, a')) return;
+    if (k === 'Escape') { if (!stList.hidden) listOpen(false); else if (free) setFree(false); return; }
+    if (!stList.hidden && /Arrow|Page|Home|End| /.test(k)) return;   // keys move through the open list instead
+    const d = k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey) ? 1 : k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey) ? -1 : 0;
+    if (free && (k === 'ArrowUp' || k === 'ArrowDown')) return;
+    if (d) { e.preventDefault(); step(d); } else if (k === 'Home' || k === 'End') { e.preventDefault(); document.dispatchEvent(new CustomEvent('flyto', { detail: k === 'Home' ? 0 : K - 1 })); }
+  });
+  // a scroll that stops part-way through a flight carries on to the next place in the same direction, so the camera never hangs
+  // in mid-air (a few wheel clicks are enough to move one place on)
+  { let lastY = scrollY, dir = 1, tmr = 0;
+    addEventListener('scroll', () => { if (scrollY !== lastY) dir = scrollY > lastY ? 1 : -1; lastY = scrollY; clearTimeout(tmr);
+      tmr = setTimeout(() => { if (free || jump) return; const p = clamp(scrollY / maxScroll(), 0, 1) * (K - 1), i = Math.floor(p), f = p - i;
+        if (f > .2 && f < .8) scrollTo({ top: scrollFor(dir > 0 ? i + 1 : i), behavior: 'smooth' }); }, 420); }, { passive: true }); }
+  let stKey = '';
+  function stepper(k, destK, flying) {
+    const sk = (flying ? 'f' : 's') + destK + ':' + k; if (sk === stKey) return; stKey = sk;
+    const at = flying ? destK : k, isSpot = at >= 1 && at <= SPOTS.length;
+    stNum.textContent = isSpot ? `${String(at).padStart(2, '0')}/${SPOTS.length}` : ''; stNum.hidden = !isSpot;
+    stTitle.textContent = (flying ? '→ ' : '') + nameOf(at); stTitle.classList.toggle('fly', flying);
+    stPrev.disabled = navBase() <= 0; stNext.disabled = navBase() >= K - 1;
+    stNext.title = navBase() <= 0 ? 'Start the tour (→)' : 'Next place (→)';
+  }
+
+  /* ---------- looking around a place with the mouse ---------- */
+  // drag turns the camera around what it is looking at; the view stays put while you read, and eases back as the next flight starts
+  const LK = { x: 0, y: 0, tx: 0, ty: 0, drag: null };
+  const lookLimit = () => { const S = ST[clamp(Math.round(u), 0, K - 1)]; return S && (S.roof || isUnder(S)) ? .75 : Math.PI; };
+  canvas.addEventListener('pointerdown', ev => { if (free || ev.pointerType !== 'mouse' || ev.button !== 0 || jump || Math.abs(u - Math.round(u)) > 1e-3) return;
+    LK.drag = [ev.clientX, ev.clientY]; canvas.setPointerCapture(ev.pointerId); canvas.classList.add('looking'); });
+  canvas.addEventListener('pointermove', ev => { if (!LK.drag) return; const dx = ev.clientX - LK.drag[0], dy = ev.clientY - LK.drag[1]; LK.drag = [ev.clientX, ev.clientY];
+    const lim = lookLimit(); LK.tx = clamp(LK.tx - dx * .0042, -lim, lim); LK.ty = clamp(LK.ty + dy * .0035, -.55, .85); });
+  const endLook = () => { LK.drag = null; canvas.classList.remove('looking'); };
+  canvas.addEventListener('pointerup', endLook); canvas.addEventListener('pointercancel', endLook);
+  canvas.addEventListener('dblclick', () => { if (!free) LK.tx = LK.ty = 0; });
+  function lookAround(c) {
+    const settled = !jump && !free && window.__fly.lockU === null && Math.abs(u - Math.round(u)) < 1e-3;
+    if (!settled) { LK.tx = LK.ty = 0; if (LK.drag) endLook(); }
+    canvas.classList.toggle('look', settled);
+    const kr = 1 - Math.exp(-DT * (LK.drag ? 14 : settled ? 7 : 1.8)); LK.x += (LK.tx - LK.x) * kr; LK.y += (LK.ty - LK.y) * kr;
+    if (Math.abs(LK.x) + Math.abs(LK.y) < 1e-4) return c.pos;
+    const d = c.pos.clone().sub(c.look), r = d.length(); if (r < .05) return c.pos;
+    const yw = Math.atan2(d.x, d.z) + LK.x, p0 = Math.asin(clamp(d.y / r, -1, 1)), p = clamp(p0 + LK.y, Math.min(p0, .04), Math.max(p0, 1.4));
+    const q = c.look.clone().add(V(Math.sin(yw) * Math.cos(p), Math.sin(p), Math.cos(yw) * Math.cos(p)).multiplyScalar(r));
+    if (c.pos.y > H(c.pos.x, c.pos.z) + .5) q.y = Math.max(q.y, Math.max(H(q.x, q.z), WATER) + 1.2, c.pos.y > obstH(c.pos.x, c.pos.z) ? obstH(q.x, q.z) + 1.5 : -1e9);
+    return q;
+  }
   const mapBtn = $('mapBtn'); if (mapBtn) mapBtn.addEventListener('click', () => { MAPVIEW.visible = !MAPVIEW.visible; terrainMat.color.setScalar(MAPVIEW.visible ? .28 : 1); mapBtn.setAttribute('aria-pressed', String(MAPVIEW.visible)); });
 
   const paperList = ids => (ids || []).filter(id => PAPERS[id]).map(id => { const p = PAPERS[id]; return `<li><a href="${esc(p.url)}">${esc(p.title)}</a><small class="mono">${p.year} · ${esc(p.venue)}${p.xpl ? ` · <a class="x" href="${esc(p.xpl)}">▶ explainer</a>` : ''}</small></li>`; }).join('');
   const media = m => !m ? '' : /\.mp4$/.test(m) ? `<div class="media"><video src="${esc(m)}" muted loop playsinline autoplay preload="auto"></video></div>` : `<div class="media img"><img src="${esc(m)}" alt=""></div>`;
   const CARDS = {
     over: () => `<div class="k mono">Experimental · Expedition</div><h2>An expedition through my research</h2><p>${SPOTS.length} places on one island, from a konbini on the harbour to a volcano, a mine under the mountain, a classroom and a kitchen. Each scene is rebuilt from the paper it belongs to.</p>
-      <p class="see"><span class="mono">How to explore</span>Scroll for the guided tour, click any place to jump there, or explore freely with the button at the top.</p>`,
+      <p class="see"><span class="mono">How to explore</span>Scroll, or press → and ←, to travel place by place. Drag with the mouse to look around wherever you stop. The bar at the bottom lists every place, and you can click any place on the island to fly there.</p>`,
     end: () => `<div class="k mono">End of the trail</div><h2>That’s the whole expedition.</h2><p>Every project has its papers, videos and links on the regular site.</p><p class="btns"><button type="button" class="btn" data-k="0">↺ Back to overview</button> <a class="btn" href="projects.html">Projects page</a> <a class="btn" href="index.html">Homepage</a></p>`,
     spot: sp => { const r = sp.region, ss = SPOTS.filter(s => r.spots.includes(s.id)), idx = ss.indexOf(sp), P = PROJ[sp.data.project] || {};
       return `${media(sp.data.media)}<div class="k mono"><b>${String(r.i + 1).padStart(2, '0')} · ${esc(r.name)}</b> · ${idx + 1} of ${ss.length}</div>
@@ -3537,11 +3673,11 @@ const MODEL_JSON = false;
   const hits = SPOTS.map(sp => { const m = new THREE.Mesh(new THREE.SphereGeometry(4, 8, 6), new THREE.MeshBasicMaterial({ visible: false })); m.position.copy(sp.center); m.userData.k = sp.k; scene.add(m); return m; });
   const pick = ev => { mouse.set(ev.clientX / innerWidth * 2 - 1, -(ev.clientY / innerHeight) * 2 + 1); ray.setFromCamera(mouse, camera); const h = ray.intersectObjects(hits, false)[0]; return h ? h.object.userData.k : -1; };
   canvas.addEventListener('pointerdown', ev => down = [ev.clientX, ev.clientY]);
-  canvas.addEventListener('pointermove', ev => { if (ev.buttons) return; hoverK = pick(ev); canvas.style.cursor = hoverK > 0 ? 'pointer' : free ? 'grab' : 'default'; });
+  canvas.addEventListener('pointermove', ev => { if (ev.buttons) return; hoverK = pick(ev); canvas.style.cursor = hoverK > 0 ? 'pointer' : free ? 'grab' : ''; });
   canvas.addEventListener('click', ev => { if (down && Math.hypot(ev.clientX - down[0], ev.clientY - down[1]) > 6) return; const k = pick(ev); if (k > 0 && k !== shownK) go(k); });
   [...placeEls, ...spotEls].forEach(el => { el.addEventListener('pointerenter', () => hoverK = +el.dataset.k); el.addEventListener('pointerleave', () => hoverK = -1); });
 
-  function resize() { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.fov = narrow() ? 56 : 42; camera.updateProjectionMatrix(); ST = stops(); for (const k in legCache) delete legCache[k]; }
+  function resize() { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.fov = narrow() ? 56 : 42; camera.updateProjectionMatrix(); ST = stops(); for (const k in legCache) delete legCache[k]; liftCache.clear(); }
   addEventListener('resize', resize); resize();
 
 
@@ -3667,7 +3803,8 @@ const MODEL_JSON = false;
   TAGS.forEach(tg => { const el = document.createElement('span'); el.className = 'tagl mono hid'; el.textContent = tg.text; el.style.setProperty('--c', tg.color); labels.appendChild(el); tg.el = el; });
   let offX = 0, offY = 0, flyA = 0, uV = 0;
   const clock = new THREE.Clock(), tmp = V(); let lastDeep = false, lastUg = -1, lastT = 0, DT = 1 / 60;
-  window.__fly = { H, LOC, SPOTS, obstH, ST: () => ST, go: k => go(k), camera, lockU: null, info: () => ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles, geos: renderer.info.memory.geometries, tex: renderer.info.memory.textures, heapMB: performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1e6) : -1 }),
+  window.__fly = { H, LOC, liftMs: () => { const t = performance.now(); liftCache.clear(); for (let i = 0; i < K - 1; i++) between(i, .5); return (performance.now() - t) / (K - 1); }, SPOTS, obstH, ST: () => ST, go: k => go(k), camera, lockU: null,
+    pathAt: x => { const i = clamp(Math.floor(x), 0, K - 2), f = x - i, c = f < 1e-6 ? ST[i] : between(i, f); return [c.pos.x, c.pos.y, c.pos.z, c.look.x, c.look.y, c.look.z]; }, info: () => ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles, geos: renderer.info.memory.geometries, tex: renderer.info.memory.textures, heapMB: performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1e6) : -1 }),
     view(px, py, pz, lx, ly, lz, half = 60) { jump = null; free = true; controls.enabled = false; camera.position.set(px, py, pz); cur = { pos: V(px, py, pz), look: V(lx, ly, lz), half }; } };
   cur = { pos: V(-60, 520, 560), look: V(0, 0, 0), half: 240 }; go(0);
   function frame() {
@@ -3694,7 +3831,7 @@ const MODEL_JSON = false;
         uV += clamp(vd - uV, -acc * 1.6 * DT, acc * 1.6 * DT); u += uV * DT; if ((g - u) * dd <= 0) { u = g; uV = 0; } }
       const i = clamp(Math.floor(u), 0, K - 2), f = u - i; cur = f < 1e-3 ? { ...ST[i] } : between(i, f);
       if (f >= 1e-3) fl = { fn: x => between(i, x), f, sign: g >= u ? 1 : -1, len: ST[i].pos.distanceTo(ST[i + 1].pos) + 30 }; }
-    camera.position.copy(cur.pos); camera.lookAt(cur.look); aimSun(cur.look, cur.half || 60);
+    camera.position.copy(lookAround(cur)); camera.lookAt(cur.look); aimSun(cur.look, cur.half || 60);
     // a near plane that grows with height above the ground: close-ups keep 10 cm, high glides get the depth precision that keeps
     // trails and roads from flickering into the terrain
     { const a0 = camera.position.y - Math.max(meshH(camera.position.x, camera.position.z), WATER), nr = clamp(a0 * .02, .1, 1.2); if (Math.abs(nr - camera.near) > .01) camera.near = nr; }
@@ -3742,7 +3879,7 @@ const MODEL_JSON = false;
     { const on = !!dsp && flyA > .3 && pinned(destEl, dsp.center.clone().add(V(0, dsp.under ? 3 : 6, 0))); if (dsp && destEl.dataset.k !== String(destK)) { destEl.dataset.k = destK; destEl.innerHTML = `<small>Next · ${String(dsp.region.i + 1).padStart(2, '0')} ${esc(dsp.region.name)}<i></i></small><b>${esc(dsp.data.name || dsp.id)}</b>`; destEl.dm = -1; }
       if (dsp && on) { const dm = Math.round(camera.position.distanceTo(dsp.center) / 10) * 10; if (dm !== destEl.dm) { destEl.dm = dm; destEl.querySelector('i').textContent = dm >= 20 ? ` · ${dm} m` : ''; } }
       destEl.classList.toggle('hid', !on); }
-    drawMini(t, k, destK, flyA > .3); guide(t, ug, fl); natureTick(t, camera.position, ug);
+    stepper(k, destK, inFlight); drawMini(t, k, destK, flyA > .3); guide(t, ug, fl); natureTick(t, camera.position, ug);
     spotEls.forEach((el, j) => { const sp = SPOTS[j], vis = place2d(el, sp.center.clone().add(V(0, 2.5, 0))); el.classList.toggle('hid', !(vis && free && camera.position.distanceTo(sp.center) < 60 && sp !== active)); el.classList.toggle('hot', hoverK === sp.k); });
     // scene tags: only where they are fully readable, i.e. inside the screen and not under the card (left on desktop, bottom on phones)
     const freeL = cardOn && !narrow() ? cr.right + 12 : 8, freeB = cardOn && narrow() ? cr.top - 8 : Hh - 8;
@@ -3752,6 +3889,11 @@ const MODEL_JSON = false;
     renderer.render(scene, camera);
     requestAnimationFrame(frame);
   }
+  // work out every flight's lift (and the tunnel and room curves) while the page is idle, nearest legs first, so a flight never stalls a frame computing it
+  { const idle = window.requestIdleCallback || (fn => setTimeout(() => fn({ timeRemaining: () => 8 }), 60)); let n = 0;
+    const order = [...Array(K - 1).keys()].sort((a, b) => Math.abs(a - u) - Math.abs(b - u));
+    const warm = d => { while (n < order.length && d.timeRemaining() > 4) { between(order[n++], .5); } if (n < order.length) idle(warm); };
+    idle(warm); }
   requestAnimationFrame(frame);
 
 })().catch(e => { console.error('expedition failed:', e); const n = document.getElementById('flyerr'); if (n) { n.hidden = false; n.querySelector('small').textContent = String(e && e.message || e).slice(0, 200); } });
