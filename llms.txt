@@ -55,5 +55,6 @@
 ## Links
 
 - Website: https://takahiromiki.com/
+- Daily arXiv digest (robotics and AI papers, English and Japanese): https://takahiromiki.com/arxiv-digest/
 - Google Scholar: https://scholar.google.com/citations?user=nOl83tYAAAAJ&hl=en
 - GitHub: https://github.com/mktk1117
