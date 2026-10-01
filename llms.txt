@@ -1,0 +1,59 @@
+# Takahiro Miki
+
+> Takahiro Miki, research scientist at Google DeepMind working on Gemini Robotics. PhD from ETH Zurich on perceptive legged locomotion; DARPA SubT winner with Team CERBERUS.
+
+## Projects
+
+- Gemini Robotics 2 (2025–now): One model for any robot body, from tabletop arms to full humanoids.
+- Learning perceptive locomotion (2019–2025): Reinforcement learning that lets legged robots see the ground and still trust their legs.
+- Safe and robust learned control (2023–2026): Finding where learned controllers fail, and teaching them to be careful.
+- Natural motion: animal priors and humanoids (2025–2026): Learning from recorded motion so robots move naturally, then adapting it to rough terrain.
+- Elevation mapping and navigation (2021–2023): elevation_mapping_cupy: fast, GPU-based terrain maps for legged robots, and planning on top of them.
+- Legged manipulation (2021–2024): Legs that also handle things: opening doors, balancing an arm, catching a ball.
+- DARPA Subterranean Challenge (2019–2021): First place and the $2,000,000 prize in the 2021 Final.
+- Science in the field (2023–2026): Taking legged robots to volcanoes, planetary analog sites and city streets.
+- Early work: drones, rovers and teams (2015–2020): Where it started: aerial robots, lunar rovers and multi-robot decision-making.
+- Side quest: LLM security (2024): Hiding a secret inside a language model, and trying to steal everyone else’s.
+
+## Papers
+
+- Large-Scale Autonomous Gas Monitoring for Volcanic Environments: A Legged Robot on Mount Etna. Julia Richter, Turcan Tuna, Manthan Patel, Takahiro Miki, Devon Higgins, James Fox, Cesar Cadena, Andres Diaz, Marco Hutter. IEEE RAM 2026. https://arxiv.org/abs/2601.07362
+- Learning Whole-Body Humanoid Locomotion via Motion Generation and Motion Tracking. Zewei Zhang, Kehan Wen, Michael Xu, Junzhe He, Chenhao Li, Takahiro Miki, Clemens Schwarke, Chong Zhang, Xue Bin Peng, Marco Hutter. RA-L 2026. https://arxiv.org/abs/2604.17335
+- DAPPER: Discriminability-Aware Policy-to-Policy Preference-Based Reinforcement Learning for Query-Efficient Robot Skill Acquisition. Yuki Kadokawa, Jonas Frey, Takahiro Miki, Takamitsu Matsubara, Marco Hutter. IEEE RAM 2026. https://arxiv.org/abs/2505.06357
+- Motion Priors Reimagined: Adapting Flat-Terrain Skills for Complex Quadruped Mobility. Zewei Zhang, Chenhao Li, Takahiro Miki, Marco Hutter. CoRL 2025. https://arxiv.org/abs/2505.16084
+- Learning Quiet Walking for a Small Home Robot. Ryo Watanabe, Takahiro Miki, Fan Shi, Yuki Kadokawa, Filip Bjelonic, Kento Kawaharazuka, Andrei Cramariuc, Marco Hutter. ICRA 2025. https://arxiv.org/abs/2502.10983
+- Bridging Perception and Control for Legged Locomotion and Navigation in the Wild. Takahiro Miki. PhD thesis, ETH Zurich 2025. https://www.research-collection.ethz.ch/items/41c52fa7-2aa8-4746-9ee2-b1321ab0ab7a
+- Learning to Open and Traverse Doors with a Legged Manipulator. Mike Zhang, Yuntao Ma, Takahiro Miki, Marco Hutter. CoRL 2024. https://arxiv.org/abs/2409.04882
+- Identifying Terrain Physical Parameters from Vision: Towards Physical-Parameter-Aware Locomotion and Navigation. Jiaqi Chen, Jonas Frey, Ruyi Zhou, Takahiro Miki, Georg Martius, Marco Hutter. RA-L 2024. https://arxiv.org/abs/2408.16567
+- Dataset and Lessons Learned from the 2024 SaTML LLM Capture-the-Flag Competition. Edoardo Debenedetti, Javier Rando, Daniel Paleka, … Takahiro Miki, Chenhao Li, … Florian Tramèr, Sahar Abdelnabi, Lea Schönherr. NeurIPS 2024. https://arxiv.org/abs/2406.07954
+- Rethinking Robustness Assessment: Adversarial Attacks on Learning-based Quadrupedal Locomotion Controllers. Fan Shi, Chong Zhang, Takahiro Miki, Joonho Lee, Marco Hutter, Stelian Coros. RSS 2024. https://arxiv.org/abs/2405.12424
+- Learning robust autonomous navigation and locomotion for wheeled-legged robots. Joonho Lee, Marko Bjelonic, Alexander Reske, Lorenz Wellhausen, Takahiro Miki, Marco Hutter. Science Robotics 2024. https://www.science.org/doi/full/10.1126/scirobotics.adi9641
+- Learning to walk in confined spaces using 3D representation. Takahiro Miki, Joonho Lee, Lorenz Wellhausen, Marco Hutter. ICRA 2024. https://arxiv.org/abs/2403.00187
+- Learning risk-aware quadrupedal locomotion using distributional reinforcement learning. Lukas Schneider, Jonas Frey, Takahiro Miki, Marco Hutter. ICRA 2024. https://arxiv.org/abs/2309.14246
+- Learning a Risk-Averse Locomotion Policy from Uncertainty Estimates. Thomas B. Brunner, Takahiro Miki, Josip Josifovski, Joonho Lee, Alois Knoll, Marco Hutter. CoRL Workshop 2024. https://mediatum.ub.tum.de/doc/1764922/document.pdf
+- MEM: Multi-Modal Elevation Mapping for Robotics and Learning. Gian Erni, Jonas Frey, Takahiro Miki, Matias Mattamala, Marco Hutter. IROS 2023. https://arxiv.org/abs/2309.16818
+- Scientific exploration of challenging planetary analog environments with a team of legged robots. Philip Arm, Gabriel Waibel, Jan Preisig, Turcan Tuna, Ruyi Zhou, Valentin Bickel, Gabriela Ligeza, Takahiro Miki, Florian Kehl, Hendrik Kolvenbach, Marco Hutter. Science Robotics 2023. https://arxiv.org/abs/2307.10079
+- Event-based Agile Object Catching with a Quadrupedal Robot. Benedek Forrai, Takahiro Miki, Daniel Gehrig, Marco Hutter, Davide Scaramuzza. ICRA 2023. https://arxiv.org/abs/2303.17479
+- Elevation mapping for locomotion and navigation using GPU. Takahiro Miki, Lorenz Wellhausen, Ruben Grandia, Fabian Jenelten, Timon Homberger, Marco Hutter. IROS 2022. https://arxiv.org/abs/2204.12876
+- Team CERBERUS wins the DARPA Subterranean Challenge: Technical overview and lessons learned. Marco Tranzatto et al.. Field Robotics 2022. https://arxiv.org/abs/2207.04914
+- CERBERUS in the DARPA Subterranean Challenge. Marco Tranzatto, Takahiro Miki, Mihir Dharmadhikari, Lukas Bernreiter, Mihir Kulkarni, Frank Mascarich, Olov Andersson, Shehryar Khattak, Marco Hutter, Roland Siegwart, Kostas Alexis. Science Robotics 2022. https://www.science.org/doi/full/10.1126/scirobotics.abp9742
+- Learning robust perceptive locomotion for quadrupedal robots in the wild. Takahiro Miki, Joonho Lee, Jemin Hwangbo, Lorenz Wellhausen, Vladlen Koltun, Marco Hutter. Science Robotics 2022. https://www.science.org/doi/10.1126/scirobotics.abk2822
+- Combining learning-based locomotion policy with model-based manipulation for legged mobile manipulators. Yuntao Ma, Farbod Farshidian, Takahiro Miki, Joonho Lee, Marco Hutter. RA-L 2022. https://arxiv.org/abs/2201.03871
+- CERBERUS: Autonomous legged and aerial robotic exploration in the tunnel and urban circuits of the DARPA Subterranean Challenge. Marco Tranzatto et al.. Field Robotics 2022. https://arxiv.org/abs/2201.07067
+- Reconstructing occluded elevation information in terrain maps with self-supervised learning. Maximilian Stölzle, Takahiro Miki, Levin Gerdes, Martin Azkarate, Marco Hutter. RA-L 2022. https://arxiv.org/abs/2109.07150
+- Real-time optimal navigation planning using learned motion costs. Bowen Yang, Lorenz Wellhausen, Takahiro Miki, Ming Liu, Marco Hutter. ICRA 2021. https://ieeexplore.ieee.org/abstract/document/9561861
+- Solving Occlusion in Terrain Mapping with Neural Networks. Maximilian Stölzle, Takahiro Miki, Levin Gerdes, Martin Azkarate, Marco Hutter. Robot Learning Workshop 2021. https://www.research-collection.ethz.ch/entities/publication/4dded43e-a0f1-4dec-8c82-2cb440b3c60c
+- Circus ANYmal: A quadruped learning dexterous manipulation with its limbs. Fan Shi, Timon Homberger, Joonho Lee, Takahiro Miki, Moju Zhao, Farbod Farshidian, Kei Okada, Masayuki Inaba, Marco Hutter. ICRA 2021. https://arxiv.org/abs/2011.08811
+- Perceptive locomotion in rough terrain: online foothold optimization. Fabian Jenelten, Takahiro Miki, Aravind E. Vijayan, Marko Bjelonic, Marco Hutter. RA-L 2020. https://ieeexplore.ieee.org/abstract/document/9134750
+- A mobile dual-arm manipulation robot system for stocking and disposing of items in a convenience store by using universal vacuum grippers for grasping items. Ryo Sakai, Shinichi Katsumata, Takahiro Miki, Taiki Yano, Wenpeng Wei, Yuya Okadome, Nobuhiro Chihara, Nobutaka Kimura, Yusuke Nakai, Isamu Matsuo, Toshihiko Shimizu. Advanced Robotics 2020.
+- UAV/UGV autonomous cooperation: UAV assists UGV to climb a cliff by attaching a tether. Takahiro Miki, Petr Khrapchenkov, Koichi Hori. ICRA 2019. https://arxiv.org/abs/1903.04898
+- Finding the North on a Lunar Microrover: a Lunar Surface Environment Simulator for the Development of Vision-Based Navigation Pipelines. Fabian Dubois, Louis-Jerome Burtz, Oriol Gasquez, Takahiro Miki. IAC 2018.
+- Multi-agent Time-based Decision-making for the Search and Action Problem. Takahiro Miki, Marija Popović, Abel Gawel, Gregory Hitz, Roland Siegwart. ICRA 2018. https://arxiv.org/abs/1802.10147
+- Robust rough-terrain locomotion with a quadrupedal robot. Peter Fankhauser, Marko Bjelonic, C. Dario Bellicoso, Takahiro Miki, Marco Hutter. ICRA 2018. https://ieeexplore.ieee.org/abstract/document/8460731
+- Self-localization with active attachment of AR markers by an autonomous UAV (能動的マーカ貼付により自己位置推定を行う自律飛行ロボット). Takahiro Miki, Koichi Hori. JSAI 2015. https://youtu.be/x26QVM_Ey7U
+
+## Links
+
+- Website: https://mktk1117.github.io/
+- Google Scholar: https://scholar.google.com/citations?user=nOl83tYAAAAJ&hl=en
+- GitHub: https://github.com/mktk1117

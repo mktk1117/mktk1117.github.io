@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Papers · Takahiro Miki</title>
+<meta name="description" content="Takahiro Miki, research scientist at Google DeepMind working on Gemini Robotics. PhD from ETH Zurich on perceptive legged locomotion; DARPA SubT winner with Team CERBERUS.">
+<link rel="canonical" href="https://mktk1117.github.io/papers.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Papers · Takahiro Miki">
+<meta property="og:description" content="Takahiro Miki, research scientist at Google DeepMind working on Gemini Robotics. PhD from ETH Zurich on perceptive legged locomotion; DARPA SubT winner with Team CERBERUS.">
+<meta property="og:url" content="https://mktk1117.github.io/papers.html">
+<meta property="og:image" content="https://mktk1117.github.io/media/reel-v3.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Takahiro Miki", "alternateName": "三木崇弘", "jobTitle": "Research Scientist", "worksFor": {"@type": "Organization", "name": "Google DeepMind"}, "alumniOf": [{"@type": "CollegeOrUniversity", "name": "ETH Zurich"}, {"@type": "CollegeOrUniversity", "name": "The University of Tokyo"}], "url": "https://mktk1117.github.io/", "image": "https://mktk1117.github.io/img/portrait.jpg", "sameAs": ["https://scholar.google.com/citations?user=nOl83tYAAAAJ&hl=en", "https://github.com/mktk1117", "https://twitter.com/ki_ki_ki1", "https://www.youtube.com/@takahiromiki8642"]}</script>
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@500..900&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Public+Sans:wght@400;600&family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;600&family=Manrope:wght@400..800&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Unbounded:wght@400..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..900&family=Work+Sans:wght@400;600&family=Sora:wght@400..800&family=Inter:wght@400;600&family=Inter+Tight:wght@400..800&family=Geist:wght@400..900&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@400..700&family=Space+Mono:wght@400;700&family=DM+Serif+Display&family=DM+Sans:wght@400;600&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+  /* Single, deliberately dark "field footage" world — painted explicitly, no theme switching. */
+  :root{
+    color-scheme: dark;
+    --ground:#0d1014;
+    --ground-2:#151a20;
+    --paper:#f1efe9;
+    --ink:#eceef0;
+    --ink-2:#aab2ba;
+    --mute:#6f7a84;
+    --line:#26303a;
+    --tag:#8fd6e3;
+    --gold:#faba39;
+    --hmap:linear-gradient(90deg,#30123b,#4662d7,#36aaf9,#1ae4b6,#72fe5e,#c8ef34,#faba39,#f66b19,#ca2a04);
+    --display:"Archivo", "Arial Narrow", Arial, sans-serif;
+    --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --gutter:clamp(16px, 4vw, 48px);
+    --g-rgb:13,16,20;
+    --i-rgb:236,238,240;
+    --on-media:#f4f5f6;
+  }
+  html{background:var(--ground)}
+  body{background:var(--ground);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--tag);outline-offset:3px;border-radius:2px}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  video,canvas,img{display:block}
+
+  /* ---------- nav ---------- */
+  .nav{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:calc(14px + env(safe-area-inset-top,0px)) var(--gutter) 14px;
+    background:linear-gradient(180deg,rgba(var(--g-rgb),.8),rgba(var(--g-rgb),0));}
+  .nav .name{font:700 15px/1 var(--display);font-stretch:112%;letter-spacing:.01em;text-decoration:none}
+  .nav ul{display:flex;gap:clamp(12px,2.4vw,28px);list-style:none;margin:0;padding:0}
+  .nav ul a{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--ink-2)}
+  .nav ul a:hover{color:var(--ink)}
+  .menu-btn{display:none;appearance:none;background:none;border:1px solid rgba(var(--i-rgb),.3);color:var(--ink);border-radius:999px;padding:8px 12px;cursor:pointer}
+  @media (max-width:720px){
+    .menu-btn{display:inline-flex}
+    .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:8px var(--gutter) 16px;background:rgba(var(--g-rgb),.97);border-bottom:1px solid var(--line)}
+    .nav.open ul{display:flex}
+    .nav ul a{display:block;padding:12px 0;font-size:13px}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;height:min(94svh,980px);min-height:560px;overflow:hidden;isolation:isolate}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(180deg,rgba(var(--g-rgb),.1) 40%,rgba(var(--g-rgb),.55) 70%,var(--ground) 100%),
+               linear-gradient(90deg,rgba(var(--g-rgb),.55),rgba(var(--g-rgb),0) 60%)}
+  .hero-copy{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(40px,8vh,88px);max-width:980px}
+  .eyebrow{color:var(--tag);margin-bottom:18px}
+  .hero h1{margin:0;font:800 clamp(52px,11vw,168px)/.86 var(--display);font-stretch:118%;letter-spacing:-.02em}
+  .hero p.lede{margin:22px 0 0;max-width:34ch;font-size:clamp(19px,2vw,24px);line-height:1.35;text-wrap:balance}
+  .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border:1px solid rgba(var(--i-rgb),.28);border-radius:999px;
+    font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;background:rgba(var(--g-rgb),.35);backdrop-filter:blur(6px)}
+  .btn:hover{border-color:var(--ink);background:rgba(var(--i-rgb),.08)}
+  .btn.solid{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+  .telemetry{position:absolute;right:var(--gutter);bottom:clamp(40px,8vh,88px);text-align:right;color:var(--ink-2);line-height:1.9}
+  .telemetry b{color:var(--ink);font-weight:500}
+  .rec{display:inline-block;width:7px;height:7px;border-radius:50%;background:#f66b19;margin-right:8px;vertical-align:1px;animation:blink 1.6s steps(2) infinite}
+  @keyframes blink{50%{opacity:.15}}
+  @media (max-width:760px){.telemetry{display:none}}
+
+  /* ---------- papers: sticky chapters + scroll-scrubbed media ---------- */
+  .papers{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(24px,4vw,64px);padding-inline:var(--gutter);padding-block:110px 40px}
+  .papers-head{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px 40px;margin-bottom:40px}
+  .papers-head h2{margin:0;font:800 clamp(40px,6vw,88px)/.92 var(--display);font-stretch:114%}
+  .papers-head p{margin:14px 0 0;color:var(--ink-2);max-width:48ch}
+  .years{display:flex;flex-wrap:wrap;gap:6px;max-width:520px}
+  .years a{padding:7px 10px;border:1px solid var(--line);border-radius:4px;text-decoration:none;color:var(--ink-2);font-variant-numeric:tabular-nums}
+  .years a:hover{color:var(--ink);border-color:var(--ink-2)}
+
+  .list{grid-column:1;grid-row:2;display:flex;flex-direction:column}
+  .year-mark{margin:48px 0 0;padding-top:14px;border-top:1px solid var(--line);color:var(--mute);scroll-margin-top:90px}
+  .year-mark:first-child{margin-top:0}
+  .ch{min-height:72svh;display:flex;flex-direction:column;justify-content:center;padding-block:44px;opacity:.26;transition:opacity .35s}
+  .ch.on{opacity:1}
+  .ch .meta{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--tag)}
+  .ch .meta .lead{color:var(--ink)}
+  .ch h3{margin:12px 0 0;font:800 clamp(24px,2.7vw,38px)/1.06 var(--display);font-stretch:104%;text-wrap:balance}
+  .ch .award{margin-top:12px;color:var(--gold)}
+  .ch .award::before{content:"★ "}
+  .ch p.sum{margin:14px 0 0;color:var(--ink);max-width:46ch;font-size:18px}
+  .ch p.auth{margin:12px 0 0;color:var(--mute);font-size:14px;line-height:1.5;max-width:52ch}
+  .ch p.auth b{color:var(--ink-2);font-weight:600}
+  .ch .plinks{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px}
+  .ch .plinks a{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;text-underline-offset:5px;color:var(--ink)}
+  .ch .inline-media{display:none}
+
+  .screen{grid-column:2;grid-row:2;align-self:start;position:sticky;top:calc(10svh + 30px);height:min(74svh,640px);border-radius:6px;overflow:hidden;background:var(--ground-2)}
+  .screen .m{position:absolute;inset:0;opacity:0;transition:opacity .35s ease}
+  .screen .m.on{opacity:1}
+  .screen video{width:100%;height:100%;object-fit:cover}
+  .screen .fig{background:var(--paper);display:flex;align-items:center;justify-content:center;padding:6%}
+  .screen .fig img{max-width:100%;max-height:100%;object-fit:contain;transform-origin:50% 50%;will-change:transform}
+  .screen .type{background:radial-gradient(120% 90% at 20% 110%,#1d2530 0%,var(--ground-2) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:8%}
+  .screen .type .big{font:900 clamp(64px,10vw,150px)/.8 var(--display);font-stretch:125%;color:var(--ink);letter-spacing:-.02em}
+  .screen .type .ven{margin-top:14px;color:var(--tag)}
+  .screen .type .strip{height:6px;margin-top:22px;background:var(--hmap);transform-origin:left}
+  .hud{position:absolute;left:0;right:0;bottom:0;padding:26px 16px 12px;display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:end;
+    background:linear-gradient(0deg,rgba(0,0,0,.6),rgba(0,0,0,0));color:var(--on-media);pointer-events:none}
+  .hud .bar{grid-column:1/-1;height:3px;background:rgba(var(--i-rgb),.18);border-radius:2px;overflow:hidden}
+  .hud .fill{height:100%;background:var(--hmap);transform-origin:left;transform:scaleX(0)}
+  .hud span{font-variant-numeric:tabular-nums;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+
+  @media (max-width:860px){
+    .papers{display:block}
+    .screen{top:calc(56px + env(safe-area-inset-top,0px));height:38svh;z-index:2;margin-bottom:8px}
+    .ch{min-height:66svh;justify-content:flex-start;padding-block:28px}
+    .ch h3{font-size:clamp(22px,6vw,30px)}
+    .ch p.sum{font-size:17px}
+  }
+
+  /* ---------- news + footer ---------- */
+  .news{padding-inline:var(--gutter);padding-block:40px 80px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:32px;border-top:1px solid var(--line);margin-top:40px}
+  .news h2{margin:0;font:800 32px/1 var(--display);font-stretch:112%}
+  .news ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+  .news li{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .news time{color:var(--mute);font-variant-numeric:tabular-nums}
+  @media (max-width:760px){.news{grid-template-columns:1fr}.news li{grid-template-columns:1fr;gap:4px}}
+  footer{padding-inline:var(--gutter);padding-block:32px calc(40px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;color:var(--mute);border-top:1px solid var(--line)}
+  footer a{color:var(--ink-2)}
+
+  @media (prefers-reduced-motion:reduce){
+    .rec{animation:none}
+    .ch,.screen .m{transition:none}
+  }
+
+  /* ---------- selected papers: link out to the full list ---------- */
+  .more-row{grid-column:1/-1;grid-row:3;display:flex;justify-content:flex-start;padding-top:48px}
+  .nav ul a[aria-current="page"]{color:var(--ink)}
+
+  /* ---------- all papers: cards ---------- */
+  .pubs{padding-inline:var(--gutter);padding-block:120px 60px}
+  .pubs-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:24px 40px}
+  .pubs-head h1{margin:0;font:800 clamp(44px,7vw,104px)/.9 var(--display);font-stretch:114%}
+  .pubs-head p{margin:14px 0 0;color:var(--ink-2);max-width:52ch}
+  .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:36px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+  .chip{appearance:none;border:1px solid var(--line);background:none;color:var(--ink-2);border-radius:999px;padding:9px 14px;cursor:pointer;font-variant-numeric:tabular-nums}
+  .chip:hover{color:var(--ink);border-color:var(--ink-2)}
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+  .search{margin-left:auto;flex:1 1 220px;max-width:340px;background:var(--ground-2);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:10px 12px;font:400 15px/1.2 var(--body)}
+  .search::placeholder{color:var(--mute)}
+  .empty{color:var(--ink-2);padding:40px 0}
+  .yr{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;padding-top:36px}
+  .yr > h2{margin:0;font:800 34px/1 var(--display);font-stretch:112%;color:var(--ink-2);position:sticky;top:84px;align-self:start;font-variant-numeric:tabular-nums}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:30px 22px}
+  .card{display:flex;flex-direction:column}
+  .thumb{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:5px;overflow:hidden;background:var(--ground-2);cursor:pointer}
+  .thumb img,.thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .thumb video{opacity:0;transition:opacity .25s}
+  .thumb.playing video{opacity:1}
+  .thumb.fig{background:var(--paper);cursor:default}
+  .thumb.fig img{object-fit:contain;padding:6%}
+  .thumb.type{cursor:default;background:radial-gradient(120% 90% at 20% 110%,#1d2530 0%,var(--ground-2) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:18px}
+  .thumb.type .big{font:900 56px/.8 var(--display);font-stretch:125%;color:var(--ink)}
+  .thumb.type .strip{height:4px;margin-top:12px;background:var(--hmap)}
+  .thumb .badge{position:absolute;left:10px;bottom:9px;color:var(--on-media);text-shadow:0 1px 8px rgba(0,0,0,.85)}
+  .card .meta{margin-top:14px;display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--tag)}
+  .card .meta .lead{color:var(--ink)}
+  .card h3{margin:6px 0 0;font:600 18px/1.3 var(--body);text-wrap:balance}
+  .card h3 a{text-decoration:none}
+  .card h3 a:hover{text-decoration:underline;text-underline-offset:3px}
+  .card .award{margin-top:6px;color:var(--gold)}
+  .card .award::before{content:"★ "}
+  .card .auth{margin:8px 0 0;color:var(--mute);font-size:14px;line-height:1.45}
+  .card .auth b{color:var(--ink-2);font-weight:600}
+  .card .plinks{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px}
+  .card .plinks a{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;text-underline-offset:4px;color:var(--ink-2)}
+  .card .plinks a:hover{color:var(--ink)}
+  @media (max-width:760px){
+    .yr{grid-template-columns:1fr;gap:14px}
+    .yr > h2{position:static}
+    .search{margin-left:0;max-width:none}
+  }
+  .thumb.type .ven{margin-top:8px;color:var(--tag)}
+
+  /* ---------- shared sections ---------- */
+  .section{padding-inline:var(--gutter);padding-block:96px 0}
+  .section-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px 32px;margin-bottom:32px}
+  .section-head .eyebrow{margin-bottom:12px}
+  .section-head h2{margin:0;font:800 clamp(34px,4.6vw,64px)/.95 var(--display);font-stretch:112%;text-wrap:balance}
+  .page-head{padding-inline:var(--gutter);padding-block:132px 8px}
+  .page-head h1{margin:0;font:800 clamp(48px,8vw,120px)/.88 var(--display);font-stretch:116%}
+  .page-head p{margin:18px 0 0;color:var(--ink-2);max-width:56ch;font-size:19px}
+  .foot-links{display:flex;flex-wrap:wrap;gap:8px 18px}
+
+  /* ---------- home: at a glance ---------- */
+  .glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .glance > div{padding:26px 20px 24px 0}
+  .glance > div + div{padding-left:20px;border-left:1px solid var(--line)}
+  .glance b{display:block;font:800 clamp(34px,4vw,54px)/1 var(--display);font-stretch:112%;font-variant-numeric:tabular-nums}
+  .glance span{display:block;margin-top:10px;color:var(--ink-2)}
+  .glance small{display:block;margin-top:14px;color:var(--mute);font:400 12px/1.4 var(--mono)}
+  @media (max-width:640px){.glance > div + div{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+
+  /* ---------- home: now / feature ---------- */
+  .feature{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,56px);align-items:center}
+  .feature h3{margin:10px 0 0;font:800 clamp(30px,3.6vw,52px)/1 var(--display);font-stretch:110%}
+  .feature p{color:var(--ink-2);max-width:48ch}
+  .feature .tag{color:var(--tag)}
+  @media (max-width:860px){.feature{grid-template-columns:1fr}}
+  /* Gemini Robotics: official clip (credited) */
+  .feature .brand-wrap{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:6px;overflow:hidden;background:var(--ground-2)}
+  .feature .brand-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .credit{margin-top:8px;color:var(--mute);font-size:10.5px;letter-spacing:.06em}
+  .feature .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px 20px;margin:22px 0 24px;padding-top:16px;border-top:1px solid var(--line)}
+  .feature .facts dt{color:var(--mute);font-size:11px}
+  .feature .facts dd{margin:4px 0 0;color:var(--ink);font-size:15px;line-height:1.35}
+
+  /* ---------- project cards (home) ---------- */
+  .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:28px 22px}
+  .pcard{display:flex;flex-direction:column;text-decoration:none}
+  .pcard .media{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:5px;overflow:hidden;background:var(--ground-2)}
+  .pcard .media img,.pcard .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .pcard:hover .media img,.pcard:hover .media video{transform:scale(1.04)}
+  .pcard .when{margin-top:14px;color:var(--tag)}
+  .pcard h3{margin:6px 0 0;font:800 24px/1.1 var(--display);font-stretch:108%}
+  .pcard p{margin:8px 0 0;color:var(--ink-2)}
+
+  /* ---------- projects page ---------- */
+  .proj{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,56px);padding-inline:var(--gutter);padding-block:72px;border-top:1px solid var(--line);scroll-margin-top:60px}
+  .proj.flip .pm{order:2}
+  .proj .pm{display:flex;flex-direction:column;gap:14px}
+  .proj .pm .box{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:6px;overflow:hidden;background:var(--ground-2)}
+  .proj .pm .box video,.proj .pm .box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .proj .pm .box.paper{background:var(--paper)}
+  .proj .pm .box.paper img{object-fit:contain;padding:4%}
+  .proj .pm .still{aspect-ratio:16/10;max-width:100%;border-radius:6px;overflow:hidden;background:var(--paper)}
+  .proj .pm .still img{width:100%;height:100%;object-fit:contain}
+  .proj .when{color:var(--tag)}
+  .proj h2{margin:10px 0 0;font:800 clamp(32px,4vw,56px)/.98 var(--display);font-stretch:110%;text-wrap:balance}
+  .proj .tagline{margin:14px 0 0;font-size:20px;line-height:1.35;color:var(--ink)}
+  .proj .body p{color:var(--ink-2);max-width:52ch}
+  .proj dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:20px 0 0;padding-top:16px;border-top:1px solid var(--line)}
+  .proj dt{color:var(--mute)}
+  .proj dd{margin:0;font:500 13px/1.5 var(--mono);overflow-wrap:anywhere}
+  .proj .plinks{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .rel{grid-column:1/-1;margin-top:8px}
+  .rel h3{margin:0 0 14px;color:var(--mute)}
+  .rel-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:16px}
+  .rel-row a{display:flex;flex-direction:column;gap:8px;text-decoration:none}
+  .rel-row .t{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:4px;overflow:hidden;background:var(--ground-2)}
+  .rel-row .t img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .rel-row .t.fig{background:var(--paper)}
+  .rel-row .t.fig img{object-fit:contain;padding:5%}
+  .rel-row .t.type{display:flex;align-items:flex-end;padding:10px;font:900 30px/.8 var(--display);font-stretch:125%;background:radial-gradient(120% 90% at 20% 110%,#1d2530 0%,var(--ground-2) 60%)}
+  .rel-row span{font:600 14px/1.3 var(--body)}
+  .rel-row small{color:var(--tag);font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+  .proj-index{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+  @media (max-width:860px){.proj{grid-template-columns:1fr}.proj.flip .pm{order:0}}
+
+  /* ---------- CV ---------- */
+  .cv{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,5vw,72px);padding-inline:var(--gutter);padding-block:132px 40px}
+  .cv aside{position:sticky;top:96px;align-self:start}
+  .cv aside img{width:100%;max-width:300px;aspect-ratio:1;object-fit:cover;border-radius:6px}
+  .cv aside h1{margin:22px 0 0;font:800 clamp(36px,4vw,56px)/.92 var(--display);font-stretch:116%}
+  .cv aside .role{margin-top:12px;color:var(--tag)}
+  .cv aside .stats{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:4px 22px;margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+  .cv aside .stats b{font:800 26px/1 var(--display);font-stretch:110%;font-variant-numeric:tabular-nums}
+  .cv aside .stats span{color:var(--mute)}
+  .cv aside .asof{margin-top:8px;color:var(--mute);font:400 12px/1.4 var(--mono)}
+  .cv aside .foot-links{margin-top:20px}
+  .cv aside .foot-links a{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;text-underline-offset:5px}
+  .cv aside .email{margin-top:14px;color:var(--ink-2);font:400 14px/1.4 var(--mono);user-select:all}
+  .cv section + section{margin-top:56px}
+  .cv h2{margin:0 0 8px;font:800 30px/1 var(--display);font-stretch:112%}
+  .row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .row time{color:var(--mute);font:400 13px/1.6 var(--mono);font-variant-numeric:tabular-nums}
+  .row h3{margin:0;font:600 19px/1.3 var(--body)}
+  .row .org{color:var(--tag);font:500 12px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+  .row ul{margin:10px 0 0;padding-left:18px;color:var(--ink-2)}
+  .row ul li + li{margin-top:4px}
+  .row p{margin:6px 0 0;color:var(--ink-2)}
+  @media (max-width:860px){.cv{grid-template-columns:1fr}.cv aside{position:static}.row{grid-template-columns:1fr;gap:6px}}
+
+  /* ---------- gallery ---------- */
+  .masonry{columns:3 320px;column-gap:16px}
+  .masonry figure{margin:0 0 16px;break-inside:avoid}
+  .masonry button{display:block;width:100%;padding:0;border:0;background:var(--ground-2);border-radius:5px;overflow:hidden;cursor:zoom-in}
+  .masonry img{width:100%;height:auto;transition:transform .5s ease}
+  .masonry button:hover img{transform:scale(1.03)}
+  .masonry figcaption{margin-top:8px;color:var(--ink-2)}
+  dialog.lightbox{max-width:min(96vw,1600px);max-height:92vh;padding:0;border:0;background:transparent;color:var(--ink)}
+  dialog.lightbox::backdrop{background:rgba(5,7,9,.9)}
+  dialog.lightbox img{max-width:100%;max-height:84vh;border-radius:4px}
+  dialog.lightbox .bar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:10px}
+  dialog.lightbox button{appearance:none;background:none;border:1px solid rgba(var(--i-rgb),.3);color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer}
+  .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:26px 22px}
+  .vgrid h3{margin:12px 0 0;font:600 17px/1.3 var(--body)}
+  .vgrid a.yt{display:inline-block;margin-top:6px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-underline-offset:4px}
+  .pcard .media.paper{background:var(--paper)}
+  .pcard .media.paper img{object-fit:contain;padding:5%}
+  .plinks a.xpl{color:var(--gold)!important}
+  .xrow{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px 40px;padding:28px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(120deg,rgba(143,214,227,.08),rgba(250,186,57,.06))}
+  .xrow h2{margin:0;font:800 clamp(26px,3.2vw,44px)/1 var(--display);font-stretch:110%;text-wrap:balance}
+  .xrow p{margin:12px 0 0;color:var(--ink-2);max-width:56ch}
+  .rel-row em{font-style:normal;color:var(--gold);font-size:10px;letter-spacing:.08em}
+  .nav{transition:background .25s ease,border-color .25s ease}
+  .nav.scrolled{background:rgba(var(--g-rgb),.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .news ol li{font-family:var(--body);text-transform:none;letter-spacing:0;font-size:16px;line-height:1.45}
+  .news ol li time{font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding-top:3px}
+  .news ol:not(.all) li:nth-child(n+7){display:none}
+  .news .more{margin-top:18px}
+  .pcard .award{margin-top:10px;color:var(--gold)}
+  .pcard .award::before{content:"★ "}
+  .section-head p.intro{margin:14px 0 0;color:var(--ink-2);max-width:60ch;font-size:18px}
+
+  /* ---------- scroll choreography (js/reveal.js adds .rv-on only when motion is allowed) ---------- */
+  .scroll-progress{position:fixed;left:0;top:0;right:0;height:2px;z-index:40;background:var(--tag);transform-origin:left;transform:scaleX(0);pointer-events:none}
+  .hero video,.hero-copy{will-change:transform}
+  .rv-on .rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+  .rv-on .rv.in{opacity:1;transform:none}
+  .rv-on .rise{overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+  .rv-on .rise > .ri{display:inline-block;transform:translateY(110%);transition:transform 1s cubic-bezier(.2,.75,.15,1)}
+  .rv-on .rise.in > .ri{transform:none}
+  .rv-on .wipe{clip-path:inset(10% 7% 10% 7% round 14px);transition:clip-path 1.2s cubic-bezier(.2,.75,.15,1) var(--d,0ms)}
+  .rv-on .wipe.in{clip-path:inset(-12px round 0)}
+  .rv-on .pcard .media.wipe > *{transform:scale(1.12);transition:transform 1.4s cubic-bezier(.2,.75,.15,1)}
+  .rv-on .pcard .media.wipe.in > *{transform:none}
+  .rv-on .pcard:hover .media.wipe.in > *{transform:scale(1.04)}
+  .feature > a{text-decoration:none;display:block}
+
+  /* ---------- home: 3D Expedition teaser (wide, cinematic, the whole frame is the link) ---------- */
+  .expo{padding-block-start:56px}
+  .expo-frame{position:relative;display:block;aspect-ratio:21/9;max-width:100%;border-radius:6px;overflow:hidden;isolation:isolate;color:#fff;text-decoration:none;background:#0b0d10}
+  .expo-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .expo-frame:hover video{transform:scale(1.03)}
+  .expo-frame::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.18) 55%,rgba(0,0,0,0)),linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,0) 45%)}
+  .expo-copy{position:absolute;left:clamp(20px,4vw,48px);bottom:clamp(20px,4vw,44px);max-width:46ch}
+  .expo-copy .eyebrow{color:#fff;opacity:.8;margin-bottom:10px}
+  .expo-copy h2{margin:0;font:800 clamp(40px,6vw,92px)/.9 var(--display);letter-spacing:-.03em}
+  .expo-copy p{margin:14px 0 20px;font-size:clamp(15px,1.5vw,18px);line-height:1.45;color:rgba(255,255,255,.9)}
+  .expo-copy .btn.solid{background:#fff;color:#111;border-color:#fff}
+  @media (max-width:760px){.expo-frame{aspect-ratio:4/5}.expo-frame::after{background:linear-gradient(0deg,rgba(0,0,0,.75),rgba(0,0,0,.1) 70%)}}
+
+  /* ---------- home: explainer teaser ---------- */
+  .xteaser{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,56px);align-items:center}
+  .xt-media{position:relative;display:block;aspect-ratio:16/9;max-width:100%;border-radius:6px;overflow:hidden;background:var(--ground-2)}
+  .xt-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .xt-copy h2{margin:0;font:800 clamp(28px,3.4vw,48px)/1 var(--display);text-wrap:balance}
+  .xt-copy p{margin:14px 0 22px;color:var(--ink-2);max-width:46ch}
+  @media (max-width:860px){.xteaser{grid-template-columns:1fr}}
+  /* paper thumbnails are videos everywhere (papers page, related papers on projects) */
+  .thumb video[data-auto]{opacity:1}
+  .rel-row .t video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+  .nav{background:rgba(var(--g-rgb),.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  /* defaults every style inherits, so a style that only changes colors keeps Field's type */
+  [data-style]{ --display:"Archivo", "Arial Narrow", Arial, sans-serif; --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; --on-media:#f4f5f6; }
+
+  /* ================= alternative styles (prototype switcher) =================
+     Field is the default in style.css. Each style below re-tokens the page and
+     changes a few structural things, mostly the hero, so they feel distinct. */
+
+  /* ---------- Blueprint: light, technical-drawing grid, square corners ---------- */
+  [data-style="blueprint"]{
+    color-scheme: light;
+    --ground:#f3f6fa; --ground-2:#e3e9f1; --paper:#ffffff;
+    --ink:#0c1a2b; --ink-2:#3a4b62; --mute:#76839a; --line:#c6d0de;
+    --tag:#1d4ed8; --gold:#b45309;
+    --g-rgb:243,246,250; --i-rgb:12,26,43;
+    --display:"Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  [data-style="blueprint"] body{background:linear-gradient(rgba(29,78,216,.06) 1px,transparent 1px) 0 0/28px 28px,
+    linear-gradient(90deg,rgba(29,78,216,.06) 1px,transparent 1px) 0 0/28px 28px,var(--ground)}
+  [data-style="blueprint"] .nav{background:rgba(var(--g-rgb),.94);border-bottom:1px solid var(--line)}
+  [data-style="blueprint"] .hero{height:auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);align-items:end;padding:120px var(--gutter) 24px}
+  [data-style="blueprint"] .hero::after{display:none}
+  [data-style="blueprint"] .hero video{position:relative;z-index:0;grid-column:2;grid-row:1;aspect-ratio:16/10;height:auto;border:1px solid var(--ink)}
+  [data-style="blueprint"] .hero-copy{position:static;grid-column:1;grid-row:1}
+  [data-style="blueprint"] .hero h1{font-weight:800;letter-spacing:-.035em;font-size:clamp(52px,6.6vw,108px)}
+  [data-style="blueprint"] .telemetry{position:static;grid-column:2;text-align:left;margin-top:-8px}
+  [data-style="blueprint"] .btn{border-radius:2px;background:var(--paper);border-color:var(--ink)}
+  [data-style="blueprint"] .btn.solid{background:var(--ink);color:var(--paper)}
+  [data-style="blueprint"] .chip{border-radius:2px}
+  [data-style="blueprint"] .screen,[data-style="blueprint"] .thumb,[data-style="blueprint"] .pcard .media,
+  [data-style="blueprint"] .proj .pm .box,[data-style="blueprint"] .proj .pm .still,[data-style="blueprint"] .brand-vis,
+  [data-style="blueprint"] .rel-row .t,[data-style="blueprint"] .masonry button{border-radius:0;outline:1px solid var(--ink);outline-offset:-1px}
+  [data-style="blueprint"] .section-head h2,[data-style="blueprint"] .papers-head h2,[data-style="blueprint"] .page-head h1{letter-spacing:-.03em}
+  [data-style="blueprint"] .glance{border-color:var(--ink)}
+  @media (max-width:860px){
+    [data-style="blueprint"] .hero{grid-template-columns:1fr;padding-top:96px}
+    [data-style="blueprint"] .hero video,[data-style="blueprint"] .hero-copy,[data-style="blueprint"] .telemetry{grid-column:1;grid-row:auto}
+  }
+
+  /* ---------- Topo: sage map paper, contour rings, serif display, rounded frames ---------- */
+  [data-style="topo"]{
+    color-scheme: light;
+    --ground:#e8ebe2; --ground-2:#dbe0d2; --paper:#f7f8f3;
+    --ink:#1b2318; --ink-2:#4a5645; --mute:#7a8574; --line:#c3cab7;
+    --tag:#2f6b4f; --gold:#8a5a00;
+    --g-rgb:232,235,226; --i-rgb:27,35,24;
+    --display:"Newsreader", Georgia, "Times New Roman", serif;
+    --body:"Public Sans", "Segoe UI", system-ui, sans-serif;
+    --mono:"DM Mono", ui-monospace, Menlo, monospace;
+  }
+  [data-style="topo"] body{background:var(--ground)
+    repeating-radial-gradient(ellipse at 18% 12%,transparent 0 26px,rgba(47,107,79,.075) 26px 27px) fixed}
+  [data-style="topo"] .nav{background:rgba(var(--g-rgb),.92);border-bottom:1px solid var(--line)}
+  [data-style="topo"] .hero{margin:78px var(--gutter) 0;border-radius:22px;height:min(80svh,820px)}
+  [data-style="topo"] .hero::after{background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.2) 40%,rgba(0,0,0,.68) 100%)}
+  [data-style="topo"] .hero-copy,[data-style="topo"] .telemetry,[data-style="topo"] .telemetry b{color:#fff}
+  [data-style="topo"] .hero .eyebrow{color:#e3f2e9;margin-bottom:26px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+  [data-style="topo"] .hero h1{font-weight:500;font-style:italic;font-stretch:normal;letter-spacing:-.02em;line-height:.9}
+  [data-style="topo"] .hero .btn{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(0,0,0,.18)}
+  [data-style="topo"] .hero .btn.solid{background:#fff;color:#1b2318}
+  [data-style="topo"] .section-head h2,[data-style="topo"] .papers-head h2,[data-style="topo"] .page-head h1,
+  [data-style="topo"] .proj h2,[data-style="topo"] .feature h3,[data-style="topo"] .ch h3,[data-style="topo"] .cv h2,
+  [data-style="topo"] .cv aside h1,[data-style="topo"] .news h2,[data-style="topo"] .pcard h3,[data-style="topo"] .yr > h2,
+  [data-style="topo"] .glance b,[data-style="topo"] .pubs-head h1{font-weight:500;font-stretch:normal;letter-spacing:-.015em}
+  [data-style="topo"] .page-head h1,[data-style="topo"] .papers-head h2,[data-style="topo"] .pubs-head h1{font-style:italic}
+  [data-style="topo"] .screen,[data-style="topo"] .thumb,[data-style="topo"] .pcard .media,[data-style="topo"] .proj .pm .box,
+  [data-style="topo"] .proj .pm .still,[data-style="topo"] .brand-vis,[data-style="topo"] .rel-row .t,[data-style="topo"] .masonry button{border-radius:14px}
+  [data-style="topo"] .btn,[data-style="topo"] .chip{border-color:var(--ink-2)}
+  [data-style="topo"] .btn.solid{background:var(--tag);border-color:var(--tag);color:#fff}
+
+  /* ---------- Kinetic: white poster, condensed caps, black rules, one red ---------- */
+  [data-style="kinetic"]{
+    color-scheme: light;
+    --ground:#ffffff; --ground-2:#efefef; --paper:#f5f5f5;
+    --ink:#0a0a0a; --ink-2:#333333; --mute:#8a8a8a; --line:#0a0a0a;
+    --tag:#e3262b; --gold:#e3262b;
+    --g-rgb:255,255,255; --i-rgb:10,10,10;
+    --body:"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  }
+  [data-style="kinetic"] .nav{background:#fff;border-bottom:2px solid #0a0a0a}
+  [data-style="kinetic"] .hero video{filter:grayscale(1) contrast(1.15)}
+  [data-style="kinetic"] .hero::after{background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,rgba(0,0,0,.4) 40%,rgba(0,0,0,.78) 100%)}
+  [data-style="kinetic"] .hero-copy,[data-style="kinetic"] .telemetry,[data-style="kinetic"] .telemetry b{color:#fff}
+  [data-style="kinetic"] .hero .eyebrow{display:inline-block;background:#e3262b;color:#fff;padding:6px 8px}
+  [data-style="kinetic"] .hero h1{font-weight:900;font-stretch:62%;text-transform:uppercase;font-size:clamp(72px,17vw,280px);letter-spacing:-.01em;line-height:.8}
+  [data-style="kinetic"] .hero .btn{color:#fff;border:2px solid #fff;background:transparent;border-radius:0}
+  [data-style="kinetic"] .hero .btn.solid{background:#e3262b;border-color:#e3262b}
+  [data-style="kinetic"] .section-head h2,[data-style="kinetic"] .papers-head h2,[data-style="kinetic"] .page-head h1,
+  [data-style="kinetic"] .proj h2,[data-style="kinetic"] .feature h3,[data-style="kinetic"] .ch h3,[data-style="kinetic"] .cv h2,
+  [data-style="kinetic"] .cv aside h1,[data-style="kinetic"] .news h2,[data-style="kinetic"] .pcard h3,[data-style="kinetic"] .yr > h2,
+  [data-style="kinetic"] .glance b,[data-style="kinetic"] .pubs-head h1{font-weight:900;font-stretch:62%;text-transform:uppercase;letter-spacing:0}
+  [data-style="kinetic"] .page-head h1,[data-style="kinetic"] .pubs-head h1,[data-style="kinetic"] .papers-head h2{font-size:clamp(64px,12vw,200px)}
+  [data-style="kinetic"] .btn,[data-style="kinetic"] .chip{border-radius:0;border:2px solid #0a0a0a;background:#fff}
+  [data-style="kinetic"] .btn.solid,[data-style="kinetic"] .chip[aria-pressed="true"]{background:#0a0a0a;color:#fff}
+  [data-style="kinetic"] .screen,[data-style="kinetic"] .thumb,[data-style="kinetic"] .pcard .media,[data-style="kinetic"] .proj .pm .box,
+  [data-style="kinetic"] .proj .pm .still,[data-style="kinetic"] .brand-vis,[data-style="kinetic"] .rel-row .t,[data-style="kinetic"] .masonry button{border-radius:0}
+  [data-style="kinetic"] .glance,[data-style="kinetic"] .proj,[data-style="kinetic"] .news,[data-style="kinetic"] footer,[data-style="kinetic"] .row{border-width:2px}
+  [data-style="kinetic"] .ch.on h3{color:#e3262b}
+
+  /* Field tokens, scoped so a Field preview card still looks like Field when another style is active */
+  [data-style="field"]{ color-scheme: dark;
+    --ground:#0d1014; --ground-2:#151a20; --paper:#f1efe9; --ink:#eceef0; --ink-2:#aab2ba; --mute:#6f7a84; --line:#26303a;
+    --tag:#8fd6e3; --gold:#faba39; --g-rgb:13,16,20; --i-rgb:236,238,240;
+    --display:"Archivo", "Arial Narrow", Arial, sans-serif; --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; }
+
+  /* ================= palette candidates: same layout as Field, new colors and type ================= */
+  [data-style="glacier"]{ color-scheme: dark;
+    --ground:#0a1220; --ground-2:#121c2e; --paper:#eef4fb; --ink:#eaf2ff; --ink-2:#9fb2cc; --mute:#62748d; --line:#1e2b40;
+    --tag:#7cc4ff; --gold:#ffd479; --g-rgb:10,18,32; --i-rgb:234,242,255;
+    --display:"Manrope", "Helvetica Neue", Arial, sans-serif; --body:"Manrope", "Segoe UI", system-ui, sans-serif; }
+  [data-style="glacier"] .hero h1,[data-style="glacier"] .section-head h2,[data-style="glacier"] .papers-head h2,[data-style="glacier"] .page-head h1{font-stretch:normal;letter-spacing:-.04em}
+
+  [data-style="ember"]{ color-scheme: dark;
+    --ground:#141110; --ground-2:#1e1a17; --paper:#f4ede4; --ink:#f3ece4; --ink-2:#b9ada1; --mute:#7d7166; --line:#2e2722;
+    --tag:#ff9f43; --gold:#ffcf70; --g-rgb:20,17,16; --i-rgb:243,236,228;
+    --display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif; }
+  [data-style="ember"] .hero h1,[data-style="ember"] .section-head h2,[data-style="ember"] .papers-head h2,[data-style="ember"] .page-head h1{font-stretch:normal;letter-spacing:-.03em}
+
+  [data-style="alpine"]{ color-scheme: dark;
+    --ground:#0d1512; --ground-2:#15201b; --paper:#eef3ef; --ink:#e8f0ea; --ink-2:#a5b8ad; --mute:#6c8074; --line:#22312a;
+    --tag:#8fd3a8; --gold:#ff7a3d; --g-rgb:13,21,18; --i-rgb:232,240,234; }
+  [data-style="alpine"] .hero h1,[data-style="alpine"] .section-head h2,[data-style="alpine"] .papers-head h2,[data-style="alpine"] .page-head h1{font-stretch:100%}
+
+  [data-style="violet"]{ color-scheme: dark;
+    --ground:#0f0c17; --ground-2:#181325; --paper:#f1edfb; --ink:#efeaff; --ink-2:#b3a9cc; --mute:#736a8a; --line:#28213a;
+    --tag:#b8a2ff; --gold:#6ee7d2; --g-rgb:15,12,23; --i-rgb:239,234,255;
+    --display:"Unbounded", "Helvetica Neue", Arial, sans-serif; }
+  [data-style="violet"] .hero h1{font-weight:700;letter-spacing:-.03em;font-size:clamp(46px,8.5vw,132px)}
+  [data-style="violet"] .section-head h2,[data-style="violet"] .papers-head h2,[data-style="violet"] .page-head h1,[data-style="violet"] .ch h3,[data-style="violet"] .proj h2{font-weight:700;letter-spacing:-.02em}
+
+  [data-style="signal"]{ color-scheme: light;
+    --ground:#fbfbfa; --ground-2:#eef0f2; --paper:#ffffff; --ink:#121418; --ink-2:#444b55; --mute:#8a929c; --line:#dde1e6;
+    --tag:#d8322b; --gold:#d8322b; --g-rgb:251,251,250; --i-rgb:18,20,24; }
+  [data-style="signal"] .hero::after{background:linear-gradient(180deg,rgba(0,0,0,.15) 30%,rgba(0,0,0,.72) 100%),linear-gradient(90deg,rgba(0,0,0,.45),rgba(0,0,0,0) 60%)}
+  [data-style="signal"] .hero-copy,[data-style="signal"] .telemetry,[data-style="signal"] .telemetry b{color:#fff}
+  [data-style="signal"] .hero .eyebrow{color:#ffb3ae}
+  [data-style="signal"] .hero .btn{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(0,0,0,.2)}
+  [data-style="signal"] .hero .btn.solid{background:#d8322b;border-color:#d8322b}
+  [data-style="signal"] .btn.solid{background:#121418;color:#fff;border-color:#121418}
+
+  /* ================= Blueprint colors on the Field layout (his pick, 2026-09-30) =================
+     All keep Field's full-bleed video hero. He then picked two structures, Drafting Sheet and Ink & Paper;
+     round 3 varies their colors and type. Light styles share one hero treatment tinted by --scrim. */
+  [data-style="bpfield"],[data-style="bpgrid"],[data-style="bpsquare"],[data-style="bpduo"],[data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"]{ color-scheme: light;
+    --ground:#f3f6fa; --ground-2:#e3e9f1; --paper:#ffffff; --ink:#0c1a2b; --ink-2:#3a4b62; --mute:#76839a; --line:#c6d0de;
+    --tag:#1d4ed8; --gold:#b45309; --g-rgb:243,246,250; --i-rgb:12,26,43; --scrim:8,20,40; --hero-tag:#a9c4ff; --grid:29,78,216;
+    --frame:#0c1a2b; --frame-ink:#ffffff; --frame-mute:#a9b8cc; }
+  :is([data-style="bpfield"],[data-style="bpgrid"],[data-style="bpsquare"],[data-style="bpduo"],[data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) .hero::after{background:linear-gradient(180deg,rgba(var(--scrim),.12) 30%,rgba(var(--scrim),.74) 100%),linear-gradient(90deg,rgba(var(--scrim),.5),rgba(var(--scrim),0) 60%)}
+  :is([data-style="bpfield"],[data-style="bpgrid"],[data-style="bpsquare"],[data-style="bpduo"],[data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) :is(.hero-copy,.telemetry,.telemetry b){color:#fff}
+  :is([data-style="bpfield"],[data-style="bpgrid"],[data-style="bpsquare"],[data-style="bpduo"],[data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) .hero .eyebrow{color:var(--hero-tag)}
+  :is([data-style="bpfield"],[data-style="bpgrid"],[data-style="bpsquare"],[data-style="bpduo"],[data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) .hero .btn{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(var(--scrim),.25)}
+  :is([data-style="bpfield"],[data-style="bpgrid"],[data-style="bpsquare"],[data-style="bpduo"],[data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) .hero .btn.solid{background:var(--tag);border-color:var(--tag)}
+  :is([data-style="bpfield"],[data-style="bpgrid"],[data-style="bpsquare"],[data-style="bpduo"],[data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) body:has(.hero) .nav:not(.scrolled){background:linear-gradient(180deg,rgba(var(--scrim),.55),rgba(var(--scrim),0))}
+  :is([data-style="bpfield"],[data-style="bpgrid"],[data-style="bpsquare"],[data-style="bpduo"],[data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) body:has(.hero) .nav:not(.scrolled) :is(.name,ul a){color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  :is([data-style="bpfield"],[data-style="bpgrid"],[data-style="bpsquare"],[data-style="bpduo"],[data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) body:has(.hero) .nav:not(.scrolled) .menu-btn{color:#fff;border-color:rgba(255,255,255,.5)}
+
+  /* + grid */
+  [data-style="bpgrid"],[data-style="bpduo"] body{background:linear-gradient(rgba(var(--grid),.06) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(var(--grid),.06) 1px,transparent 1px) 0 0/28px 28px,var(--ground)}
+
+  /* square: Blueprint's square corners and inked frames */
+  [data-style="bpsquare"] body{background:linear-gradient(rgba(var(--grid),.05) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(var(--grid),.05) 1px,transparent 1px) 0 0/28px 28px,var(--ground)}
+  [data-style="bpsquare"] :is(.screen,.thumb,.pcard .media,.proj .pm .box,.proj .pm .still,.brand-vis,.rel-row .t,.masonry button){border-radius:0;outline:1px solid var(--ink);outline-offset:-1px}
+  [data-style="bpsquare"] :is(.btn,.chip,.xrow){border-radius:2px}
+  [data-style="bpsquare"] .btn:not(.hero .btn){border-color:var(--ink);background:var(--paper)}
+  [data-style="bpsquare"] .btn.solid:not(.hero .btn){background:var(--ink);color:var(--paper)}
+
+  /* duotone: the hero footage printed in blueprint blue */
+  [data-style="bpduo"] .hero video{filter:grayscale(1) contrast(1.15) brightness(1.05)}
+  [data-style="bpduo"] .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:#1d4ed8;mix-blend-mode:multiply;opacity:.72}
+  [data-style="bpduo"] .hero::after{background:linear-gradient(180deg,rgba(6,18,48,0) 35%,rgba(6,18,48,.7) 100%),linear-gradient(90deg,rgba(6,18,48,.45),rgba(6,18,48,0) 60%)}
+  [data-style="bpduo"] .pcard .media video{filter:grayscale(.35)}
+
+  /* ---- structure: Drafting Sheet (minor + major grid, offset frames, ruled labels) ---- */
+  :is([data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]){ --line:color-mix(in srgb,rgb(var(--grid)) 26%,var(--ground)); }
+  :is([data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) body{background:linear-gradient(rgba(var(--grid),.11) 1px,transparent 1px) 0 0/120px 120px,linear-gradient(90deg,rgba(var(--grid),.11) 1px,transparent 1px) 0 0/120px 120px,linear-gradient(rgba(var(--grid),.05) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(var(--grid),.05) 1px,transparent 1px) 0 0/24px 24px,var(--ground)}
+  :is([data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) :is(.screen,.thumb,.pcard .media,.proj .pm .box,.proj .pm .still,.brand-vis,.rel-row .t,.masonry button){border-radius:2px;outline:1px solid rgba(var(--grid),.55);outline-offset:3px}
+  :is([data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) :is(.section-head .eyebrow,.papers-head h2)::before{content:"";display:inline-block;width:28px;height:1px;background:var(--tag);vertical-align:middle;margin-right:10px}
+  :is([data-style="bpdraft"],[data-style="draft-terra"],[data-style="draft-green"],[data-style="draft-graphite"],[data-style="draft-space"],[data-style="gs-graphite-space"],[data-style="gs-space-swiss"],[data-style="gs-graphite-blue"],[data-style="gb"],[data-style="gs-space-orange"],[data-style="gs-graphite-night"]) .papers-head h2::before{width:40px;vertical-align:.3em}
+
+  /* ---- structure: Ink & Paper (solid frame-colored bar and footer, one accent) ---- */
+  :is([data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"]){ --gold:var(--tag); }
+  :is([data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"]) :is(.nav,.nav.scrolled),:is([data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"]) body:has(.hero) .nav:not(.scrolled){background:var(--frame);border-bottom:0}
+  :is([data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"]) .nav :is(.name,ul a){color:var(--frame-ink)!important;text-shadow:none!important}
+  :is([data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"]) .nav ul a:not([aria-current]){color:var(--frame-mute)!important}
+  :is([data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"]) .nav .menu-btn{color:var(--frame-ink);border-color:rgba(255,255,255,.4)}
+  :is([data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"]) footer{background:var(--frame);color:var(--frame-mute);border-top:0}
+  :is([data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"]) footer a{color:var(--frame-ink)}
+  :is([data-style="bpink"],[data-style="ink-forest"],[data-style="ink-oxblood"],[data-style="ink-black"],[data-style="ink-serif"]) .btn.solid:not(.hero .btn){background:var(--tag);border-color:var(--tag);color:#fff}
+
+  /* ---- round 3 palettes + type ---- */
+  [data-style="bpink"]{ --ground:#f7f9fc; }
+  [data-style="draft-terra"]{ --ground:#f5efe6; --ground-2:#ebe2d4; --paper:#fffaf3; --ink:#2a1d14; --ink-2:#5c4a3b; --mute:#978472; --tag:#b5471f; --gold:#8a6a1d; --g-rgb:245,239,230; --i-rgb:42,29,20; --scrim:40,22,12; --hero-tag:#ffc9a8; --grid:181,71,31; --display:"Fraunces", Georgia, serif; --body:"Work Sans", system-ui, sans-serif; --mono:"IBM Plex Mono", ui-monospace, monospace; }
+  [data-style="draft-terra"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;letter-spacing:-.02em;font-variation-settings:"opsz" 144}
+  [data-style="draft-green"]{ --ground:#eef3ea; --ground-2:#e0e8da; --paper:#fbfdf8; --ink:#15241a; --ink-2:#43564a; --mute:#7a8b7e; --tag:#23764a; --gold:#c2410c; --g-rgb:238,243,234; --i-rgb:21,36,26; --scrim:10,30,18; --hero-tag:#b9f0cc; --grid:35,118,74; --display:"Sora", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; }
+  [data-style="draft-green"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:700;letter-spacing:-.035em}
+  [data-style="draft-graphite"]{ --ground:#fafafa; --ground-2:#eeeeee; --paper:#ffffff; --ink:#111111; --ink-2:#474747; --mute:#8a8a8a; --tag:#f05a1a; --gold:#f05a1a; --g-rgb:250,250,250; --i-rgb:17,17,17; --scrim:0,0,0; --hero-tag:#ffb08a; --grid:60,60,60; --display:"Inter Tight", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace; }
+  [data-style="draft-graphite"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:800;letter-spacing:-.045em}
+  [data-style="draft-space"]{ --display:"Space Grotesk", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Space Mono", ui-monospace, monospace; }
+  [data-style="draft-space"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:700;letter-spacing:-.04em}
+  [data-style="ink-forest"]{ --ground:#f6f7f2; --ground-2:#e9ece2; --paper:#ffffff; --ink:#14261c; --ink-2:#475a4d; --mute:#808c83; --line:#d4dbcf; --tag:#2f7a4a; --g-rgb:246,247,242; --i-rgb:20,38,28; --scrim:10,26,16; --hero-tag:#bfe8cd; --frame:#14261c; --frame-mute:#9fb4a6; --display:"Manrope", "Helvetica Neue", Arial, sans-serif; --body:"Manrope", system-ui, sans-serif; }
+  [data-style="ink-forest"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;letter-spacing:-.045em}
+  [data-style="ink-oxblood"]{ --ground:#faf6f1; --ground-2:#f0e8df; --paper:#ffffff; --ink:#2b1418; --ink-2:#5e4549; --mute:#9a8285; --line:#e6d9d0; --tag:#9e1b32; --g-rgb:250,246,241; --i-rgb:43,20,24; --scrim:40,10,16; --hero-tag:#ffc2cc; --frame:#3a1016; --frame-mute:#caa5ab; --display:"DM Serif Display", Georgia, serif; --body:"DM Sans", system-ui, sans-serif; --mono:"DM Mono", ui-monospace, monospace; }
+  [data-style="ink-oxblood"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:400;letter-spacing:-.01em}
+  [data-style="ink-black"]{ --ground:#ffffff; --ground-2:#f1f1f1; --paper:#ffffff; --ink:#0a0a0a; --ink-2:#3f3f3f; --mute:#8b8b8b; --line:#e2e2e2; --tag:#f05a1a; --g-rgb:255,255,255; --i-rgb:10,10,10; --scrim:0,0,0; --hero-tag:#ffb08a; --frame:#0a0a0a; --frame-mute:#9a9a9a; --display:"Geist", "Helvetica Neue", Arial, sans-serif; --body:"Geist", system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace; }
+  [data-style="ink-black"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:800;letter-spacing:-.05em}
+  [data-style="ink-serif"]{ --ground:#f7f9fc; --display:"Instrument Serif", Georgia, serif; --body:"Inter Tight", system-ui, sans-serif; }
+  [data-style="ink-serif"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:400;letter-spacing:-.015em}
+  [data-style="ink-serif"] .hero h1{font-style:italic;font-size:clamp(60px,12.5vw,190px)}
+
+  /* ---- round 4: between Drafting · Graphite and Drafting · Space ---- */
+  [data-style="gs-graphite-space"]{ --ground:#fafafa; --ground-2:#eeeeee; --paper:#ffffff; --ink:#111111; --ink-2:#474747; --mute:#8a8a8a; --g-rgb:250,250,250; --i-rgb:17,17,17; --scrim:0,0,0; --grid:60,60,60; --tag:#f05a1a; --gold:#f05a1a; --hero-tag:#ffb08a; --display:"Space Grotesk", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Space Mono", ui-monospace, monospace; }
+  [data-style="gs-graphite-space"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:700;letter-spacing:-.04em}
+  [data-style="gs-space-swiss"]{ --display:"Inter Tight", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace; }
+  [data-style="gs-space-swiss"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:800;letter-spacing:-.045em}
+  [data-style="gs-graphite-blue"],[data-style="gb"]{ --ground:#fafafa; --ground-2:#eeeeee; --paper:#ffffff; --ink:#111111; --ink-2:#474747; --mute:#8a8a8a; --g-rgb:250,250,250; --i-rgb:17,17,17; --scrim:0,0,0; --grid:60,60,60; --tag:#1d4ed8; --gold:#1d4ed8; --hero-tag:#a9c4ff; --display:"Inter Tight", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace; }
+  [data-style="gs-graphite-blue"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:800;letter-spacing:-.045em}
+  [data-style="gs-space-orange"]{ --tag:#e8590c; --gold:#e8590c; --hero-tag:#ffc29e; --display:"Space Grotesk", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Space Mono", ui-monospace, monospace; }
+  [data-style="gs-space-orange"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:700;letter-spacing:-.04em}
+  [data-style="gs-graphite-night"]{ --ground:#121314; --ground-2:#1b1c1e; --paper:#f4f4f2; --ink:#f1f1ef; --ink-2:#a9a9a6; --mute:#6f6f6c; --g-rgb:18,19,20; --i-rgb:241,241,239; --tag:#ff6a2b; --gold:#ff6a2b; --grid:255,255,255; --display:"Space Grotesk", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Space Mono", ui-monospace, monospace; }
+  [data-style="gs-graphite-night"]{ color-scheme: dark; --line:#2c2d30; --scrim:0,0,0; --hero-tag:#ffb08a; --frame:#0a0a0a; --frame-ink:#fff; --frame-mute:#999; }
+  [data-style="gs-graphite-night"] body{background:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px) 0 0/120px 120px,linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px) 0 0/120px 120px,linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px) 0 0/24px 24px,var(--ground)}
+  [data-style="gs-graphite-night"] :is(.screen,.thumb,.pcard .media,.proj .pm .box,.proj .pm .still,.brand-vis,.rel-row .t,.masonry button){outline-color:rgba(255,255,255,.3)}
+  [data-style="gs-graphite-night"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big){font-stretch:normal;font-weight:700;letter-spacing:-.04em}
+
+  /* ================= Graphite · blue: the chosen direction (2026-09-30) =================
+     data-style="gb" is the default. Three independent knobs, all on <html> (or on a preview card):
+     data-font (type pairing), data-tint (slight color variants), data-mode="dark" (dark mode; light is default). */
+  [data-style="gb"]{ --ground:#fafafa; --ground-2:#eeeeee; --paper:#ffffff; --ink:#111111; --ink-2:#474747; --mute:#8a8a8a; --g-rgb:250,250,250; --i-rgb:17,17,17; --scrim:0,0,0; --grid:60,60,60; --tag:#1d4ed8; --gold:#1d4ed8; --hero-tag:#a9c4ff; --display:"Geist", "Helvetica Neue", Arial, sans-serif; --body:"Geist", system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace; --dw:800; --dls:-.05em; --dst:normal; }
+  [data-style="gb"] :is(.hero h1,.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.feature h3,.ch h3,.cv h2,.cv aside h1,.news h2,.pcard h3,.yr > h2,.xrow h2,.sc-name,.nav .name,.screen .type .big,.thumb.type .big,.rel-row .t.type,.gr .big):not([data-style]:not([data-style="gb"]) *){font-weight:var(--dw);letter-spacing:var(--dls);font-stretch:var(--dst)}
+  [data-font="f-swiss"]{ --display:"Inter Tight", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace; --dw:800; --dls:-.045em; --dst:normal; }
+  [data-font="f-geist"]{ --display:"Geist", "Helvetica Neue", Arial, sans-serif; --body:"Geist", system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace; --dw:800; --dls:-.05em; --dst:normal; }
+  [data-font="f-space"]{ --display:"Space Grotesk", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Space Mono", ui-monospace, monospace; --dw:700; --dls:-.04em; --dst:normal; }
+  [data-font="f-plex"]{ --display:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; --body:"IBM Plex Sans", system-ui, sans-serif; --mono:"IBM Plex Mono", ui-monospace, monospace; --dw:700; --dls:-.03em; --dst:normal; }
+  [data-font="f-archivo"]{ --display:"Archivo", "Arial Narrow", Arial, sans-serif; --body:"Source Sans 3", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, monospace; --dw:800; --dls:-.02em; --dst:112%; }
+  [data-font="f-manrope"]{ --display:"Manrope", "Helvetica Neue", Arial, sans-serif; --body:"Manrope", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, monospace; --dw:800; --dls:-.045em; --dst:normal; }
+  [data-font="f-schibsted"]{ --display:"Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"IBM Plex Mono", ui-monospace, monospace; --dw:800; --dls:-.035em; --dst:normal; }
+  [data-font="f-bricolage"]{ --display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif; --body:"Inter", system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace; --dw:800; --dls:-.035em; --dst:normal; }
+  [data-font="f-serif"]{ --display:"Instrument Serif", Georgia, serif; --body:"Inter Tight", system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace; --dw:400; --dls:-.015em; --dst:normal; }
+  [data-tint="cobalt"]{ --ground:#fafafa; --ground-2:#eeeeee; --g-rgb:250,250,250; --tag:#1d4ed8; --hero-tag:#a9c4ff; --grid:60,60,60; --gold:#1d4ed8; }
+  [data-tint="electric"]{ --ground:#ffffff; --ground-2:#f0f1f3; --g-rgb:255,255,255; --tag:#0047ff; --hero-tag:#a8bfff; --grid:70,70,85; --gold:#0047ff; }
+  [data-tint="klein"]{ --ground:#fbfbf8; --ground-2:#efeee9; --g-rgb:251,251,248; --tag:#002fa7; --hero-tag:#b3c2ff; --grid:75,70,60; --gold:#002fa7; }
+  [data-tint="azure"]{ --ground:#f7f9fb; --ground-2:#e9eef3; --g-rgb:247,249,251; --tag:#2563eb; --hero-tag:#bcd4ff; --grid:50,85,130; --gold:#2563eb; }
+  [data-tint="slate"]{ --ground:#f3f4f6; --ground-2:#e5e7eb; --g-rgb:243,244,246; --ink:#0f172a; --tag:#3b5bdb; --hero-tag:#b9c6ff; --grid:55,60,75; --gold:#3b5bdb; }
+  /* dark mode */
+  [data-mode="dark"]{ color-scheme: dark; --ground:#111214; --ground-2:#1a1b1e; --paper:#f4f4f2; --ink:#eeeeec; --ink-2:#a6a7a3; --mute:#76777a;
+    --g-rgb:17,18,20; --i-rgb:238,238,236; --grid:255,255,255; --line:#2a2c30; }
+  [data-mode="dark"][data-tint="cobalt"]{ --tag:#6f9bff; --gold:#6f9bff; }
+  [data-mode="dark"][data-tint="electric"]{ --tag:#5b86ff; --gold:#5b86ff; }
+  [data-mode="dark"][data-tint="klein"]{ --tag:#8095ff; --ground:#141311; --ground-2:#1d1c19; --g-rgb:20,19,17; --gold:#8095ff; }
+  [data-mode="dark"][data-tint="azure"]{ --tag:#60a5fa; --ground:#0f1318; --ground-2:#171c23; --g-rgb:15,19,24; --gold:#60a5fa; }
+  [data-mode="dark"][data-tint="slate"]{ --tag:#8ea2ff; --ground:#12141a; --ground-2:#1a1d25; --g-rgb:18,20,26; --gold:#8ea2ff; }
+  html[data-mode="dark"] body{background:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px) 0 0/120px 120px,linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px) 0 0/120px 120px,
+    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px) 0 0/24px 24px,var(--ground)}
+  [data-mode="dark"] :is(.screen,.thumb,.pcard .media,.proj .pm .box,.proj .pm .still,.brand-vis,.rel-row .t,.masonry button){outline-color:rgba(255,255,255,.22)}
+  [data-mode="dark"] .btn.solid:not(.hero .btn){color:#0b0c0e}
+
+  [data-style="gb"] :is(.feature .brand-wrap,.expo-frame,.xt-media){border-radius:2px;outline:1px solid rgba(var(--grid),.55);outline-offset:3px}
+  [data-mode="dark"] :is(.feature .brand-wrap,.expo-frame,.xt-media){outline-color:rgba(255,255,255,.22)}
+
+  /* light/dark toggle in the nav (only the gb style has a dark variant) */
+  .mode-btn{display:none;appearance:none;width:34px;height:34px;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(var(--i-rgb),.22);background:none;color:inherit;cursor:pointer;padding:0}
+  [data-style="gb"] .mode-btn{display:inline-flex}
+  .mode-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+  .mode-btn .sun{display:none}
+  [data-mode="dark"] .mode-btn .sun{display:block}
+  [data-mode="dark"] .mode-btn .moon{display:none}
+  body:has(.hero) .nav:not(.scrolled) .mode-btn{color:#fff;border-color:rgba(255,255,255,.5)}
+  .nav ul{margin-left:auto}
+  @media (max-width:720px){.nav .menu-btn{margin-left:auto}}
+
+  /* dark: real blueprint paper, navy ground with white linework */
+  [data-style="bpnight"]{ color-scheme: dark;
+    --ground:#0b1d36; --ground-2:#11294a; --paper:#f2f6fc; --ink:#eaf1fb; --ink-2:#a8bcd8; --mute:#6c86a8; --line:#1e3a61;
+    --tag:#7fb0ff; --gold:#ffb454; --g-rgb:11,29,54; --i-rgb:234,241,251; }
+  [data-style="bpnight"] body{background:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px) 0 0/28px 28px,var(--ground)}
+
+  /* cyanotype: brighter Prussian blue print, white major/minor grid */
+  [data-style="cyanotype"]{ color-scheme: dark;
+    --ground:#123a6b; --ground-2:#184779; --paper:#f4f8ff; --ink:#f5f9ff; --ink-2:#c6d6ee; --mute:#8fa9cf; --line:#2c5a90;
+    --tag:#bfe0ff; --gold:#ffd27a; --g-rgb:18,58,107; --i-rgb:245,249,255; }
+  [data-style="cyanotype"] body{background:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px) 0 0/120px 120px,linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px) 0 0/120px 120px,linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px) 0 0/24px 24px,var(--ground)}
+  [data-style="cyanotype"] :is(.screen,.thumb,.pcard .media,.proj .pm .box,.proj .pm .still,.brand-vis,.rel-row .t,.masonry button){outline:1px solid rgba(255,255,255,.35);outline-offset:3px}
+  [data-style="cyanotype"] .btn.solid:not(.hero .btn){background:#fff;color:#123a6b}
+
+  /* ---------- the switcher itself ---------- */
+  .style-switch{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:30;
+    font:500 11px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:#cfd5db}
+  .style-switch .bar{display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(20,22,26,.9);backdrop-filter:blur(10px);box-shadow:0 6px 30px rgba(0,0,0,.35)}
+  .style-switch button,.style-switch a{appearance:none;border:0;background:none;color:#cfd5db;padding:8px 12px;border-radius:999px;cursor:pointer;font:inherit;letter-spacing:inherit;text-transform:inherit;text-decoration:none;white-space:nowrap}
+  .style-switch .cur{background:#f4f5f6;color:#111}
+  .style-switch .menu{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:230px;padding:6px;border-radius:14px;background:rgba(20,22,26,.96);box-shadow:0 10px 40px rgba(0,0,0,.4);display:grid;gap:2px}
+  .style-switch .menu{max-height:min(70vh,560px);overflow-y:auto}
+  .style-switch .menu[hidden]{display:none}
+  .style-switch .menu .fn{font:600 15px/1 var(--fam);text-transform:none;letter-spacing:0;min-width:120px}
+  .style-switch .menu small{opacity:.5;font-size:9px;margin-left:4px}
+  .style-switch .bar{flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 20px)}
+  .style-switch .menu .grp{padding:10px 12px 4px;color:#7d8791;font-size:10px}
+  .style-switch .menu button{display:flex;align-items:center;gap:10px;text-align:left;border-radius:8px}
+  .style-switch .menu button:hover,.style-switch .menu button[aria-pressed="true"]{background:rgba(255,255,255,.1)}
+  .style-switch .menu i{display:inline-flex;gap:0;border-radius:4px;overflow:hidden;flex:none}
+  .style-switch .menu i b{width:10px;height:14px;display:block}
+  .style-switch .x{padding:8px 9px;opacity:.7}
+  body.hide-switch .style-switch{display:none}
+  /* prototype switcher is desktop-only: on phones it covers the content */
+  @media (max-width:760px),(hover:none) and (pointer:coarse){.style-switch{display:none}}
+
+</style>
+<script>(function(){var d=document.documentElement;d.setAttribute('data-style','gb');d.setAttribute('data-font','f-geist');d.setAttribute('data-tint','cobalt');try{if(localStorage.getItem('tm2-mode')==='dark')d.setAttribute('data-mode','dark')}catch(e){}})()</script>
+
+<nav class="nav" aria-label="Main">
+  <a class="name" href="index.html">Takahiro Miki</a>
+  <button class="menu-btn mono" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+  <ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="papers.html" aria-current="page">Papers</a></li><li><a href="cv.html">CV</a></li><li><a href="gallery.html">Gallery</a></li></ul>
+  <button class="mode-btn" type="button" aria-label="Switch to dark mode"><svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</nav>
+
+<main class="pubs">
+  <div class="pubs-head">
+    <div><h1>Papers</h1><p>34 papers, 2015–2026. Each thumbnail plays a few seconds of the paper’s footage.</p></div>
+    <a class="btn" href="https://scholar.google.com/citations?user=nOl83tYAAAAJ&hl=en">Google Scholar ↗</a>
+  </div>
+  <div class="tools" role="toolbar" aria-label="Filter papers">
+    <button class="chip mono" type="button" id="f-all" data-f="all" aria-pressed="true">All · 34</button>
+    <button class="chip mono" type="button" id="f-lead" data-f="lead" aria-pressed="false">Lead author · 7</button>
+    <button class="chip mono" type="button" id="f-award" data-f="award" aria-pressed="false">Awards · 4</button>
+    <button class="chip mono" type="button" id="f-xpl" data-f="xpl" aria-pressed="false">Explainer · 32</button>
+    <input class="search" id="q" type="search" placeholder="Search title, author, venue" aria-label="Search papers">
+  </div>
+  <section class="yr" id="y2026" aria-label="2026">
+    <h2>2026</h2>
+    <div class="cards">
+      <article class="card" id="etna" data-lead="0" data-award="0" data-xpl="1" data-text="large-scale autonomous gas monitoring for volcanic environments: a legged robot on mount etna julia richter, turcan tuna, manthan patel, takahiro miki, devon higgins, james fox, cesar cadena, andres diaz, marco hutter ieee ram 2026">
+        <div class="thumb"><video data-auto src="thumbs/etna.mp4" poster="thumbs/etna.jpg" muted loop playsinline preload="none" aria-label="Large-Scale Autonomous Gas Monitoring for Volcanic Environments: A Legged Robot on Mount Etna"></video></div>
+        <div class="meta mono"><span>2026 · IEEE RAM</span></div>
+        <h3><a href="https://arxiv.org/abs/2601.07362">Large-Scale Autonomous Gas Monitoring for Volcanic Environments: A Legged Robot on Mount Etna</a></h3>
+        <p class="auth">Julia Richter, Turcan Tuna, Manthan Patel, <b>Takahiro Miki</b>, Devon Higgins, James Fox, Cesar Cadena, Andres Diaz, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/etna-gas-monitoring/">▶ Explainer · 1:50</a><a href="https://arxiv.org/abs/2601.07362">Paper ↗</a><a href="https://leggedrobotics.github.io/etna-expedition/">Project ↗</a><a href="https://youtu.be/7_a3BFefcJE">Video ↗</a></div>
+      </article>
+      <article class="card" id="humanoid" data-lead="0" data-award="0" data-xpl="1" data-text="learning whole-body humanoid locomotion via motion generation and motion tracking zewei zhang, kehan wen, michael xu, junzhe he, chenhao li, takahiro miki, clemens schwarke, chong zhang, xue bin peng, marco hutter ra-l 2026">
+        <div class="thumb"><video data-auto src="thumbs/humanoid.mp4" poster="thumbs/humanoid.jpg" muted loop playsinline preload="none" aria-label="Learning Whole-Body Humanoid Locomotion via Motion Generation and Motion Tracking"></video></div>
+        <div class="meta mono"><span>2026 · RA-L</span></div>
+        <h3><a href="https://arxiv.org/abs/2604.17335">Learning Whole-Body Humanoid Locomotion via Motion Generation and Motion Tracking</a></h3>
+        <p class="auth">Zewei Zhang, Kehan Wen, Michael Xu, Junzhe He, Chenhao Li, <b>Takahiro Miki</b>, Clemens Schwarke, Chong Zhang, Xue Bin Peng, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/humanoid-motion-generation/">▶ Explainer · 1:40</a><a href="https://arxiv.org/abs/2604.17335">Paper ↗</a></div>
+      </article>
+      <article class="card" id="dapper" data-lead="0" data-award="0" data-xpl="1" data-text="dapper: discriminability-aware policy-to-policy preference-based reinforcement learning for query-efficient robot skill acquisition yuki kadokawa, jonas frey, takahiro miki, takamitsu matsubara, marco hutter ieee ram 2026">
+        <div class="thumb"><video data-auto src="thumbs/dapper.mp4" poster="thumbs/dapper.jpg" muted loop playsinline preload="none" aria-label="DAPPER: Discriminability-Aware Policy-to-Policy Preference-Based Reinforcement Learning for Query-Efficient Robot Skill Acquisition"></video></div>
+        <div class="meta mono"><span>2026 · IEEE RAM</span></div>
+        <h3><a href="https://arxiv.org/abs/2505.06357">DAPPER: Discriminability-Aware Policy-to-Policy Preference-Based Reinforcement Learning for Query-Efficient Robot Skill Acquisition</a></h3>
+        <p class="auth">Yuki Kadokawa, Jonas Frey, <b>Takahiro Miki</b>, Takamitsu Matsubara, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/dapper/">▶ Explainer · 1:25</a><a href="https://arxiv.org/abs/2505.06357">Paper ↗</a></div>
+      </article>
+    </div>
+  </section>
+  <section class="yr" id="y2025" aria-label="2025">
+    <h2>2025</h2>
+    <div class="cards">
+      <article class="card" id="priors" data-lead="0" data-award="0" data-xpl="1" data-text="motion priors reimagined: adapting flat-terrain skills for complex quadruped mobility zewei zhang, chenhao li, takahiro miki, marco hutter corl 2025">
+        <div class="thumb"><video data-auto src="thumbs/priors.mp4" poster="thumbs/priors.jpg" muted loop playsinline preload="none" aria-label="Motion Priors Reimagined: Adapting Flat-Terrain Skills for Complex Quadruped Mobility"></video></div>
+        <div class="meta mono"><span>2025 · CoRL</span></div>
+        <h3><a href="https://arxiv.org/abs/2505.16084">Motion Priors Reimagined: Adapting Flat-Terrain Skills for Complex Quadruped Mobility</a></h3>
+        <p class="auth">Zewei Zhang, Chenhao Li, <b>Takahiro Miki</b>, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/motion-priors-reimagined/">▶ Explainer · 1:50</a><a href="https://arxiv.org/abs/2505.16084">Paper ↗</a><a href="https://anymalprior.github.io">Project ↗</a><a href="https://youtu.be/G20geAdN6GM">Video ↗</a></div>
+      </article>
+      <article class="card" id="quiet" data-lead="0" data-award="0" data-xpl="1" data-text="learning quiet walking for a small home robot ryo watanabe, takahiro miki, fan shi, yuki kadokawa, filip bjelonic, kento kawaharazuka, andrei cramariuc, marco hutter icra 2025">
+        <div class="thumb"><video data-auto src="thumbs/quiet.mp4" poster="thumbs/quiet.jpg" muted loop playsinline preload="none" aria-label="Learning Quiet Walking for a Small Home Robot"></video></div>
+        <div class="meta mono"><span>2025 · ICRA</span></div>
+        <h3><a href="https://arxiv.org/abs/2502.10983">Learning Quiet Walking for a Small Home Robot</a></h3>
+        <p class="auth">Ryo Watanabe, <b>Takahiro Miki</b>, Fan Shi, Yuki Kadokawa, Filip Bjelonic, Kento Kawaharazuka, Andrei Cramariuc, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/quiet-walking/">▶ Explainer · 1:46</a><a href="https://arxiv.org/abs/2502.10983">Paper ↗</a><a href="https://sony.github.io/QuietWalk/">Project ↗</a><a href="https://youtu.be/6RjkBHSYEcc">Video ↗</a></div>
+      </article>
+      <article class="card" id="thesis" data-lead="1" data-award="0" data-xpl="1" data-text="bridging perception and control for legged locomotion and navigation in the wild takahiro miki phd thesis, eth zurich 2025">
+        <div class="thumb"><video data-auto src="thumbs/thesis.mp4" poster="thumbs/thesis.jpg" muted loop playsinline preload="none" aria-label="Bridging Perception and Control for Legged Locomotion and Navigation in the Wild"></video></div>
+        <div class="meta mono"><span>2025 · PhD thesis, ETH Zurich</span><span class="lead">Lead author</span></div>
+        <h3><a href="https://www.research-collection.ethz.ch/items/41c52fa7-2aa8-4746-9ee2-b1321ab0ab7a">Bridging Perception and Control for Legged Locomotion and Navigation in the Wild</a></h3>
+        <p class="auth"><b>Takahiro Miki</b></p>
+        <div class="plinks"><a class="xpl" href="/explainers/phd-thesis/">▶ Explainer · 1:51</a><a href="https://www.research-collection.ethz.ch/items/41c52fa7-2aa8-4746-9ee2-b1321ab0ab7a">Thesis ↗</a></div>
+      </article>
+    </div>
+  </section>
+  <section class="yr" id="y2024" aria-label="2024">
+    <h2>2024</h2>
+    <div class="cards">
+      <article class="card" id="doors" data-lead="0" data-award="0" data-xpl="1" data-text="learning to open and traverse doors with a legged manipulator mike zhang, yuntao ma, takahiro miki, marco hutter corl 2024">
+        <div class="thumb"><video data-auto src="thumbs/doors.mp4" poster="thumbs/doors.jpg" muted loop playsinline preload="none" aria-label="Learning to Open and Traverse Doors with a Legged Manipulator"></video></div>
+        <div class="meta mono"><span>2024 · CoRL</span></div>
+        <h3><a href="https://arxiv.org/abs/2409.04882">Learning to Open and Traverse Doors with a Legged Manipulator</a></h3>
+        <p class="auth">Mike Zhang, Yuntao Ma, <b>Takahiro Miki</b>, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/doors-legged-manipulator/">▶ Explainer · 1:38</a><a href="https://arxiv.org/abs/2409.04882">Paper ↗</a><a href="https://youtu.be/tQDZXN_k5NU">Video ↗</a></div>
+      </article>
+      <article class="card" id="terrain" data-lead="0" data-award="0" data-xpl="1" data-text="identifying terrain physical parameters from vision: towards physical-parameter-aware locomotion and navigation jiaqi chen, jonas frey, ruyi zhou, takahiro miki, georg martius, marco hutter ra-l 2024">
+        <div class="thumb"><video data-auto src="thumbs/terrain.mp4" poster="thumbs/terrain.jpg" muted loop playsinline preload="none" aria-label="Identifying Terrain Physical Parameters from Vision: Towards Physical-Parameter-Aware Locomotion and Navigation"></video></div>
+        <div class="meta mono"><span>2024 · RA-L</span></div>
+        <h3><a href="https://arxiv.org/abs/2408.16567">Identifying Terrain Physical Parameters from Vision: Towards Physical-Parameter-Aware Locomotion and Navigation</a></h3>
+        <p class="auth">Jiaqi Chen, Jonas Frey, Ruyi Zhou, <b>Takahiro Miki</b>, Georg Martius, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/terrain-physical-parameters/">▶ Explainer · 1:33</a><a href="https://arxiv.org/abs/2408.16567">Paper ↗</a><a href="https://youtu.be/SrAE0IK6UnE">Video ↗</a></div>
+      </article>
+      <article class="card" id="llmctf" data-lead="0" data-award="1" data-xpl="1" data-text="dataset and lessons learned from the 2024 satml llm capture-the-flag competition edoardo debenedetti, javier rando, daniel paleka, … takahiro miki, chenhao li, … florian tramèr, sahar abdelnabi, lea schönherr neurips 2024">
+        <div class="thumb"><video data-auto src="thumbs/llmctf.mp4" poster="thumbs/llmctf.jpg" muted loop playsinline preload="none" aria-label="Dataset and Lessons Learned from the 2024 SaTML LLM Capture-the-Flag Competition"></video></div>
+        <div class="meta mono"><span>2024 · NeurIPS</span></div>
+        <h3><a href="https://arxiv.org/abs/2406.07954">Dataset and Lessons Learned from the 2024 SaTML LLM Capture-the-Flag Competition</a></h3><div class="award mono">2nd place · Team RSLLM</div>
+        <p class="auth">Edoardo Debenedetti, Javier Rando, Daniel Paleka, … <b>Takahiro Miki</b>, Chenhao Li, … Florian Tramèr, Sahar Abdelnabi, Lea Schönherr</p>
+        <div class="plinks"><a class="xpl" href="/explainers/llm-ctf/">▶ Explainer · 1:51</a><a href="https://arxiv.org/abs/2406.07954">Paper ↗</a><a href="https://github.com/ethz-spylab/satml-llm-ctf">Code ↗</a></div>
+      </article>
+      <article class="card" id="adv" data-lead="0" data-award="0" data-xpl="1" data-text="rethinking robustness assessment: adversarial attacks on learning-based quadrupedal locomotion controllers fan shi, chong zhang, takahiro miki, joonho lee, marco hutter, stelian coros rss 2024">
+        <div class="thumb"><video data-auto src="thumbs/adv.mp4" poster="thumbs/adv.jpg" muted loop playsinline preload="none" aria-label="Rethinking Robustness Assessment: Adversarial Attacks on Learning-based Quadrupedal Locomotion Controllers"></video></div>
+        <div class="meta mono"><span>2024 · RSS</span></div>
+        <h3><a href="https://arxiv.org/abs/2405.12424">Rethinking Robustness Assessment: Adversarial Attacks on Learning-based Quadrupedal Locomotion Controllers</a></h3>
+        <p class="auth">Fan Shi, Chong Zhang, <b>Takahiro Miki</b>, Joonho Lee, Marco Hutter, Stelian Coros</p>
+        <div class="plinks"><a class="xpl" href="/explainers/adversarial-locomotion/">▶ Explainer · 1:42</a><a href="https://arxiv.org/abs/2405.12424">Paper ↗</a><a href="https://fanshi14.github.io/me/rss24.html">Project ↗</a><a href="https://youtu.be/WMgUrhZ2Tps">Video ↗</a></div>
+      </article>
+      <article class="card" id="wheeled" data-lead="0" data-award="0" data-xpl="1" data-text="learning robust autonomous navigation and locomotion for wheeled-legged robots joonho lee, marko bjelonic, alexander reske, lorenz wellhausen, takahiro miki, marco hutter science robotics 2024">
+        <div class="thumb"><video data-auto src="thumbs/wheeled.mp4" poster="thumbs/wheeled.jpg" muted loop playsinline preload="none" aria-label="Learning robust autonomous navigation and locomotion for wheeled-legged robots"></video></div>
+        <div class="meta mono"><span>2024 · Science Robotics</span></div>
+        <h3><a href="https://www.science.org/doi/full/10.1126/scirobotics.adi9641">Learning robust autonomous navigation and locomotion for wheeled-legged robots</a></h3>
+        <p class="auth">Joonho Lee, Marko Bjelonic, Alexander Reske, Lorenz Wellhausen, <b>Takahiro Miki</b>, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/wheeled-legged-navigation/">▶ Explainer · 1:42</a><a href="https://www.science.org/doi/full/10.1126/scirobotics.adi9641">Paper ↗</a><a href="https://junja94.github.io/learning_robust_autonomous_navigation_and_locomotion_for_wheeled_legged_robots/">Project ↗</a><a href="https://youtu.be/vJXQG2_85V0">Video ↗</a></div>
+      </article>
+      <article class="card" id="confined" data-lead="1" data-award="1" data-xpl="1" data-text="learning to walk in confined spaces using 3d representation takahiro miki, joonho lee, lorenz wellhausen, marco hutter icra 2024">
+        <div class="thumb"><video data-auto src="thumbs/confined.mp4" poster="thumbs/confined.jpg" muted loop playsinline preload="none" aria-label="Learning to walk in confined spaces using 3D representation"></video></div>
+        <div class="meta mono"><span>2024 · ICRA</span><span class="lead">Lead author</span></div>
+        <h3><a href="https://arxiv.org/abs/2403.00187">Learning to walk in confined spaces using 3D representation</a></h3><div class="award mono">Best Paper · Service Robotics</div>
+        <p class="auth"><b>Takahiro Miki</b>, Joonho Lee, Lorenz Wellhausen, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/confined-spaces/">▶ Explainer · 1:50</a><a href="https://arxiv.org/abs/2403.00187">Paper ↗</a><a href="https://github.com/leggedrobotics/terrain-generator">Code ↗</a><a href="https://youtu.be/QAwBoN55p9I">Video ↗</a></div>
+      </article>
+      <article class="card" id="risk" data-lead="0" data-award="0" data-xpl="1" data-text="learning risk-aware quadrupedal locomotion using distributional reinforcement learning lukas schneider, jonas frey, takahiro miki, marco hutter icra 2024">
+        <div class="thumb"><video data-auto src="thumbs/risk.mp4" poster="thumbs/risk.jpg" muted loop playsinline preload="none" aria-label="Learning risk-aware quadrupedal locomotion using distributional reinforcement learning"></video></div>
+        <div class="meta mono"><span>2024 · ICRA</span></div>
+        <h3><a href="https://arxiv.org/abs/2309.14246">Learning risk-aware quadrupedal locomotion using distributional reinforcement learning</a></h3>
+        <p class="auth">Lukas Schneider, Jonas Frey, <b>Takahiro Miki</b>, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/risk-aware-locomotion/">▶ Explainer · 1:59</a><a href="https://arxiv.org/abs/2309.14246">Paper ↗</a></div>
+      </article>
+      <article class="card" id="riskaverse" data-lead="0" data-award="0" data-xpl="1" data-text="learning a risk-averse locomotion policy from uncertainty estimates thomas b. brunner, takahiro miki, josip josifovski, joonho lee, alois knoll, marco hutter corl workshop 2024">
+        <div class="thumb"><video data-auto src="thumbs/riskaverse.mp4" poster="thumbs/riskaverse.jpg" muted loop playsinline preload="none" aria-label="Learning a Risk-Averse Locomotion Policy from Uncertainty Estimates"></video></div>
+        <div class="meta mono"><span>2024 · CoRL Workshop</span></div>
+        <h3><a href="https://mediatum.ub.tum.de/doc/1764922/document.pdf">Learning a Risk-Averse Locomotion Policy from Uncertainty Estimates</a></h3>
+        <p class="auth">Thomas B. Brunner, <b>Takahiro Miki</b>, Josip Josifovski, Joonho Lee, Alois Knoll, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/risk-averse-locomotion/">▶ Explainer · 1:46</a><a href="https://mediatum.ub.tum.de/doc/1764922/document.pdf">Paper ↗</a></div>
+      </article>
+    </div>
+  </section>
+  <section class="yr" id="y2023" aria-label="2023">
+    <h2>2023</h2>
+    <div class="cards">
+      <article class="card" id="mem" data-lead="0" data-award="0" data-xpl="1" data-text="mem: multi-modal elevation mapping for robotics and learning gian erni, jonas frey, takahiro miki, matias mattamala, marco hutter iros 2023">
+        <div class="thumb"><video data-auto src="thumbs/mem.mp4" poster="thumbs/mem.jpg" muted loop playsinline preload="none" aria-label="MEM: Multi-Modal Elevation Mapping for Robotics and Learning"></video></div>
+        <div class="meta mono"><span>2023 · IROS</span></div>
+        <h3><a href="https://arxiv.org/abs/2309.16818">MEM: Multi-Modal Elevation Mapping for Robotics and Learning</a></h3>
+        <p class="auth">Gian Erni, Jonas Frey, <b>Takahiro Miki</b>, Matias Mattamala, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/multi-modal-elevation-mapping/">▶ Explainer · 1:46</a><a href="https://arxiv.org/abs/2309.16818">Paper ↗</a><a href="https://github.com/leggedrobotics/elevation_mapping_cupy">Code ↗</a></div>
+      </article>
+      <article class="card" id="planetary" data-lead="0" data-award="0" data-xpl="1" data-text="scientific exploration of challenging planetary analog environments with a team of legged robots philip arm, gabriel waibel, jan preisig, turcan tuna, ruyi zhou, valentin bickel, gabriela ligeza, takahiro miki, florian kehl, hendrik kolvenbach, marco hutter science robotics 2023">
+        <div class="thumb"><video data-auto src="thumbs/planetary.mp4" poster="thumbs/planetary.jpg" muted loop playsinline preload="none" aria-label="Scientific exploration of challenging planetary analog environments with a team of legged robots"></video></div>
+        <div class="meta mono"><span>2023 · Science Robotics</span></div>
+        <h3><a href="https://arxiv.org/abs/2307.10079">Scientific exploration of challenging planetary analog environments with a team of legged robots</a></h3>
+        <p class="auth">Philip Arm, Gabriel Waibel, Jan Preisig, Turcan Tuna, Ruyi Zhou, Valentin Bickel, Gabriela Ligeza, <b>Takahiro Miki</b>, Florian Kehl, Hendrik Kolvenbach, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/planetary-analog/">▶ Explainer · 2:00</a><a href="https://arxiv.org/abs/2307.10079">Paper ↗</a><a href="https://youtu.be/KOYD0pyg3Wk">Video ↗</a></div>
+      </article>
+      <article class="card" id="catch" data-lead="0" data-award="0" data-xpl="1" data-text="event-based agile object catching with a quadrupedal robot benedek forrai, takahiro miki, daniel gehrig, marco hutter, davide scaramuzza icra 2023">
+        <div class="thumb"><video data-auto src="thumbs/catch.mp4" poster="thumbs/catch.jpg" muted loop playsinline preload="none" aria-label="Event-based Agile Object Catching with a Quadrupedal Robot"></video></div>
+        <div class="meta mono"><span>2023 · ICRA</span></div>
+        <h3><a href="https://arxiv.org/abs/2303.17479">Event-based Agile Object Catching with a Quadrupedal Robot</a></h3>
+        <p class="auth">Benedek Forrai, <b>Takahiro Miki</b>, Daniel Gehrig, Marco Hutter, Davide Scaramuzza</p>
+        <div class="plinks"><a class="xpl" href="/explainers/event-based-catching/">▶ Explainer · 1:38</a><a href="https://arxiv.org/abs/2303.17479">Paper ↗</a><a href="https://github.com/uzh-rpg/event-based_object_catching_anymal">Code ↗</a><a href="https://youtu.be/FpsVB8EO54M">Video ↗</a></div>
+      </article>
+    </div>
+  </section>
+  <section class="yr" id="y2022" aria-label="2022">
+    <h2>2022</h2>
+    <div class="cards">
+      <article class="card" id="gpu" data-lead="1" data-award="0" data-xpl="1" data-text="elevation mapping for locomotion and navigation using gpu takahiro miki, lorenz wellhausen, ruben grandia, fabian jenelten, timon homberger, marco hutter iros 2022">
+        <div class="thumb"><video data-auto src="thumbs/gpu.mp4" poster="thumbs/gpu.jpg" muted loop playsinline preload="none" aria-label="Elevation mapping for locomotion and navigation using GPU"></video></div>
+        <div class="meta mono"><span>2022 · IROS</span><span class="lead">Lead author</span></div>
+        <h3><a href="https://arxiv.org/abs/2204.12876">Elevation mapping for locomotion and navigation using GPU</a></h3>
+        <p class="auth"><b>Takahiro Miki</b>, Lorenz Wellhausen, Ruben Grandia, Fabian Jenelten, Timon Homberger, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/gpu-elevation-mapping/">▶ Explainer · 1:59</a><a href="https://arxiv.org/abs/2204.12876">Paper ↗</a><a href="https://github.com/leggedrobotics/elevation_mapping_cupy">Code ↗</a></div>
+      </article>
+      <article class="card" id="cerbwin" data-lead="0" data-award="1" data-xpl="1" data-text="team cerberus wins the darpa subterranean challenge: technical overview and lessons learned marco tranzatto et al. field robotics 2022">
+        <div class="thumb"><video data-auto src="thumbs/cerbwin.mp4" poster="thumbs/cerbwin.jpg" muted loop playsinline preload="none" aria-label="Team CERBERUS wins the DARPA Subterranean Challenge: Technical overview and lessons learned"></video></div>
+        <div class="meta mono"><span>2022 · Field Robotics</span></div>
+        <h3><a href="https://arxiv.org/abs/2207.04914">Team CERBERUS wins the DARPA Subterranean Challenge: Technical overview and lessons learned</a></h3><div class="award mono">DARPA SubT Final · 1st place</div>
+        <p class="auth">Marco Tranzatto et al.</p>
+        <div class="plinks"><a class="xpl" href="/explainers/cerberus-subt-overview/">▶ Explainer · 1:48</a><a href="https://arxiv.org/abs/2207.04914">Paper ↗</a><a href="https://github.com/leggedrobotics/cerberus_darpa_subt_datasets">Data ↗</a><a href="https://youtu.be/fCHOU-fw2c0">Video ↗</a></div>
+      </article>
+      <article class="card" id="cerbsr" data-lead="0" data-award="1" data-xpl="1" data-text="cerberus in the darpa subterranean challenge marco tranzatto, takahiro miki, mihir dharmadhikari, lukas bernreiter, mihir kulkarni, frank mascarich, olov andersson, shehryar khattak, marco hutter, roland siegwart, kostas alexis science robotics 2022">
+        <div class="thumb"><video data-auto src="thumbs/cerbsr.mp4" poster="thumbs/cerbsr.jpg" muted loop playsinline preload="none" aria-label="CERBERUS in the DARPA Subterranean Challenge"></video></div>
+        <div class="meta mono"><span>2022 · Science Robotics</span></div>
+        <h3><a href="https://www.science.org/doi/full/10.1126/scirobotics.abp9742">CERBERUS in the DARPA Subterranean Challenge</a></h3><div class="award mono">DARPA SubT Final · 1st place</div>
+        <p class="auth">Marco Tranzatto, <b>Takahiro Miki</b>, Mihir Dharmadhikari, Lukas Bernreiter, Mihir Kulkarni, Frank Mascarich, Olov Andersson, Shehryar Khattak, Marco Hutter, Roland Siegwart, Kostas Alexis</p>
+        <div class="plinks"><a class="xpl" href="/explainers/cerberus-science-robotics/">▶ Explainer · 1:47</a><a href="https://www.science.org/doi/full/10.1126/scirobotics.abp9742">Paper ↗</a><a href="https://youtu.be/mkW3caX0SGU">Video ↗</a></div>
+      </article>
+      <article class="card" id="perceptive" data-lead="1" data-award="0" data-xpl="1" data-text="learning robust perceptive locomotion for quadrupedal robots in the wild takahiro miki, joonho lee, jemin hwangbo, lorenz wellhausen, vladlen koltun, marco hutter science robotics 2022">
+        <div class="thumb"><video data-auto src="thumbs/perceptive.mp4" poster="thumbs/perceptive.jpg" muted loop playsinline preload="none" aria-label="Learning robust perceptive locomotion for quadrupedal robots in the wild"></video></div>
+        <div class="meta mono"><span>2022 · Science Robotics</span><span class="lead">Lead author</span></div>
+        <h3><a href="https://www.science.org/doi/10.1126/scirobotics.abk2822">Learning robust perceptive locomotion for quadrupedal robots in the wild</a></h3>
+        <p class="auth"><b>Takahiro Miki</b>, Joonho Lee, Jemin Hwangbo, Lorenz Wellhausen, Vladlen Koltun, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/perceptive-locomotion/">▶ Explainer · 1:45</a><a href="https://www.science.org/doi/10.1126/scirobotics.abk2822">Paper ↗</a><a href="https://leggedrobotics.github.io/rl-perceptiveloco/">Project ↗</a><a href="https://youtu.be/zXbb6KQ0xV8">Video ↗</a></div>
+      </article>
+      <article class="card" id="wbc" data-lead="0" data-award="0" data-xpl="1" data-text="combining learning-based locomotion policy with model-based manipulation for legged mobile manipulators yuntao ma, farbod farshidian, takahiro miki, joonho lee, marco hutter ra-l 2022">
+        <div class="thumb"><video data-auto src="thumbs/wbc.mp4" poster="thumbs/wbc.jpg" muted loop playsinline preload="none" aria-label="Combining learning-based locomotion policy with model-based manipulation for legged mobile manipulators"></video></div>
+        <div class="meta mono"><span>2022 · RA-L</span></div>
+        <h3><a href="https://arxiv.org/abs/2201.03871">Combining learning-based locomotion policy with model-based manipulation for legged mobile manipulators</a></h3>
+        <p class="auth">Yuntao Ma, Farbod Farshidian, <b>Takahiro Miki</b>, Joonho Lee, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/locomotion-manipulation/">▶ Explainer · 1:37</a><a href="https://arxiv.org/abs/2201.03871">Paper ↗</a><a href="https://youtu.be/ZCv8W_NzhVo">Video ↗</a></div>
+      </article>
+      <article class="card" id="cerbfr" data-lead="0" data-award="0" data-xpl="1" data-text="cerberus: autonomous legged and aerial robotic exploration in the tunnel and urban circuits of the darpa subterranean challenge marco tranzatto et al. field robotics 2022">
+        <div class="thumb"><video data-auto src="thumbs/cerbfr.mp4" poster="thumbs/cerbfr.jpg" muted loop playsinline preload="none" aria-label="CERBERUS: Autonomous legged and aerial robotic exploration in the tunnel and urban circuits of the DARPA Subterranean Challenge"></video></div>
+        <div class="meta mono"><span>2022 · Field Robotics</span></div>
+        <h3><a href="https://arxiv.org/abs/2201.07067">CERBERUS: Autonomous legged and aerial robotic exploration in the tunnel and urban circuits of the DARPA Subterranean Challenge</a></h3>
+        <p class="auth">Marco Tranzatto et al.</p>
+        <div class="plinks"><a class="xpl" href="/explainers/cerberus-tunnel-urban/">▶ Explainer · 1:49</a><a href="https://arxiv.org/abs/2201.07067">Paper ↗</a></div>
+      </article>
+      <article class="card" id="occl" data-lead="0" data-award="0" data-xpl="1" data-text="reconstructing occluded elevation information in terrain maps with self-supervised learning maximilian stölzle, takahiro miki, levin gerdes, martin azkarate, marco hutter ra-l 2022">
+        <div class="thumb"><video data-auto src="thumbs/occl.mp4" poster="thumbs/occl.jpg" muted loop playsinline preload="none" aria-label="Reconstructing occluded elevation information in terrain maps with self-supervised learning"></video></div>
+        <div class="meta mono"><span>2022 · RA-L</span></div>
+        <h3><a href="https://arxiv.org/abs/2109.07150">Reconstructing occluded elevation information in terrain maps with self-supervised learning</a></h3>
+        <p class="auth">Maximilian Stölzle, <b>Takahiro Miki</b>, Levin Gerdes, Martin Azkarate, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/occluded-elevation/">▶ Explainer · 1:55</a><a href="https://arxiv.org/abs/2109.07150">Paper ↗</a><a href="https://github.com/mstoelzle/solving-occlusion">Code ↗</a></div>
+      </article>
+    </div>
+  </section>
+  <section class="yr" id="y2021" aria-label="2021">
+    <h2>2021</h2>
+    <div class="cards">
+      <article class="card" id="nav" data-lead="0" data-award="0" data-xpl="1" data-text="real-time optimal navigation planning using learned motion costs bowen yang, lorenz wellhausen, takahiro miki, ming liu, marco hutter icra 2021">
+        <div class="thumb"><video data-auto src="thumbs/nav.mp4" poster="thumbs/nav.jpg" muted loop playsinline preload="none" aria-label="Real-time optimal navigation planning using learned motion costs"></video></div>
+        <div class="meta mono"><span>2021 · ICRA</span></div>
+        <h3><a href="https://ieeexplore.ieee.org/abstract/document/9561861">Real-time optimal navigation planning using learned motion costs</a></h3>
+        <p class="auth">Bowen Yang, Lorenz Wellhausen, <b>Takahiro Miki</b>, Ming Liu, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/learned-motion-costs/">▶ Explainer · 1:46</a><a href="https://ieeexplore.ieee.org/abstract/document/9561861">Paper ↗</a></div>
+      </article>
+      <article class="card" id="occlws" data-lead="0" data-award="0" data-xpl="1" data-text="solving occlusion in terrain mapping with neural networks maximilian stölzle, takahiro miki, levin gerdes, martin azkarate, marco hutter robot learning workshop 2021">
+        <div class="thumb"><video data-auto src="thumbs/occlws.mp4" poster="thumbs/occlws.jpg" muted loop playsinline preload="none" aria-label="Solving Occlusion in Terrain Mapping with Neural Networks"></video></div>
+        <div class="meta mono"><span>2021 · Robot Learning Workshop</span></div>
+        <h3><a href="https://www.research-collection.ethz.ch/entities/publication/4dded43e-a0f1-4dec-8c82-2cb440b3c60c">Solving Occlusion in Terrain Mapping with Neural Networks</a></h3>
+        <p class="auth">Maximilian Stölzle, <b>Takahiro Miki</b>, Levin Gerdes, Martin Azkarate, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/occluded-elevation/">▶ Explainer · 1:55</a><a href="https://www.research-collection.ethz.ch/entities/publication/4dded43e-a0f1-4dec-8c82-2cb440b3c60c">Paper ↗</a></div>
+      </article>
+      <article class="card" id="circus" data-lead="0" data-award="0" data-xpl="1" data-text="circus anymal: a quadruped learning dexterous manipulation with its limbs fan shi, timon homberger, joonho lee, takahiro miki, moju zhao, farbod farshidian, kei okada, masayuki inaba, marco hutter icra 2021">
+        <div class="thumb"><video data-auto src="thumbs/circus.mp4" poster="thumbs/circus.jpg" muted loop playsinline preload="none" aria-label="Circus ANYmal: A quadruped learning dexterous manipulation with its limbs"></video></div>
+        <div class="meta mono"><span>2021 · ICRA</span></div>
+        <h3><a href="https://arxiv.org/abs/2011.08811">Circus ANYmal: A quadruped learning dexterous manipulation with its limbs</a></h3>
+        <p class="auth">Fan Shi, Timon Homberger, Joonho Lee, <b>Takahiro Miki</b>, Moju Zhao, Farbod Farshidian, Kei Okada, Masayuki Inaba, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/circus-anymal/">▶ Explainer · 1:40</a><a href="https://arxiv.org/abs/2011.08811">Paper ↗</a><a href="https://youtu.be/lmWSw_Hl9l8">Video ↗</a></div>
+      </article>
+    </div>
+  </section>
+  <section class="yr" id="y2020" aria-label="2020">
+    <h2>2020</h2>
+    <div class="cards">
+      <article class="card" id="foothold" data-lead="0" data-award="0" data-xpl="1" data-text="perceptive locomotion in rough terrain: online foothold optimization fabian jenelten, takahiro miki, aravind e. vijayan, marko bjelonic, marco hutter ra-l 2020">
+        <div class="thumb"><video data-auto src="thumbs/foothold.mp4" poster="thumbs/foothold.jpg" muted loop playsinline preload="none" aria-label="Perceptive locomotion in rough terrain: online foothold optimization"></video></div>
+        <div class="meta mono"><span>2020 · RA-L</span></div>
+        <h3><a href="https://ieeexplore.ieee.org/abstract/document/9134750">Perceptive locomotion in rough terrain: online foothold optimization</a></h3>
+        <p class="auth">Fabian Jenelten, <b>Takahiro Miki</b>, Aravind E. Vijayan, Marko Bjelonic, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/foothold-optimization/">▶ Explainer · 1:46</a><a href="https://ieeexplore.ieee.org/abstract/document/9134750">Paper ↗</a><a href="https://youtu.be/ViecsBmjusI">Video ↗</a></div>
+      </article>
+      <article class="card" id="store" data-lead="0" data-award="0" data-xpl="0" data-text="a mobile dual-arm manipulation robot system for stocking and disposing of items in a convenience store by using universal vacuum grippers for grasping items ryo sakai, shinichi katsumata, takahiro miki, taiki yano, wenpeng wei, yuya okadome, nobuhiro chihara, nobutaka kimura, yusuke nakai, isamu matsuo, toshihiko shimizu advanced robotics 2020">
+        <div class="thumb"><video data-auto src="thumbs/store.mp4" poster="thumbs/store.jpg" muted loop playsinline preload="none" aria-label="A mobile dual-arm manipulation robot system for stocking and disposing of items in a convenience store by using universal vacuum grippers for grasping items"></video></div>
+        <div class="meta mono"><span>2020 · Advanced Robotics</span></div>
+        <h3>A mobile dual-arm manipulation robot system for stocking and disposing of items in a convenience store by using universal vacuum grippers for grasping items</h3>
+        <p class="auth">Ryo Sakai, Shinichi Katsumata, <b>Takahiro Miki</b>, Taiki Yano, Wenpeng Wei, Yuya Okadome, Nobuhiro Chihara, Nobutaka Kimura, Yusuke Nakai, Isamu Matsuo, Toshihiko Shimizu</p>
+        
+      </article>
+    </div>
+  </section>
+  <section class="yr" id="y2019" aria-label="2019">
+    <h2>2019</h2>
+    <div class="cards">
+      <article class="card" id="uavugv" data-lead="1" data-award="0" data-xpl="1" data-text="uav/ugv autonomous cooperation: uav assists ugv to climb a cliff by attaching a tether takahiro miki, petr khrapchenkov, koichi hori icra 2019">
+        <div class="thumb"><video data-auto src="thumbs/uavugv.mp4" poster="thumbs/uavugv.jpg" muted loop playsinline preload="none" aria-label="UAV/UGV autonomous cooperation: UAV assists UGV to climb a cliff by attaching a tether"></video></div>
+        <div class="meta mono"><span>2019 · ICRA</span><span class="lead">Lead author</span></div>
+        <h3><a href="https://arxiv.org/abs/1903.04898">UAV/UGV autonomous cooperation: UAV assists UGV to climb a cliff by attaching a tether</a></h3>
+        <p class="auth"><b>Takahiro Miki</b>, Petr Khrapchenkov, Koichi Hori</p>
+        <div class="plinks"><a class="xpl" href="/explainers/uav-ugv-tether/">▶ Explainer · 1:45</a><a href="https://arxiv.org/abs/1903.04898">Paper ↗</a><a href="https://youtu.be/UzTT8Ckjz1M">Video ↗</a></div>
+      </article>
+    </div>
+  </section>
+  <section class="yr" id="y2018" aria-label="2018">
+    <h2>2018</h2>
+    <div class="cards">
+      <article class="card" id="lunar" data-lead="0" data-award="0" data-xpl="0" data-text="finding the north on a lunar microrover: a lunar surface environment simulator for the development of vision-based navigation pipelines fabian dubois, louis-jerome burtz, oriol gasquez, takahiro miki iac 2018">
+        <div class="thumb"><video data-auto src="thumbs/lunar.mp4" poster="thumbs/lunar.jpg" muted loop playsinline preload="none" aria-label="Finding the North on a Lunar Microrover: a Lunar Surface Environment Simulator for the Development of Vision-Based Navigation Pipelines"></video></div>
+        <div class="meta mono"><span>2018 · IAC</span></div>
+        <h3>Finding the North on a Lunar Microrover: a Lunar Surface Environment Simulator for the Development of Vision-Based Navigation Pipelines</h3>
+        <p class="auth">Fabian Dubois, Louis-Jerome Burtz, Oriol Gasquez, <b>Takahiro Miki</b></p>
+        
+      </article>
+      <article class="card" id="search" data-lead="1" data-award="0" data-xpl="1" data-text="multi-agent time-based decision-making for the search and action problem takahiro miki, marija popović, abel gawel, gregory hitz, roland siegwart icra 2018">
+        <div class="thumb"><video data-auto src="thumbs/search.mp4" poster="thumbs/search.jpg" muted loop playsinline preload="none" aria-label="Multi-agent Time-based Decision-making for the Search and Action Problem"></video></div>
+        <div class="meta mono"><span>2018 · ICRA</span><span class="lead">Lead author</span></div>
+        <h3><a href="https://arxiv.org/abs/1802.10147">Multi-agent Time-based Decision-making for the Search and Action Problem</a></h3>
+        <p class="auth"><b>Takahiro Miki</b>, Marija Popović, Abel Gawel, Gregory Hitz, Roland Siegwart</p>
+        <div class="plinks"><a class="xpl" href="/explainers/search-and-action/">▶ Explainer · 1:39</a><a href="https://arxiv.org/abs/1802.10147">Paper ↗</a><a href="https://youtu.be/hnF8aasUtbs">Video ↗</a></div>
+      </article>
+      <article class="card" id="rough" data-lead="0" data-award="0" data-xpl="1" data-text="robust rough-terrain locomotion with a quadrupedal robot peter fankhauser, marko bjelonic, c. dario bellicoso, takahiro miki, marco hutter icra 2018">
+        <div class="thumb"><video data-auto src="thumbs/rough.mp4" poster="thumbs/rough.jpg" muted loop playsinline preload="none" aria-label="Robust rough-terrain locomotion with a quadrupedal robot"></video></div>
+        <div class="meta mono"><span>2018 · ICRA</span></div>
+        <h3><a href="https://ieeexplore.ieee.org/abstract/document/8460731">Robust rough-terrain locomotion with a quadrupedal robot</a></h3>
+        <p class="auth">Peter Fankhauser, Marko Bjelonic, C. Dario Bellicoso, <b>Takahiro Miki</b>, Marco Hutter</p>
+        <div class="plinks"><a class="xpl" href="/explainers/rough-terrain-locomotion-2018/">▶ Explainer · 1:35</a><a href="https://ieeexplore.ieee.org/abstract/document/8460731">Paper ↗</a><a href="https://youtu.be/CpzQu25iLa0">Video ↗</a></div>
+      </article>
+    </div>
+  </section>
+  <section class="yr" id="y2015" aria-label="2015">
+    <h2>2015</h2>
+    <div class="cards">
+      <article class="card" id="armarker" data-lead="1" data-award="0" data-xpl="1" data-text="self-localization with active attachment of ar markers by an autonomous uav (能動的マーカ貼付により自己位置推定を行う自律飛行ロボット) takahiro miki, koichi hori jsai 2015">
+        <div class="thumb"><video data-auto src="thumbs/armarker.mp4" poster="thumbs/armarker.jpg" muted loop playsinline preload="none" aria-label="Self-localization with active attachment of AR markers by an autonomous UAV (能動的マーカ貼付により自己位置推定を行う自律飛行ロボット)"></video></div>
+        <div class="meta mono"><span>2015 · JSAI</span><span class="lead">Lead author</span></div>
+        <h3><a href="https://youtu.be/x26QVM_Ey7U">Self-localization with active attachment of AR markers by an autonomous UAV (能動的マーカ貼付により自己位置推定を行う自律飛行ロボット)</a></h3>
+        <p class="auth"><b>Takahiro Miki</b>, Koichi Hori</p>
+        <div class="plinks"><a class="xpl" href="/explainers/ar-marker-uav/">▶ Explainer · 1:46</a><a href="https://youtu.be/x26QVM_Ey7U">Video ↗</a></div>
+      </article>
+    </div>
+  </section>
+  <p class="empty" id="empty" hidden>No papers match. Clear the search or pick another filter.</p>
+</main>
+
+<footer class="mono">
+  <span>© Takahiro Miki · Robotics research</span>
+  <span class="foot-links"><a href="https://scholar.google.com/citations?user=nOl83tYAAAAJ&amp;hl=en">Google Scholar</a><a href="https://github.com/mktk1117">GitHub</a><a href="https://twitter.com/ki_ki_ki1">X / Twitter</a><a href="https://www.youtube.com/@takahiromiki8642">YouTube</a></span>
+</footer>
+
+<script>
+(() => {
+  const nav = document.querySelector('.nav'), btn = nav.querySelector('.menu-btn');
+  btn.addEventListener('click', () => { const o = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', String(o)); });
+  nav.querySelectorAll('ul a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }));
+  // once the page scrolls, the bar gets a solid backdrop so text never runs underneath it
+  const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  // "show all" toggles (home news)
+  document.querySelectorAll('[data-more]').forEach(b => b.addEventListener('click', () => { const l = document.getElementById(b.dataset.more); const open = l.classList.toggle('all'); b.textContent = open ? 'Show fewer' : b.dataset.label; }));
+})();
+(() => {
+  /* light / dark mode (light is the default; the choice is remembered) */
+  const root = document.documentElement, b = document.querySelector('.mode-btn');
+  if (!b) return;
+  const sync = () => b.setAttribute('aria-label', root.dataset.mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  b.addEventListener('click', () => {
+    const dark = root.dataset.mode !== 'dark';
+    if (dark) root.setAttribute('data-mode', 'dark'); else root.removeAttribute('data-mode');
+    try { localStorage.setItem('tm2-mode', dark ? 'dark' : 'light'); } catch (e) {}
+    sync();
+  });
+  sync();
+})();
+</script>
+<script>
+(() => {
+  /* scroll choreography: reveal-on-enter, headline rise, media wipe, hero drift, progress line.
+     Everything is visible without JS; with reduced motion only the progress line stays. */
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const bar = document.createElement('div');
+  bar.className = 'scroll-progress'; bar.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(bar);
+
+  const hero = document.querySelector('.hero');
+  const heroVid = hero && hero.querySelector('video'), heroCopy = hero && hero.querySelector('.hero-copy');
+  let ticking = false;
+  function frame() {
+    ticking = false;
+    const max = root.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    if (hero && !reduce && root.dataset.style !== 'blueprint') {
+      const p = Math.min(1, Math.max(0, scrollY / hero.offsetHeight));
+      heroVid.style.transform = `translate3d(0,${p * 8}%,0) scale(${1 + p * 0.2})`;
+      heroCopy.style.transform = `translate3d(0,${-p * 90}px,0)`;
+      heroCopy.style.opacity = String(1 - p * 1.3);
+    }
+  }
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
+  addEventListener('resize', frame); frame();
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  root.classList.add('rv-on');
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+  const watch = (el, cls, i) => { el.classList.add(cls); if (i != null) el.style.setProperty('--d', `${(i % 6) * 80}ms`); io.observe(el); };
+  const all = s => document.querySelectorAll(s);
+
+  // headlines rise out of their own baseline
+  all('.section-head h2,.papers-head h2,.page-head h1,.pubs-head h1,.proj h2,.news h2,.cv h2,.xrow h2,.feature h3').forEach(h => {
+    const w = document.createElement('span'); w.className = 'ri';
+    while (h.firstChild) w.appendChild(h.firstChild);
+    h.appendChild(w); watch(h, 'rise');
+  });
+  // copy and small blocks fade up
+  all('.section-head .eyebrow,.section-head p,.section-head > .btn,.papers-head p,.papers-head > .btn,.page-head p,.pubs-head p,'
+    + '.feature .tag,.feature p,.feature .btn,.proj .when,.proj .tagline,.proj .body > p,.proj dl,.proj .plinks,.xrow > *,'
+    + '.cv aside,.row,.more-row,.tools,.proj-index,.xt-copy > *').forEach(el => watch(el, 'rv'));
+  // grids stagger in
+  ['.pgrid > *', '.cards > *', '.rel-row > *', '.vgrid > *', '.masonry figure', '.news li', '.sc-grid > .sc'].forEach(s =>
+    all(s).forEach((el, i) => watch(el, 'rv', i)));
+  // media frames wipe open
+  all('.pcard .media,.proj .pm .box,.proj .pm .still,.feature .brand-wrap,.expo-frame,.xt-media').forEach(el => watch(el, 'wipe'));
+})();
+</script>
+<script>
+(() => {
+  /* hover (or tap, on touch screens) plays the clip in place */
+  const touch = matchMedia('(hover: none)').matches;
+  document.querySelectorAll('.thumb[data-clip]').forEach(t => {
+    let v = null;
+    const start = () => {
+      if (!v) { v = document.createElement('video'); v.muted = true; v.loop = true; v.playsInline = true; v.src = t.dataset.clip; t.appendChild(v); }
+      v.play().then(() => t.classList.add('playing')).catch(() => {});
+    };
+    const stop = () => { if (v) { v.pause(); t.classList.remove('playing'); } };
+    if (touch) t.addEventListener('click', () => t.classList.contains('playing') ? stop() : start());
+    else { t.addEventListener('pointerenter', start); t.addEventListener('pointerleave', stop); }
+  });
+
+})();
+(() => {
+  /* paper thumbnails: every card is a short muted loop that plays only while it is on screen
+     (reduced motion: hover or tap to play instead) */
+  const vids = [...document.querySelectorAll('video[data-auto]')];
+  if (!vids.length) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const play = v => { if (v.preload !== 'auto') v.preload = 'auto'; v.play().catch(() => {}); };
+  if (reduce || !('IntersectionObserver' in window)) {
+    vids.forEach(v => { const box = v.parentElement; box.addEventListener('pointerenter', () => play(v)); box.addEventListener('pointerleave', () => v.pause()); box.addEventListener('click', () => v.paused ? play(v) : v.pause()); });
+    return;
+  }
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? play(e.target) : e.target.pause()), { threshold: 0.35 });
+  vids.forEach(v => io.observe(v));
+})();
+</script>
+<script>
+(() => {
+  /* filters + search */
+  const cards = [...document.querySelectorAll('.card')], years = [...document.querySelectorAll('.yr')];
+  const chips = [...document.querySelectorAll('.chip')], q = document.getElementById('q'), empty = document.getElementById('empty');
+  let mode = 'all';
+  function apply() {
+    const term = q.value.trim().toLowerCase(); let shown = 0;
+    cards.forEach(c => {
+      const ok = (mode === 'all' || c.dataset[mode] === '1') && (!term || c.dataset.text.includes(term));
+      c.hidden = !ok; if (ok) shown++;
+    });
+    years.forEach(y => y.hidden = !y.querySelector('.card:not([hidden])'));
+    empty.hidden = shown > 0;
+  }
+  chips.forEach(ch => ch.addEventListener('click', () => {
+    mode = ch.dataset.f; chips.forEach(c => c.setAttribute('aria-pressed', String(c === ch))); apply();
+  }));
+  q.addEventListener('input', apply);
+})();
+</script>
+</body>
+</html>
