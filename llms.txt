@@ -5,6 +5,7 @@
 ## Projects
 
 - Gemini Robotics 2 (2025–now): One model for any robot body, from tabletop arms to full humanoids.
+- Hiking with vision-language reasoning (2023–2026): ROAM: a legged robot that reads trails, signs and risks with a vision-language model and hikes kilometres on its own.
 - Learning perceptive locomotion (2019–2025): Reinforcement learning that lets legged robots see the ground and still trust their legs.
 - Safe and robust learned control (2023–2026): Finding where learned controllers fail, and teaching them to be careful.
 - Natural motion: animal priors and humanoids (2025–2026): Learning from recorded motion so robots move naturally, then adapting it to rough terrain.
@@ -17,6 +18,7 @@
 
 ## Papers
 
+- Bridging vision-language reasoning and learned control for legged navigation in the wild. Takahiro Miki, Robin Schmid, Manthan Patel, Turcan Tuna, Julia Richter, Julian Nubert, Joonho Lee, Matthias Müller, Marco Hutter. Science Robotics 2026. https://www.science.org/doi/10.1126/scirobotics.aee1549
 - Large-Scale Autonomous Gas Monitoring for Volcanic Environments: A Legged Robot on Mount Etna. Julia Richter, Turcan Tuna, Manthan Patel, Takahiro Miki, Devon Higgins, James Fox, Cesar Cadena, Andres Diaz, Marco Hutter. IEEE RAM 2026. https://arxiv.org/abs/2601.07362
 - Learning Whole-Body Humanoid Locomotion via Motion Generation and Motion Tracking. Zewei Zhang, Kehan Wen, Michael Xu, Junzhe He, Chenhao Li, Takahiro Miki, Clemens Schwarke, Chong Zhang, Xue Bin Peng, Marco Hutter. RA-L 2026. https://arxiv.org/abs/2604.17335
 - DAPPER: Discriminability-Aware Policy-to-Policy Preference-Based Reinforcement Learning for Query-Efficient Robot Skill Acquisition. Yuki Kadokawa, Jonas Frey, Takahiro Miki, Takamitsu Matsubara, Marco Hutter. IEEE RAM 2026. https://arxiv.org/abs/2505.06357
