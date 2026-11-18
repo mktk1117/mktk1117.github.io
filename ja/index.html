@@ -746,7 +746,7 @@
 </nav>
 
 <header class="hero" id="top">
-  <video preload="none" data-auto id="heroVid" src="../media/reel-v3.mp4" poster="../media/reel-v3.jpg" muted loop playsinline></video>
+  <video preload="none" data-auto id="heroVid" src="../media/reel-v4.mp4" poster="../media/reel-v4.jpg" muted loop playsinline></video>
   <div class="hero-copy">
     <div class="eyebrow mono">リサーチサイエンティスト · Google DeepMind</div>
     <h1>三木<br>崇弘</h1>
@@ -759,7 +759,7 @@
   </div>
   <div class="telemetry mono" aria-hidden="true">
     <div><span class="rec"></span><span id="clipSrc">フィールド映像</span> · <b id="clipBot">ANYmal</b></div>
-    <div>クリップ <b id="clipN">01</b>/08 · <b id="clipName">庭の階段</b></div>
+    <div>クリップ <b id="clipN">01</b>/10 · <b id="clipName">牛のそばをハイキング</b></div>
   </div>
 </header>
 
@@ -1007,10 +1007,10 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* hero clip readout, synced to the reel's cut points (ANYmal field footage first, Apollo from the Gemini Robotics 2 page at the end) */
+  /* hero clip readout, synced to the reel's cut points (ROAM hikes first, then ANYmal field footage, Apollo from the Gemini Robotics 2 page at the end) */
   const heroVid = document.getElementById('heroVid');
-  const cuts = [[0, 'ANYmal', '庭の階段'], [2.4, 'ANYmal', '洞窟'], [4.8, 'ANYmal', '瓦礫の下'], [7.2, 'ANYmal', '惑星アナログ地、夕暮れ'],
-    [9.8, 'ANYmal', '丘の階段'], [12.2, 'ANYmal', '雪'], [14.43, 'Apollo', '棚での作業'], [16.83, 'Apollo', '全身制御']];
+  const cuts = [[0, 'ANYmal', '牛のそばをハイキング'], [2.4, 'ANYmal', 'マッターホルンのふもと'], [4.8, 'ANYmal', '庭の階段'], [7.2, 'ANYmal', '洞窟'], [9.6, 'ANYmal', '瓦礫の下'], [12.0, 'ANYmal', '惑星アナログ地、夕暮れ'],
+    [14.6, 'ANYmal', '丘の階段'], [17.0, 'ANYmal', '雪'], [19.23, 'Apollo', '棚での作業'], [21.63, 'Apollo', '全身制御']];
   const clipN = document.getElementById('clipN'), clipName = document.getElementById('clipName'), clipBot = document.getElementById('clipBot'), clipSrc = document.getElementById('clipSrc');
   heroVid.addEventListener('timeupdate', () => {
     let i = 0; for (let k = 0; k < cuts.length; k++) if (heroVid.currentTime >= cuts[k][0]) i = k;
