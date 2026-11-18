@@ -404,6 +404,17 @@
   .dcard .s{margin-top:8px;color:var(--ink-2);font-size:15px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   @media (max-width:900px){.dgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media (max-width:560px){.dgrid{grid-template-columns:1fr}.dcard:nth-child(n+4){display:none}}
+  .demos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:28px 22px}
+  .demo{display:flex;flex-direction:column;text-decoration:none;color:inherit}
+  .demo .dm{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--ground-2)}
+  .demo .dm video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .demo .when{margin-top:14px;color:var(--mute);font-size:11px}
+  .demo h3{margin:6px 0 0}
+  .demo p{color:var(--ink-2);margin:8px 0 0}
+  .demo:hover h3{text-decoration:underline}
+  .argon > .credit{margin-top:14px}
+  .news ul.nb{margin:8px 0 0;padding-left:1.1em;color:var(--ink-2)}
+  .news ul.nb li{display:list-item;border:0;padding:2px 0;font-size:15px}
   .nav .lang{display:inline-flex;border:1px solid rgba(var(--i-rgb),.22);border-radius:999px;padding:2px;margin-left:clamp(8px,1.6vw,20px)}
   .nav .lang a{padding:7px 10px;border-radius:999px;font:500 11px/1 var(--mono);letter-spacing:.06em;text-decoration:none;color:var(--ink-2)}
   .nav .lang a[aria-current]{background:var(--ink);color:var(--ground)}
@@ -766,6 +777,17 @@
 </div>
 </section>
 
+<section class="section argon" aria-label="Gemini 4 Argon for Robotics">
+  <div class="section-head"><div><div class="eyebrow mono">Google DeepMind · October 13, 2026</div><h2>Gemini 4 Argon for Robotics</h2>
+  <p class="intro">Gemini 4 Argon can build its own simulations, practise in them, and then control real robots. I worked on these two launch demos:</p></div>
+  <a class="btn" href="https://developers.googleblog.com/gemini-4-argon-for-robotics/">Read the blog post →</a></div>
+  <div class="demos">
+    <a class="demo" href="https://www.youtube.com/watch?v=9PICEmtfpWU"><div class="dm"><video preload="none" data-auto src="media/argon/cornhole.mp4" poster="media/argon/cornhole.jpg" muted loop playsinline></video></div><div class="when mono">Apptronik Apollo humanoid</div><h3>Cornhole from one video</h3><p>Argon watched a single video of a person playing cornhole, wrote a physics simulation of the robot and the board, trained the throw there, and the real Apollo sank 7 throws in a row.</p></a>
+    <a class="demo" href="https://developers.googleblog.com/gemini-4-argon-for-robotics/"><div class="dm"><video preload="none" data-auto src="media/argon/spot-can.mp4" poster="media/argon/spot-can.jpg" muted loop playsinline></video></div><div class="when mono">Boston Dynamics Spot</div><h3>Can into the pedal bin</h3><p>Argon built a MuJoCo twin of a foot-pedal trash bin, practised there, then had Spot balance on three legs, step on the real pedal and drop a soda can into the open bin.</p></a>
+  </div>
+  <div class="credit mono">Videos: Google DeepMind, Gemini 4 Argon for Robotics</div>
+</section>
+
 <section class="section" aria-label="Projects">
   <div class="section-head"><div><div class="eyebrow mono">Before DeepMind</div><h2>Projects</h2>
   <p class="intro">Six years at ETH Zurich’s Robotic Systems Lab, teaching the ANYmal robot to see, walk and explore: work that appeared in Science Robotics four times.</p></div>
@@ -794,12 +816,12 @@
   <p class="intro">Every day a bot picks a handful of new robotics and AI papers and writes a plain-language summary of each, in English and Japanese. These are the latest.</p></div>
   <a class="btn" href="/arxiv-digest/?lang=en">Open the digest →</a></div>
   <div class="dgrid" id="digestCards">
-    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38852&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38852.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>humanoid · locomotion</span></span><span class="t">Locomotion-Grounded Humanoid Soccer: Task-Gated Reinforcement Learning of a Multi-Directional Kicking Library</span></a>
-    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38216&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38216.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>humanoid · benchmark</span></span><span class="t">Fiatlux: A Long-Horizon Benchmark for Humanoid Ladder Climbing and Light-Bulb Replacement</span></a>
-    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38709&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38709.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>humanoid · control</span></span><span class="t">CEER2: Directional and Tunable End-Effector and Root Compliance for Humanoid Loco-Manipulation</span></a>
-    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38617&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38617.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>quadruped · locomotion</span></span><span class="t">Dense Temporal Motion Retargeting for Legged Robots</span></a>
-    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.39000&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.39000.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>humanoid · teleoperation</span></span><span class="t">NEXUS: Perceptive Whole-Body Control for Terrain-Adaptive Teleoperation</span></a>
-    <a class="dcard" href="/arxiv-digest/paper.html?id=2609.38588&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-01/2609.38588.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.01</span><span>drone · manipulation</span></span><span class="t">Drone Soccer: Learning to Manipulate with Multicopter Downwash</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2610.11505&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-09/2610.11505.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.09</span><span>humanoid · locomotion</span></span><span class="t">DAMP: Humanoid Locomotion via Denoised Belief Learning and Adversarial Motion Priors</span><span class="s">This paper presents DAMP, a reinforcement learning framework for robust and naturalistic humanoid locomotion over challenging terrains without exteroceptive perception. By leveraging RNNs to infer privileged latent states and combining them with adversarial motion priors, it achieves stable and goal-directed blind traversal across complex environments.</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2610.11283&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-09/2610.11283.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.09</span><span>humanoid · world-model</span></span><span class="t">Being-M0.7: A Latent World-Action Model for Humanoid Robots</span><span class="s">Being-M0.7 is a latent world-action model designed for humanoid loco-manipulation. By pre-training on over 10,000 hours of human video and motion data and transferring learned visual-motion priors via mid- and post-training, it enables coordinated whole-body humanoid control across diverse manipulation tasks.</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2610.12435&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-09/2610.12435.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.09</span><span>humanoid · control</span></span><span class="t">VioLA: Learning Generalist Humanoid Control Policies from Human Data</span><span class="s">VioLA introduces a generalist humanoid policy learned from large-scale human demonstrations. Instead of predicting low-level joint actions directly, it predicts whole-body target trajectories tracked by lower-level controllers, enabling out-of-the-box instruction following without task-specific teleoperated demonstrations.</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2610.10601&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-09/2610.10601.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.09</span><span>quadruped · locomotion</span></span><span class="t">Teaching a Robot Dog New Tricks: Diverse Quadruped Skills via Combined Reinforcement and Imitation Learning with Adversarial Task Selection</span><span class="s">This paper presents a three-stage framework combining RL and imitation learning with adversarial task selection to train a single quadruped policy capable of diverse skills like walking, digging, and hopping. It mitigates multi-task gradient conflict by distilling multiple teacher policies into a unified student policy.</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2610.12465&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-09/2610.12465.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.09</span><span>reinforcement-learning · simulation</span></span><span class="t">A Balanced Data Diet: Addressing the Exploration Bottleneck in Mega-Scale RL for Robot Control</span><span class="s">This work tackles the exploration bottleneck in mega-scale parallel RL for agile locomotion and dexterous manipulation. By showing that uniform reset distributions hinder training efficiency, it proposes an adaptive reset sampling strategy that significantly improves learning progress and policy performance.</span></a>
+    <a class="dcard" href="/arxiv-digest/paper.html?id=2610.11194&amp;lang=en"><span class="thumb fig"><img src="/arxiv-digest/figures/2026-10-09/2610.11194.jpg" alt="" loading="lazy"></span><span class="meta mono"><span>10.09</span><span>grasping · dataset</span></span><span class="t">OmniDex: Scaling Dexterous Hand Grasping to Diverse Cluttered Scenes</span><span class="s">OmniDex introduces a massive simulation dataset and benchmark for dexterous grasping in cluttered environments. Using a scalable seed-and-filter strategy, it generates over 2.6 million scenes and 0.4 billion grasp ground truths, providing rich training data to overcome real-world data scarcity.</span></a>
   </div>
 </section>
 
@@ -807,6 +829,7 @@
   <h2>News</h2>
   <div>
   <ol id="newsList">
+    <li><time>2026-10-13</time><span><a href="https://developers.googleblog.com/gemini-4-argon-for-robotics/">Gemini 4 Argon is out, and it can control robots. I worked on two of its robotics demos:</a><ul class="nb"><li><a href="https://www.youtube.com/watch?v=9PICEmtfpWU">Apptronik’s Apollo humanoid learned cornhole from one human video and sank 7 throws in a row.</a></li><li><a href="https://developers.googleblog.com/gemini-4-argon-for-robotics/">Boston Dynamics Spot practised in a MuJoCo twin, then stepped on a pedal bin and threw away a soda can.</a></li></ul></span></li>
     <li><time>2026-07-30</time><span><a href="https://deepmind.google/models/gemini-robotics/gemini-robotics/">Gemini Robotics 2 is out: our model that controls robots from tabletop arms to full humanoids.</a></span></li>
     <li><time>2025-09-15</time><span>Started at Google DeepMind as a research scientist.</span></li>
     <li><time>2025-04-17</time><span>Defended my PhD at ETH Zurich: “Bridging Perception and Control for Legged Locomotion and Navigation in the Wild”.</span></li>
@@ -819,7 +842,7 @@
     <li><time>2024-01-29</time><span>Two papers (one co-authored) accepted to ICRA 2024.</span></li>
     <li><time>2024-01-13</time><span>Launched my homepage. It was more effort than I expected.</span></li>
   </ol>
-  <button type="button" class="btn more" data-more="newsList" data-label="Show all 11 news items">Show all 11 news items</button>
+  <button type="button" class="btn more" data-more="newsList" data-label="Show all 12 news items">Show all 12 news items</button>
   </div>
 </section>
 
